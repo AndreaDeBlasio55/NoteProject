@@ -1,7 +1,7 @@
 //
 // Created by Andrea on 19/10/21.
 //
-#include "../Headers/Note.h";
+#include "../Headers/Note.h"
 #include <string>
 using namespace std;
 
@@ -26,8 +26,8 @@ void Note::editTitle(string title){
 void Note::editDescription(string description){
     this->description = description;
 }
-void Note::deleteNote(string noteId){
-    this->noteId = noteId;
+void Note::deleteNote(int noteId){
+
 }
 void Note::changeCollection(string collection){
     this->collection = collection;

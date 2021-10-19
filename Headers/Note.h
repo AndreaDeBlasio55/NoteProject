@@ -17,7 +17,7 @@ public:
     // METHODS
     void editTitle(string title);
     void editDescription(string description);
-    void deleteNote(string noteId);
+    void deleteNote(int noteId);
     void changeCollection(string collection);
     // GETTERS
     int getId () const;

@@ -3,6 +3,10 @@
 using namespace std;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    Note myFirstNote ("Lunedì", "Spesa", "Cosa comprare alla coop");
+
+    cout << "L'Id della nota" << myFirstNote.getTitle() << " è " << myFirstNote.getId();
+
     return 0;
 }
