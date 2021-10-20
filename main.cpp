@@ -6,13 +6,21 @@ using namespace std;
 
 int main() {
 
-    ofstream outFile;
+    // get Notes count data from input.txt
+    ifstream inputFile;
+    inputFile.open("/Users/andrea/CLionProjects/NoteProject/Output/input.txt");
+    int notesCount = 0;
+    inputFile >> notesCount;
+    inputFile.close();
+    cout << "Notes: " << notesCount << endl;
 
+    // output
+    ofstream outFile;
     cout << "Writing to file..." << endl;
     outFile.open("/Users/andrea/CLionProjects/NoteProject/Output/output.txt");
     outFile << fixed << showpoint;
     cout << fixed << showpoint;
-    outFile << "OK";
+    outFile << "Prova 2 ---";
     outFile.close();
 
     Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
