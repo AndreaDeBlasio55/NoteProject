@@ -4,6 +4,8 @@
 #include <iomanip>
 using namespace std;
 
+void printNote(Note* printNote);
+
 int main() {
 
     // get Notes count data from input.txt
@@ -14,39 +16,41 @@ int main() {
     inputFile.close();
     cout << "Notes: " << notesCount << endl;
 
-    // output
-    ofstream outFile;
-    cout << "Writing to file..." << endl;
-    outFile.open("/Users/andrea/CLionProjects/NoteProject/Output/output.txt");
-    outFile << fixed << showpoint;
-    cout << fixed << showpoint;
-    outFile << "Prova 2 ---";
-    outFile.close();
-
+    //
     Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
-    Note myFirstNote ("Lunedì", "Spesa", "Cosa comprare alla coop");
-    Note mySecondNote ("Martedì", "Allenamento", "Quali esercizi fare");
+    printNote(myFirstNotePtr);
 
-    cout << boolalpha << endl;
+    myFirstNotePtr->editImportant(true);
+    myFirstNotePtr->editTitle("This is a new title");
+    myFirstNotePtr->editDescription("This is a new description");
+    cout << "Editing note... \nNew Note:" << endl;
+    printNote(myFirstNotePtr);
 
-    cout << "L'Id della nota" << myFirstNote.getTitle() << " è " << myFirstNote.getId() << "- editable: " << myFirstNote.getEditable() << endl;
-    cout << endl;
-
-    cout << "L'Id della nota" << mySecondNote.getTitle() << " è " << mySecondNote.getId() << "- editable: " << mySecondNote.getEditable() << endl;
-    cout << endl;
-
-    cout << "Nota con puntatori - Id: " << myFirstNotePtr->getId()
-    << " - editable: " << myFirstNotePtr->getEditable()
-    << " - Title: " << myFirstNotePtr->getTitle()
-    << " - important: "  << myFirstNotePtr->getImportant()
-    << endl;
-
-    myFirstNotePtr->changeImportant(true);
-    cout << "Cambio importanza di una nota: " << " - important: " << myFirstNotePtr->getImportant() << endl;
-
+    // release pointers
     delete myFirstNotePtr;
-
     myFirstNotePtr = nullptr;
 
     return 0;
 }
+
+
+void printNote(Note* printNote){
+    cout << boolalpha << endl;
+    cout << "Title: " << printNote->getTitle()
+         << "\n     - Id: " << printNote->getId()
+         << "\n     - description: " << printNote->getDescription()
+         << "\n     - editable: " << printNote->getEditable()
+         << "\n     - important: "  << printNote->getImportant()
+         << endl;
+}
+
+// output
+/*
+ofstream outFile;
+cout << "Writing to file..." << endl;
+outFile.open("/Users/andrea/CLionProjects/NoteProject/Output/output.txt");
+outFile << fixed << showpoint;
+cout << fixed << showpoint;
+outFile << "Prova 2 ---";
+outFile.close();
+*/

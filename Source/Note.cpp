@@ -25,24 +25,24 @@ void Note::editTitle(string title){
     if (editable) {
         this->title = title;
     } else {
-        cout << "This note is not editable." << endl;
+        cout << "Edit title failed: This note is not editable..." << endl;
     }
 }
 void Note::editDescription(string description){
     if (editable) {
         this->description = description;
     } else {
-        cout << "This note is not editable." << endl;
+        cout << "Edit description failed: This note is not editable..." << endl;
     }
 }
 void Note::deleteNote(int noteId){
 
 }
-void Note::changeCollection(string collection){
+void Note::editCollection(string collection){
     if (editable) {
         this->collection = collection;
     } else {
-        cout << "This note is not editable." << endl;
+        cout << "Edit collection failed: This note is not editable..." << endl;
     }
 }
 // GETTERS
@@ -58,8 +58,12 @@ string Note::getTitle(){
 string Note::getDescription (){
     return description;
 }
-void Note::changeImportant(bool important) {
-    this->important = important;
+void Note::editImportant(bool important) {
+    if (editable) {
+        this->important = important;
+    } else {
+        cout << "Edit important failed: This note is not editable..." << endl;
+    }
 }
 bool Note::getEditable () const{
     return editable;

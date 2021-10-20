@@ -18,8 +18,8 @@ public:
     void editTitle(string title);
     void editDescription(string description);
     void deleteNote(int noteId);
-    void changeCollection(string collection);
-    void changeImportant(bool important);
+    void editCollection(string collection);
+    void editImportant(bool important);
     // GETTERS
     int getId () const;
     string getCollection ();
