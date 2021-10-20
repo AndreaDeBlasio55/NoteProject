@@ -19,18 +19,20 @@ public:
     void editDescription(string description);
     void deleteNote(int noteId);
     void changeCollection(string collection);
+    void changeImportant(bool important);
     // GETTERS
     int getId () const;
     string getCollection ();
     string getTitle();
     string getDescription ();
     bool getEditable () const;
-
+    bool getImportant () const;
 private:
     int noteId;
     string collection;
     string title;
     string description;
     bool editable;
+    bool important;
 };
 #endif //NOTEPROJECT_NOTE_H

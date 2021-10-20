@@ -11,6 +11,7 @@ Note::Note(string collection, string title, string description){
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
+    this-> editable = true;
 }
 Note::Note(string collection, string title, string description, bool editable){
     this->collection = collection;
@@ -21,16 +22,28 @@ Note::Note(string collection, string title, string description, bool editable){
 }
 // METHODS
 void Note::editTitle(string title){
-    this->title = title;
+    if (editable) {
+        this->title = title;
+    } else {
+        cout << "This note is not editable." << endl;
+    }
 }
 void Note::editDescription(string description){
-    this->description = description;
+    if (editable) {
+        this->description = description;
+    } else {
+        cout << "This note is not editable." << endl;
+    }
 }
 void Note::deleteNote(int noteId){
 
 }
 void Note::changeCollection(string collection){
-    this->collection = collection;
+    if (editable) {
+        this->collection = collection;
+    } else {
+        cout << "This note is not editable." << endl;
+    }
 }
 // GETTERS
 int Note::getId () const{
@@ -45,6 +58,12 @@ string Note::getTitle(){
 string Note::getDescription (){
     return description;
 }
+void Note::changeImportant(bool important) {
+    this->important = important;
+}
 bool Note::getEditable () const{
     return editable;
+}
+bool Note::getImportant() const{
+    return important;
 }
