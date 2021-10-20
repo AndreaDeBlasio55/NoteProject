@@ -1,8 +1,19 @@
 #include <iostream>
 #include "Headers/Note.h"
+#include <fstream>
+#include <iomanip>
 using namespace std;
 
 int main() {
+
+    ofstream outFile;
+
+    cout << "Writing to file..." << endl;
+    outFile.open("/Users/andrea/CLionProjects/NoteProject/Output/output.txt");
+    outFile << fixed << showpoint;
+    cout << fixed << showpoint;
+    outFile << "OK";
+    outFile.close();
 
     Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
     Note myFirstNote ("Lunedì", "Spesa", "Cosa comprare alla coop");
