@@ -19,6 +19,7 @@ public:
     virtual void unsubscribe(Observer* o) override;
     virtual void notify() override;
 
+    string getCollectionName () const;
     int getCountNotes() const;
 
 private:

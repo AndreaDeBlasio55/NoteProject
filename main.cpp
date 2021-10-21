@@ -19,6 +19,7 @@ int main() {
     inputFile.close();
     cout << "Notes: " << notesCount << endl;
 
+    /*
     //
     Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
     printNote(myFirstNotePtr);
@@ -32,7 +33,7 @@ int main() {
     // release pointers
     delete myFirstNotePtr;
     myFirstNotePtr = nullptr;
-
+*/
     GameCharacter* gc1 = new GameCharacter(1,3);
     GameCharacter* gc2 = new GameCharacter(2,4);
     GameCharacter* gc3 = new GameCharacter(3,5);

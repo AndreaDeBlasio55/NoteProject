@@ -1,19 +1,21 @@
 //
 // Created by Andrea on 19/10/21.
 //
+#include <iostream>
 #include "../Headers/Note.h"
 #include <string>
 using namespace std;
 
 // CONSTRUCTOR
-Note::Note(string collection, string title, string description){
+Note::Note(Collection* collectionSubj, string collection, string title, string description):collectionSubj(collectionSubj){
     this->collection = collection;
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
     this-> editable = true;
+    attach();
 }
-Note::Note(string collection, string title, string description, bool editable){
+Note::Note(Collection* collectionSubj, string collection, string title, string description, bool editable){
     this->collection = collection;
     this->noteId = rand() % 10000;
     this->title = title;
@@ -70,4 +72,13 @@ bool Note::getEditable () const{
 }
 bool Note::getImportant() const{
     return important;
+}
+
+void Note::attach() {
+    collectionSubj->subscribe(this);
+}
+
+void Note::update() {
+    this->collection = collectionSubj->getCollectionName();
+    cout << "Updating collection name... " << this->collection << endl;
 }

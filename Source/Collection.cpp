@@ -29,3 +29,6 @@ int Collection::getCountNotes () const {
     }
     return value;
 }
+string Collection::getCollectionName() const {
+    return name;
+}
