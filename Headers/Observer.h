@@ -6,6 +6,7 @@
 #define NOTEPROJECT_OBSERVER_H
 
 class Observer {
+public:
     virtual ~Observer() = default;
 
     virtual void update() = 0;
