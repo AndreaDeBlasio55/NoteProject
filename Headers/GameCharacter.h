@@ -27,6 +27,7 @@ public:
 
     int getPosX() const;
     int getPosY() const;
+    int getCharacterCount () const;
     void setPosX (int posX);
     void setPosY (int posY);
 

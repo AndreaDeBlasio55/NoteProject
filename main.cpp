@@ -33,18 +33,26 @@ int main() {
     delete myFirstNotePtr;
     myFirstNotePtr = nullptr;
 
-    GameCharacter* gc = new GameCharacter(1,3);
+    GameCharacter* gc1 = new GameCharacter(1,3);
     GameCharacter* gc2 = new GameCharacter(2,4);
+    GameCharacter* gc3 = new GameCharacter(3,5);
+    GameCharacter* gc4 = new GameCharacter(4,6);
 
-    cout << "Posizione personaggio x: " << gc->getPosX() << endl;
-    cout << "Posizione personaggio y: " << gc->getPosY() << endl;
+    cout << "Posizione personaggio x: " << gc1->getPosX() << endl;
+    cout << "Posizione personaggio y: " << gc1->getPosY() << endl;
     cout << "Posizione personaggio x: " << gc2->getPosX() << endl;
     cout << "Posizione personaggio y: " << gc2->getPosY() << endl;
 
-    VideogameMapView* videoG1 = new VideogameMapView(gc);
+    VideogameMapView* videoG1 = new VideogameMapView(gc1);
+    VideogameMapView* videoG2 = new VideogameMapView(gc1);
+
     videoG1->update();
+    videoG2->update();
     videoG1->checkPosition();
 
+
+    int countCharacters = gc1->getCharacterCount();
+    cout << "Totale observers: " << countCharacters << endl;
     return 0;
 }
 

@@ -2,7 +2,6 @@
 // Created by Andrea on 21/10/21.
 //
 
-#include <iostream>
 #include <list>
 #include "../Headers/GameCharacter.h"
 
@@ -29,6 +28,13 @@ int GameCharacter::getPosX() const {
 }
 int GameCharacter::getPosY() const {
     return posY;
+}
+int GameCharacter::getCharacterCount () const {
+    int value = 0;
+    for (auto itr= begin(observer); itr!= end(observer); itr++){
+        value += 1;
+    }
+    return value;
 }
 void GameCharacter::setPosX (int posX){
     this->posX = posX;
