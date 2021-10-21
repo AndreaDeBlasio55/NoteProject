@@ -20,6 +20,7 @@ public:
     virtual void notify() override;
 
     string getCollectionName () const;
+    void setCollectionName (string name);
     int getCountNotes() const;
 
 private:

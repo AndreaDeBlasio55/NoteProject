@@ -7,16 +7,17 @@
 using namespace std;
 
 // CONSTRUCTOR
-Note::Note(Collection* collectionSubj, string collection, string title, string description):collectionSubj(collectionSubj){
-    this->collection = collection;
+Note::Note(Collection* collectionSubj, string title, string description):collectionSubj(collectionSubj){
+    this->collection = collectionSubj->getCollectionName();
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
     this-> editable = true;
     attach();
 }
-Note::Note(Collection* collectionSubj, string collection, string title, string description, bool editable){
-    this->collection = collection;
+Note::Note(Collection* collectionSubj, string title, string description, bool editable){
+    this->collectionSubj = collectionSubj;
+    this->collection = collectionSubj->getCollectionName();
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
@@ -80,5 +81,5 @@ void Note::attach() {
 
 void Note::update() {
     this->collection = collectionSubj->getCollectionName();
-    cout << "Updating collection name... " << this->collection << endl;
+    cout << title << " - id: " << noteId << " - " << " is updating collection name... " << this->collection << endl;
 }

@@ -15,8 +15,8 @@ class Note : public Observer{
 public:
 
     // CONSTRUCTOR
-    Note(Collection* collectionSubj, string collection, string title, string description);
-    Note(Collection* collectionSubj, string collection, string title, string description, bool editable);
+    Note(Collection* collectionSubj, string title, string description);
+    Note(Collection* collectionSubj, string title, string description, bool editable);
 
     // METHODS
     void editTitle(string title);

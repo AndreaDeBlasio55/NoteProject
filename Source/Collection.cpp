@@ -32,3 +32,10 @@ int Collection::getCountNotes () const {
 string Collection::getCollectionName() const {
     return name;
 }
+
+void Collection::setCollectionName(string collectionName) {
+    cout << "Changed collection name from: " << this->name << " to: " << endl;
+    this->name = collectionName;
+    cout << "   " << collectionName << endl;
+    notify();
+}

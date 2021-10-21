@@ -35,22 +35,24 @@ int main() {
     myFirstNotePtr = nullptr;
 */
     GameCharacter* gc1 = new GameCharacter(1,3);
-    GameCharacter* gc2 = new GameCharacter(2,4);
-    GameCharacter* gc3 = new GameCharacter(3,5);
-    GameCharacter* gc4 = new GameCharacter(4,6);
+    // Creating Subjects
+    Collection* collection1 = new Collection("Monday");
+    Collection* collection2 = new Collection("Thursday");
 
-    cout << "Posizione personaggio x: " << gc1->getPosX() << endl;
-    cout << "Posizione personaggio y: " << gc1->getPosY() << endl;
-    cout << "Posizione personaggio x: " << gc2->getPosX() << endl;
-    cout << "Posizione personaggio y: " << gc2->getPosY() << endl;
+    cout << "Collection : " << collection1->getCollectionName() << endl;
+
+    // Creating Observers
+    Note* note1 = new Note(collection1, "Note number 1", "First description for note 1");
+    Note* note2 = new Note(collection1, "Note number 2", "Second description for note 2");
+    Note* note3 = new Note(collection1, "Note number 3", "Thirs description for note 3");
+
+    printNote(note1);
+    collection1->setCollectionName("Monday Edited");
+    printNote(note1);
 
     VideogameMapView* videoG1 = new VideogameMapView(gc1);
-    VideogameMapView* videoG2 = new VideogameMapView(gc1);
 
     videoG1->update();
-    videoG2->update();
-    videoG1->checkPosition();
-
 
     int countCharacters = gc1->getCharacterCount();
     cout << "Totale observers: " << countCharacters << endl;
@@ -65,6 +67,7 @@ void printNote(Note* printNote){
          << "\n     - description: " << printNote->getDescription()
          << "\n     - editable: " << printNote->getEditable()
          << "\n     - important: "  << printNote->getImportant()
+         << "\n     - collection: " << printNote->getCollection()
          << endl;
 }
 
