@@ -22,3 +22,8 @@ void VideogameMapView::update() {
     cout << "Stampo X e Y: " << endl;
 }
 
+void VideogameMapView::checkPosition () {
+    cout << "Position x: " << x << endl;
+    cout << "Position y: " << y << endl;
+}
+

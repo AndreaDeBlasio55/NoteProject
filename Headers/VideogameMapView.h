@@ -15,6 +15,7 @@ public:
 
     virtual void update() override;
     virtual void attach() override;
+    void checkPosition();
     //virtual void detach() override;
 
     ~VideogameMapView() override =default;

@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "Headers/GameCharacter.h"
+#include "Headers/VideogameMapView.h"
 
 void printNote(Note* printNote);
 
@@ -32,13 +33,17 @@ int main() {
     delete myFirstNotePtr;
     myFirstNotePtr = nullptr;
 
-    GameCharacter* gc = new GameCharacter(0,0);
-    GameCharacter* gc2 = new GameCharacter(2,5);
+    GameCharacter* gc = new GameCharacter(1,3);
+    GameCharacter* gc2 = new GameCharacter(2,4);
 
     cout << "Posizione personaggio x: " << gc->getPosX() << endl;
     cout << "Posizione personaggio y: " << gc->getPosY() << endl;
     cout << "Posizione personaggio x: " << gc2->getPosX() << endl;
     cout << "Posizione personaggio y: " << gc2->getPosY() << endl;
+
+    VideogameMapView* videoG1 = new VideogameMapView(gc);
+    videoG1->update();
+    videoG1->checkPosition();
 
     return 0;
 }
