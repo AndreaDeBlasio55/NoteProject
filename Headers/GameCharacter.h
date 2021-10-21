@@ -13,7 +13,7 @@ using namespace std;
 
 class GameCharacter : public Subject {
 public:
-    GameCharacter();
+    GameCharacter(int posX, int posY);
     virtual ~GameCharacter() = default;
 
     void move(int x, int y){
@@ -25,20 +25,10 @@ public:
     virtual void unsubscribe(Observer* o) override;
     virtual void notify() override;
 
-    int getPosX() const {
-        return posX;
-    }
-    int getPosY() const {
-        return posY;
-    }
-    void setPosX (int posX){
-        this->posX = posX;
-        notify();
-    }
-    void setPosY (int posY){
-        this->posY = posY;
-        notify();
-    }
+    int getPosX() const;
+    int getPosY() const;
+    void setPosX (int posX);
+    void setPosY (int posY);
 
 private:
     int posX, posY;

@@ -4,6 +4,8 @@
 #include <iomanip>
 using namespace std;
 
+#include "Headers/GameCharacter.h"
+
 void printNote(Note* printNote);
 
 int main() {
@@ -29,6 +31,14 @@ int main() {
     // release pointers
     delete myFirstNotePtr;
     myFirstNotePtr = nullptr;
+
+    GameCharacter* gc = new GameCharacter(0,0);
+    GameCharacter* gc2 = new GameCharacter(2,5);
+
+    cout << "Posizione personaggio x: " << gc->getPosX() << endl;
+    cout << "Posizione personaggio y: " << gc->getPosY() << endl;
+    cout << "Posizione personaggio x: " << gc2->getPosX() << endl;
+    cout << "Posizione personaggio y: " << gc2->getPosY() << endl;
 
     return 0;
 }
