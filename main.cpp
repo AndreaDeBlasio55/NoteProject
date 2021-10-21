@@ -50,12 +50,11 @@ int main() {
     collection1->setCollectionName("Monday Edited");
     printNote(note1);
 
-    VideogameMapView* videoG1 = new VideogameMapView(gc1);
+    //VideogameMapView* videoG1 = new VideogameMapView(gc1);
+    //videoG1->update();
 
-    videoG1->update();
-
-    int countCharacters = gc1->getCharacterCount();
-    cout << "Totale observers: " << countCharacters << endl;
+    int countNoteCollection1 = collection1->getCountNotes();
+    cout << "Notes in " << collection1->getCollectionName() << ": " << countNoteCollection1 << endl;
     return 0;
 }
 
