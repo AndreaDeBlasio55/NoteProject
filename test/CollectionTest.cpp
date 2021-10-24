@@ -12,9 +12,15 @@ TEST(Collection, NoName) {
     ASSERT_EQ("",
               c.getCollectionName());
 }
-
-TEST(Collection, DifferentName) {
+/*
+TEST(Collection, WrongCollectionName) {
     Collection c("Collection 1") ;
-    ASSERT_NE("Coll 1",
+    ASSERT_EQ("Coll 1",
+              c.getCollectionName());
+}
+ */
+TEST(Collection, RightCollectionName) {
+    Collection c("Collection 1") ;
+    ASSERT_EQ("Collection 1",
               c.getCollectionName());
 }
