@@ -71,6 +71,7 @@ int main() {
     return 0;
 }
 
+// Secondo Choice
 void choiceCollectionOrNote(int controllerStart){
     enum CollectionOrNote {COLLECTION, NOTE};
     int collectionOrNote = 0;
