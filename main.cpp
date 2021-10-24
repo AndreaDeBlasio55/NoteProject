@@ -9,12 +9,11 @@ using namespace std;
 #include "Headers/VideogameMapView.h"
 
 
-
-int choice1 ();
+int choice1 ();                             // Collection or Note
 
 void printNote(Note* printNote);
 
-int choiceCollectionOrNote(int controllerStart);
+void choice2(int controllerReadCreateEdit);           // Read Create Edit
 
 void createNote();
 void readCollection(vector<Collection*> col);
@@ -22,37 +21,47 @@ Collection* createCollections (vector<Collection*> col);
 
 int main() {
 
-    // First Question: Working on Collection or Note
-    int controllerCollectionOrNote = 0;
-    bool controllerWhile = false;
-    controllerCollectionOrNote = choice1();
-    while (!controllerWhile) {
-        if (controllerCollectionOrNote != 0 && controllerCollectionOrNote != 1) {
-            controllerCollectionOrNote = choice1();
-        } else {
-            controllerWhile = true;
-        }
-    }
 
     // --- COLLECTIONS ---
     vector<Collection *> collections;
-    // Read Collection
-    readCollection(collections);
-    // Create Collection
-    collections.push_back(createCollections(collections));
-    cout << collections.size() << endl;
-    // ____________________
+
+    // First Question: Working on Collection or Note
+    int controllerCollectionOrNote = -1;
+    bool controllerWhileCollectionNote = false;
+    controllerCollectionOrNote = choice1();
+    while (!controllerWhileCollectionNote) {
+        if (controllerCollectionOrNote != 0 && controllerCollectionOrNote != 1) {
+            controllerCollectionOrNote = choice1();
+        } else {
+            controllerWhileCollectionNote = true;
+        }
+    }
+
+
+    int controllerReadCreateEdit = -1;
+    bool controllerWhileReadCreateEdit = false;
+    // Second Question - READ CREATE EDIT
+    while (!controllerWhileReadCreateEdit) {
+        if (controllerReadCreateEdit != 0 && controllerReadCreateEdit != 1 && controllerReadCreateEdit != 2) {
+            cout << "What do you want to do?:" << endl;
+            cout << "\t0 - Read \n\t1 - Create \n\t2 - Edit" << endl;
+            cin >> controllerReadCreateEdit;
+            if (controllerReadCreateEdit == 0) {
+                readCollection(collections);        // Read Collection
+            } else if (controllerReadCreateEdit == 1) {
+                collections.push_back(createCollections(collections));
+            } else if (controllerReadCreateEdit == 2) {
+
+            } else {
+                cout << "Please type a valid input." << endl;
+            }
+        } else {
+            controllerWhileReadCreateEdit = true;
+        }
+    }
 
     vector<Note *> notes;
 
-    int controllerStart = 0;
-
-    // First Question - READ CREATE EDIT
-    cout << "What do you want to do?:" << endl;
-    cout << "\t0 - Read \n\t1 - Create \n\t2 - Edit" << endl;
-    cin >> controllerStart;
-    int noteOrCollection = 0;
-    noteOrCollection = choiceCollectionOrNote(controllerStart);
 
 
     // Second Question - Action to: COLLECTION or NOTE
@@ -106,6 +115,7 @@ int main() {
     return 0;
 }
 
+// First Question
 int choice1 (){
     int value = 0;
     cout << "Start working with: \n\t0 - Collections \n\t1 - Notes" << endl;
@@ -119,48 +129,26 @@ int choice1 (){
     }
     return value;
 }
+
 // --- COLLECTIONS METHODS ---
+// __________ READ ____________________________
 void readCollection (vector<Collection*> col) {
     cout << "Reading Collections..." << endl;
     for(Collection* myCollection : col){
         cout << "\t" << myCollection->getCollectionName() << endl;
     }
 }
+// _________ CREATE ___________________________
 Collection* createCollections (vector<Collection*> col) {
-    Collection* newCol = new Collection("Prova");
-    cout << newCol->getCollectionName() << endl;
+    string collectionName = "";
+    cout << "Type the name of the collection. " << endl;
+    cin >> collectionName;
+    Collection* newCol = new Collection(collectionName);
+    cout << "Collection name is: " << newCol->getCollectionName() << endl;
     return newCol;
 }
-
-
-
-// Secondo Choice
-int choiceCollectionOrNote(int controllerStart) {
-    int collectionOrNote = 0;
-
-    if (controllerStart == 0) {
-        // Second Question
-        cout << "What do you want to read?" << endl;
-        cout << "\t0 - Collection \n\t1 - Note" << endl;
-        cin >> collectionOrNote;
-    } else if (controllerStart == 1) {
-        // Second Question
-        cout << "What do you want to create?" << endl;
-        cout << "\t0 - Collection \n\t1 - Note" << endl;
-        cin >> collectionOrNote;
-    } else if (controllerStart == 2) {
-        // Second Question
-        cout << "What do you want to edit?" << endl;
-        cout << "\t0 - Collection \n\t1 - Note" << endl;
-        cin >> collectionOrNote;
-    } else {
-        cout << "Please enter a valid input\n\t0 - Read \n\t1 - Create \n\t2 - Edit" << endl;
-        cin >> controllerStart;
-        choiceCollectionOrNote(controllerStart);
-    }
-    return controllerStart;
-}
-
+// _________ EDIT _____________________________
+// todo: leggere tutte le collection e tramite un selettore scegliere quella da modificare
 
 void createCollection(Collection* newCol){
     string collectionName;
