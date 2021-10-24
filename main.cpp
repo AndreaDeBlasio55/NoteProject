@@ -9,7 +9,21 @@ using namespace std;
 
 void printNote(Note* printNote);
 
+void choiceCollectionOrNote(int controllerStart);
+
 int main() {
+
+    int controllerStart = 0;
+
+    // First Question - READ CREATE EDIT
+    enum ControllerChoice1 {READ, CREATE, EDIT};
+    cout << "What do you want to do?:" << endl;
+    cout << "\t0 - Read \n\t1 - Create \n\t2 - Edit" << endl;
+    cin >> controllerStart;
+    choiceCollectionOrNote(controllerStart);
+
+    // Second Question - Action to: COLLECTION or NOTE
+    enum ControllerChoice2 {COLLECTION, NOTE};
 
     // get Notes count data from input.txt
     ifstream inputFile;
@@ -18,7 +32,6 @@ int main() {
     inputFile >> notesCount;
     inputFile.close();
     cout << "Notes: " << notesCount << endl;
-
     /*
     //
     Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
@@ -58,6 +71,33 @@ int main() {
     return 0;
 }
 
+void choiceCollectionOrNote(int controllerStart){
+    enum CollectionOrNote {COLLECTION, NOTE};
+    int collectionOrNote = 0;
+
+    if (controllerStart == 0){
+        // Second Question
+        cout << "What do you want to read?" << endl;
+        cout << "\t0 - Collection \n\t1 - Note" << endl;
+        cin >> collectionOrNote;
+    }
+    else if (controllerStart == 1){
+        // Second Question
+        cout << "What do you want to create?" << endl;
+        cout << "\t0 - Collection \n\t1 - Note" << endl;
+        cin >> collectionOrNote;
+    }
+    else if (controllerStart == 2){
+        // Second Question
+        cout << "What do you want to edit?" << endl;
+        cout << "\t0 - Collection \n\t1 - Note" << endl;
+        cin >> collectionOrNote;
+    } else {
+        cout << "Please enter a valid input\n\t0 - Read \n\t1 - Create \n\t2 - Edit" << endl;
+        cin >> controllerStart;
+        choiceCollectionOrNote(controllerStart);
+    }
+}
 
 void printNote(Note* printNote){
     cout << boolalpha << endl;
