@@ -75,9 +75,9 @@ int main() {
                 tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == 3) {
-            controllerCollectionOrNote = choice1();
+            controllerCollectionOrNote = choice1();                             // Go Back
         } else if (controllerReadCreateEdit == 4) {
-            controllerWhileReadCreateEdit = true;
+            controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
         } else {
             cout << "Please type a valid input." << endl;
         }
