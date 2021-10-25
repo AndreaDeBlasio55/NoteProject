@@ -1,12 +1,9 @@
 #include <iostream>
 #include "Headers/Note.h"
 #include <fstream>
-#include <iomanip>
 using namespace std;
 #include <vector>
-
-#include "Headers/GameCharacter.h"
-#include "Headers/VideogameMapView.h"
+#include <tuple>
 
 
 int choice1 ();         // Collection or Note
@@ -17,7 +14,7 @@ vector<Collection*> editCollection (vector<Collection*> col);
 // NOTES
 void readNotes(vector<Note*> notes);
 Note* createNote (Collection* collection, vector<Note*> notes);
-vector<Note*> editNote (vector<Note*> notes);
+tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<Collection *> collections);
 
 
 void printNote(Note* printNote);
@@ -75,7 +72,7 @@ int main() {
             if (controllerCollectionOrNote == 0) {
                 collections = editCollection(collections);                 // Edit Collection
             } else {
-                notes = editNote(notes);                                 // Edit Note
+                tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == 3) {
             controllerCollectionOrNote = choice1();
@@ -247,7 +244,7 @@ Note* createNote (Collection* defaultCollection, vector<Note*> notes) {
     return newNote;
 }
 // _________ EDIT _____________________________
-vector<Note*> editNote (vector<Note*> notes) {
+tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<Collection*> collections) {
     cout << boolalpha << endl;
     vector<Note *> myNewNotes;
     cout << "Fetching Notes..." << endl;
@@ -301,6 +298,8 @@ vector<Note*> editNote (vector<Note*> notes) {
             } else if (valueNoteEdit == 2) {
                 cout << "Please type the new COLLECTION: " << endl;
                 cin >> collection;
+                Collection* newCollection = new Collection(collection);
+                collections.push_back(newCollection);
                 myNewNotes[valueChoice]->editCollection(collection);
                 // todo: cerca se la collection esiste, altrimenti creala
             } else if (valueNoteEdit == 3) {
@@ -318,7 +317,7 @@ vector<Note*> editNote (vector<Note*> notes) {
             cout << "This note is not Editable" << endl;
         }
     }
-    return myNewNotes;
+    return make_tuple(myNewNotes, collections);
 }
 
 
