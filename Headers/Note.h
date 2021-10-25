@@ -21,7 +21,7 @@ public:
     // METHODS
     void editTitle(string title);
     void editDescription(string description);
-    void deleteNote(int noteId);
+    void deleteNote();
     void editCollection(string collection);
     void editImportant(bool important);
     void editCollectionSubject (Collection* collectionSubj);

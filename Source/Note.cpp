@@ -39,9 +39,6 @@ void Note::editDescription(string description){
         cout << "Edit description failed: This note is not editable..." << endl;
     }
 }
-void Note::deleteNote(int noteId){
-
-}
 void Note::editCollection(string collection){
     if (editable) {
         this->collection = collection;
@@ -69,6 +66,10 @@ string Note::getTitle(){
 }
 string Note::getDescription (){
     return description;
+}
+// SETTERS
+void Note::deleteNote() {
+    detach();
 }
 void Note::editImportant(bool important) {
     if (editable) {

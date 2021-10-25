@@ -11,6 +11,7 @@ int choice1 ();         // Collection or Note
 void readCollection(vector<Collection*> col);
 Collection* createCollection (vector<Collection*> col);
 tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes);
+tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> col, vector<Note*> notes);
 // NOTES
 void readNotes(vector<Note*> notes);
 Note* createNote (vector<Collection*> collections, vector<Note*> notes);
@@ -47,7 +48,7 @@ int main() {
     // Second Question - READ CREATE EDIT
     while (!controllerWhileReadCreateEdit) {
         cout << "\tWhat do you want to do?:" << endl;
-        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Go Back \n\t\t4 - Exit" << endl;
+        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Delete \n\t\t4 - Go Back \n\t\t5 - Exit" << endl;
         cin >> controllerReadCreateEdit;
         if (controllerReadCreateEdit == 0) {
             if (controllerCollectionOrNote == 0) {
@@ -68,8 +69,10 @@ int main() {
                 tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == 3) {
-            controllerCollectionOrNote = choice1();                             // Go Back
+            tie(collections, notes) = deleteCollection(collections, notes);
         } else if (controllerReadCreateEdit == 4) {
+            controllerCollectionOrNote = choice1();                             // Go Back
+        } else if (controllerReadCreateEdit == 5) {
             controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
         } else {
             cout << "Please type a valid input." << endl;
@@ -165,7 +168,48 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
     }
     return make_tuple(myNewCollections, notes);
 }
+// --------- DELETE ---------------------------
+tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> col, vector<Note*> notes) {
+    vector<Collection*> myNewCollections;
+    string oldNameCollection = "";       // to update the notes in that collection
+    cout << "Fetching Collections..." << endl;
+    if (col.size() == 0){
+        cout << "There is no Collection to edit." << endl;
+    } else {
+        int indexFor = 0;
+        int valueChoice = -1;
+        cout << "Please select one of these collections: " << endl;
+        for (Collection *myCollection: col) {
+            myNewCollections.push_back(myCollection);
+            cout << "\t" << indexFor << " - " << myCollection->getCollectionName() << endl;
+            indexFor++;
+        }
+        while (valueChoice < 0 || valueChoice > col.size()) {
+            cout << "Type here: " << endl;
+            cin >> valueChoice;
+        }
+        if (valueChoice > 0) {
+            oldNameCollection = myNewCollections[valueChoice]->getCollectionName();
+            myNewCollections.erase(myNewCollections.begin() + valueChoice);
+        } else {
+            cout << "You can't delete the Default collection" << endl;
+        }
 
+        // Updating all Notes:
+        for (Note* myCurrentNote : notes){
+            if (myCurrentNote->getCollection() == oldNameCollection) {
+                myCurrentNote->editCollection("Default");
+                myCurrentNote->editCollectionSubject(col[0]);
+                cout << "Updating the note: \n\t "
+                     << " - " << myCurrentNote->getTitle()
+                     << " - " <<  myCurrentNote->getId() << endl;
+            }
+        }
+
+        cout << "Completed!" << endl;
+    }
+    return make_tuple(myNewCollections, notes);
+}
 // NOTES
 // __________ READ ____________________________
 void readNotes (vector<Note*> notes) {
