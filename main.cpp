@@ -110,7 +110,7 @@ int choice1 (){
     return value;
 }
 
-// --- COLLECTIONS METHODS ---
+// COLLECTIONS
 // __________ READ ____________________________
 void readCollection (vector<Collection*> col) {
     cout << "Reading Collections..." << endl;
@@ -172,7 +172,7 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
     return make_tuple(myNewCollections, notes);
 }
 
-// -------- NOTES -------
+// NOTES
 // __________ READ ____________________________
 void readNotes (vector<Note*> notes) {
     cout << boolalpha << endl;
@@ -290,28 +290,4 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
         }
     }
     return make_tuple(myNewNotes, collections);
-}
-
-
-// ______________________
-/*
-int getTotalNoteCount () {
-    ifstream inputFile;
-    inputFile.open("/Users/andrea/CLionProjects/NoteProject/Output/input.txt");
-    int notesCount = 0;
-    inputFile >> notesCount;
-    inputFile.close();
-    cout << "Notes: " << notesCount << endl;
-}
- */
-
-void printNote(Note* printNote){
-    cout << boolalpha << endl;
-    cout << "Title: " << printNote->getTitle()
-         << "\n     - Id: " << printNote->getId()
-         << "\n     - description: " << printNote->getDescription()
-         << "\n     - editable: " << printNote->getEditable()
-         << "\n     - important: "  << printNote->getImportant()
-         << "\n     - collection: " << printNote->getCollection()
-         << endl;
 }
