@@ -80,7 +80,7 @@ int main() {
     //Collection* collection1 = new Collection("Monday");
 
     // Creating Observers
-    Note* note1 = new Note(collections[0], "Note number 1", "First description for note 1");
+    Note* note1 = new Note(collections[0], "Note number 1", "First description for note 1", false);
     Note* note2 = new Note(collections[0], "Note number 2", "Second description for note 2");
     Note* note3 = new Note(collections[0], "Note number 3", "Thirs description for note 3");
 
@@ -89,7 +89,6 @@ int main() {
 
     int countNoteCollection1 = collections[0]->getCountNotes();
     cout << "Notes in " << collections[0]->getCollectionName() << ": " << countNoteCollection1 << endl;
-    cout << " COLLECTION DEFAULT: " << collections[0] << endl;
 
     return 0;
 }
@@ -111,15 +110,10 @@ int choice1 (){
 
 // COLLECTIONS
 // __________ READ ____________________________
-void readCollection (vector<Collection*> col) {
+void readCollection (vector<Collection*> collections) {
     cout << "Reading Collections..." << endl;
-    if (col.size() == 0){
-        cout << "There is no Collections to read" << endl;
-    } else {
-        cout << " COLLECTION DEFAULT: " << col[0] << endl;
-        for (Collection *myCollection: col) {
-            cout << "\t" << myCollection->getCollectionName() << "\t\t count: " << myCollection->getCountNotes() << endl;
-        }
+    for (auto & collection : collections) {
+        cout << "\t" << collection->getCollectionName() << "\t\t count: " << collection->getCountNotes() << endl;
     }
 }
 // _________ CREATE ___________________________
@@ -212,6 +206,7 @@ Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     }
 
     Note* newNote = new Note(collections[0], title, description, editable);
+    cout << "DEFAULT: " << collections[0]->getCountNotes() << endl;
     cout << "Success! Note created" << endl;
     return newNote;
 }

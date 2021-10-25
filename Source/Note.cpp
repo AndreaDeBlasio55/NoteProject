@@ -15,13 +15,14 @@ Note::Note(Collection* collectionSubj, string title, string description):collect
     this-> editable = true;
     attach();
 }
-Note::Note(Collection* collectionSubj, string title, string description, bool editable){
+Note::Note(Collection* collectionSubj, string title, string description, bool editable):collectionSubj(collectionSubj){
     this->collectionSubj = collectionSubj;
     this->collection = collectionSubj->getCollectionName();
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
     this->editable = editable;
+    attach();
 }
 // METHODS
 void Note::editTitle(string title){
