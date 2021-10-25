@@ -10,7 +10,7 @@ int choice1 ();         // Collection or Note
 // COLLECTIONS
 void readCollection(vector<Collection*> col);
 Collection* createCollection (vector<Collection*> col);
-vector<Collection*> editCollection (vector<Collection*> col);
+tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes);
 // NOTES
 void readNotes(vector<Note*> notes);
 Note* createNote (Collection* collection, vector<Note*> notes);
@@ -70,7 +70,7 @@ int main() {
             }
         } else if (controllerReadCreateEdit == 2) {
             if (controllerCollectionOrNote == 0) {
-                collections = editCollection(collections);                 // Edit Collection
+                tie(collections, notes) = editCollection(collections, notes);                 // Edit Collection
             } else {
                 tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
             }
@@ -173,8 +173,9 @@ Collection* createCollection (vector<Collection*> col) {
     return newCol;
 }
 // _________ EDIT _____________________________
-vector<Collection*> editCollection (vector<Collection*> col) {
+tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes) {
     vector<Collection*> myNewCollections;
+    string oldNameCollection = "";       // to update the notes in that collection
     cout << "Fetching Collections..." << endl;
     if (col.size() == 0){
         cout << "There is no Collection to edit." << endl;
@@ -191,13 +192,25 @@ vector<Collection*> editCollection (vector<Collection*> col) {
             cout << "Type here: " << endl;
             cin >> valueChoice;
         }
+        oldNameCollection = myNewCollections[valueChoice]->getCollectionName();
         cout << "Type the new name of the collection: " << endl;
         string newNameCollection = "";
         cin >> newNameCollection;
         myNewCollections[valueChoice]->setCollectionName(newNameCollection);
+
+        // Updating all Notes:
+        for (Note* myCurrentNote : notes){
+            if (myCurrentNote->getCollection() == oldNameCollection) {
+                myCurrentNote->editCollection(newNameCollection);
+                cout << "Updating the note: \n\t "
+                << " - " << myCurrentNote->getTitle()
+                << " - " <<  myCurrentNote->getId() << endl;
+            }
+        }
+
         cout << "Completed!" << endl;
     }
-    return myNewCollections;
+    return make_tuple(myNewCollections, notes);
 }
 
 // -------- NOTES -------
