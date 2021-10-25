@@ -249,9 +249,9 @@ Note* createNote (Collection* defaultCollection, vector<Note*> notes) {
 // _________ EDIT _____________________________
 vector<Note*> editNote (vector<Note*> notes) {
     cout << boolalpha << endl;
-    vector<Note*> myNewNotes;
+    vector<Note *> myNewNotes;
     cout << "Fetching Notes..." << endl;
-    if (notes.size() == 0){
+    if (notes.size() == 0) {
         cout << "There is no Note to edit." << endl;
     } else {
         int indexFor = 0;
@@ -260,56 +260,63 @@ vector<Note*> editNote (vector<Note*> notes) {
         for (Note *myNote: notes) {
             myNewNotes.push_back(myNote);
             cout << "\t" << indexFor << " - Id: " << myNote->getId()
-            << "\t Title: " << myNote->getTitle()
-            << "\t\tDescription: " << myNote->getDescription()
-            << "\t\tCollection: " << myNote->getCollection()
-            << "\t\tImportant: " << myNote->getImportant()
-            << "\t\tEditable: " << myNote->getEditable()
-            << endl;
+                 << "\t Title: " << myNote->getTitle()
+                 << "\t\tDescription: " << myNote->getDescription()
+                 << "\t\tCollection: " << myNote->getCollection()
+                 << "\t\tImportant: " << myNote->getImportant()
+                 << "\t\tEditable: " << myNote->getEditable()
+                 << endl;
             indexFor++;
         }
         while (valueChoice < 0 || valueChoice > notes.size()) {
             cout << "Type here your choice: " << endl;
             cin >> valueChoice;
         }
-        cout << "What do you want to edit: "
-            << "\n\t0 - Title "
-            << "\n\t1 - Description "
-            << "\n\t2 - Collection "
-            << "\n\t3 - Important "
-            << endl;
-        int valueNoteEdit = -1;
-        string title = "";
-        string description = "";
-        string collection = "";
-        int important = -1;
-        bool  importantBool = false;
-        cin >> valueNoteEdit;
-        if (valueNoteEdit == 0){
-            cout << "Please type the new TITLE: " << endl;
-            cin >> title;
-            myNewNotes[valueChoice]->editTitle(title);
-        } else if (valueNoteEdit == 1) {
-            cout << "Please type the new DESCRIPTION: " << endl;
-            cin >> description;
-            myNewNotes[valueChoice]->editDescription(description);
+        // Check if we can edit this note:
+        bool canEditNote = false;
+        canEditNote = myNewNotes[valueChoice]->getEditable();
+        if (canEditNote) {
+            cout << "What do you want to edit: "
+                 << "\n\t0 - Title "
+                 << "\n\t1 - Description "
+                 << "\n\t2 - Collection "
+                 << "\n\t3 - Important "
+                 << endl;
+            int valueNoteEdit = -1;
+            string title = "";
+            string description = "";
+            string collection = "";
+            int important = -1;
+            bool importantBool = false;
+            cin >> valueNoteEdit;
+            if (valueNoteEdit == 0) {
+                cout << "Please type the new TITLE: " << endl;
+                cin >> title;
+                myNewNotes[valueChoice]->editTitle(title);
+            } else if (valueNoteEdit == 1) {
+                cout << "Please type the new DESCRIPTION: " << endl;
+                cin >> description;
+                myNewNotes[valueChoice]->editDescription(description);
 
-        } else if (valueNoteEdit == 2) {
-            cout << "Please type the new COLLECTION: " << endl;
-            cin >> collection;
-            myNewNotes[valueChoice]->editCollection(collection);
-            // todo: cerca se la collection esiste, altrimenti creala
-        } else if (valueNoteEdit == 3) {
-            cout << "Please type the new IMPORTANT: \n\t0 - false \n\t1 - true" << endl;
-            cin >> important;
-            if (important == 0) {
-                importantBool = false;
-            } else {
-                importantBool = true;
+            } else if (valueNoteEdit == 2) {
+                cout << "Please type the new COLLECTION: " << endl;
+                cin >> collection;
+                myNewNotes[valueChoice]->editCollection(collection);
+                // todo: cerca se la collection esiste, altrimenti creala
+            } else if (valueNoteEdit == 3) {
+                cout << "Please type the new IMPORTANT: \n\t0 - false \n\t1 - true" << endl;
+                cin >> important;
+                if (important == 0) {
+                    importantBool = false;
+                } else {
+                    importantBool = true;
+                }
+                myNewNotes[valueChoice]->editImportant(importantBool);
             }
-            myNewNotes[valueChoice]->editImportant(importantBool);
+            cout << "Completed!" << endl;
+        } else {
+            cout << "This note is not Editable" << endl;
         }
-        cout << "Completed!" << endl;
     }
     return myNewNotes;
 }
