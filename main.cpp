@@ -14,6 +14,9 @@ int choice1 ();         // Collection or Note
 void readCollection(vector<Collection*> col);
 Collection* createCollection (vector<Collection*> col);
 vector<Collection*> editCollection (vector<Collection*> col);
+// NOTES
+void readNotes(vector<Note*> notes);
+Note* createNote (Collection* collection, vector<Note*> notes);
 
 
 void printNote(Note* printNote);
@@ -23,6 +26,13 @@ int main() {
 
     // --- COLLECTIONS ---
     vector<Collection *> collections;
+    // Init collections with the Default Collection
+    Collection* defaultCollection = new Collection("Default");
+    collections.push_back(defaultCollection);
+    // --- NOTES ---
+    vector<Note *> notes;
+
+
 
     // init var
     int controllerCollectionOrNote = -1;
@@ -45,23 +55,31 @@ int main() {
 
     // Second Question - READ CREATE EDIT
     while (!controllerWhileReadCreateEdit) {
-        cout << "COLLECTIONS \n\tWhat do you want to do?:" << endl;
-        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Exit" << endl;
+        cout << "\tWhat do you want to do?:" << endl;
+        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Go Back \n\t\t4 - Exit" << endl;
         cin >> controllerReadCreateEdit;
         if (controllerReadCreateEdit == 0) {
-            readCollection(collections);        // Read Collection
+            if (controllerCollectionOrNote == 0) {
+                readCollection(collections);        // Read Collection
+            } else {
+                readNotes(notes);
+            }
         } else if (controllerReadCreateEdit == 1) {
-            collections.push_back(createCollection(collections));
+            if (controllerCollectionOrNote == 0) {
+                collections.push_back(createCollection(collections));
+            } else {
+                notes.push_back(createNote(defaultCollection,notes));
+            }
         } else if (controllerReadCreateEdit == 2) {
             editCollection(collections);
         } else if (controllerReadCreateEdit == 3) {
+            controllerCollectionOrNote = choice1();
+        } else if (controllerReadCreateEdit == 4) {
             controllerWhileReadCreateEdit = true;
         } else {
             cout << "Please type a valid input." << endl;
         }
     }
-
-    vector<Note *> notes;
 
 
 
@@ -180,6 +198,51 @@ vector<Collection*> editCollection (vector<Collection*> col) {
     return myNewCollections;
 }
 
+// -------- NOTES -------
+// __________ READ ____________________________
+void readNotes (vector<Note*> notes) {
+    cout << boolalpha << endl;
+    cout << "Reading Notes..." << endl;
+    if (notes.size() == 0){
+        cout << "There is no Notes to read" << endl;
+    } else {
+        for (Note *myNote: notes) {
+            cout << "\tTitle: " << myNote->getTitle()
+                << "\n\t\tId: " << myNote->getId()
+                << "\n\t\tDescription: " << myNote->getDescription()
+                << "\n\t\tCollection: " << myNote->getCollection()
+                << "\n\t\tImportant: " << myNote->getImportant()
+                << "\n\t\tEditable: " << myNote->getEditable()
+                << endl;
+        }
+    }
+}
+
+// _________ CREATE ___________________________
+Note* createNote (Collection* defaultCollection, vector<Note*> notes) {
+    string title = "";
+    string description = "";
+    string collection = "Default";
+    int editableInt = -1;
+    bool editable = false;
+
+    cout << "Type the title: " << endl;
+    cin >> title;
+    cout << "Type the description: " << endl;
+    cin >> description;
+    cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
+    cin >> editableInt;
+    if (editableInt == 0){
+        editable = false;
+    } else {
+        editable = true;
+    }
+
+    Note* newNote = new Note(defaultCollection, title, description, editable);
+    cout << "Success! Note created";
+    return newNote;
+}
+// ______________________
 /*
 int getTotalNoteCount () {
     ifstream inputFile;
