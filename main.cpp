@@ -73,9 +73,9 @@ int main() {
             }
         } else if (controllerReadCreateEdit == 2) {
             if (controllerCollectionOrNote == 0) {
-                editCollection(collections);                               // Edit Collection
+                collections = editCollection(collections);                 // Edit Collection
             } else {
-                editNote(notes);                                         // Edit Note
+                notes = editNote(notes);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == 3) {
             controllerCollectionOrNote = choice1();
@@ -213,11 +213,11 @@ void readNotes (vector<Note*> notes) {
     } else {
         for (Note *myNote: notes) {
             cout << "\tTitle: " << myNote->getTitle()
-                << "\n\t\tId: " << myNote->getId()
-                << "\n\t\tDescription: " << myNote->getDescription()
-                << "\n\t\tCollection: " << myNote->getCollection()
-                << "\n\t\tImportant: " << myNote->getImportant()
-                << "\n\t\tEditable: " << myNote->getEditable()
+                << "\t\tId: " << myNote->getId()
+                << "\t\tDescription: " << myNote->getDescription()
+                << "\t\tCollection: " << myNote->getCollection()
+                << "\t\tImportant: " << myNote->getImportant()
+                << "\t\tEditable: " << myNote->getEditable()
                 << endl;
         }
     }
