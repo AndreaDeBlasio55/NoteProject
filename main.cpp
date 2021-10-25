@@ -16,12 +16,7 @@ void readNotes(vector<Note*> notes);
 Note* createNote (Collection* collection, vector<Note*> notes);
 tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<Collection *> collections);
 
-
-void printNote(Note* printNote);
-
 int main() {
-
-
     // --- COLLECTIONS ---
     vector<Collection *> collections;
     // Init collections with the Default Collection
@@ -29,8 +24,6 @@ int main() {
     collections.push_back(defaultCollection);
     // --- NOTES ---
     vector<Note *> notes;
-
-
 
     // init var
     int controllerCollectionOrNote = -1;
@@ -83,36 +76,6 @@ int main() {
         }
     }
 
-
-
-    // Second Question - Action to: COLLECTION or NOTE
-
-
-    // get Notes count data from input.txt
-    /*
-    ifstream inputFile;
-    inputFile.open("/Users/andrea/CLionProjects/NoteProject/Output/input.txt");
-    int notesCount = 0;
-    inputFile >> notesCount;
-    inputFile.close();
-    cout << "Notes: " << notesCount << endl;
-     */
-    /*
-    //
-    Note* myFirstNotePtr = new Note("Importanti", "Spesa", "Cosa comprare alla coop", false);
-    printNote(myFirstNotePtr);
-
-    myFirstNotePtr->editImportant(true);
-    myFirstNotePtr->editTitle("This is a new title");
-    myFirstNotePtr->editDescription("This is a new description");
-    cout << "Editing note... \nNew Note:" << endl;
-    printNote(myFirstNotePtr);
-
-    // release pointers
-    delete myFirstNotePtr;
-    myFirstNotePtr = nullptr;
-*/
-    //GameCharacter* gc1 = new GameCharacter(1,3);
     // Creating Subjects
     Collection* collection1 = new Collection("Monday");
     Collection* collection2 = new Collection("Thursday");
@@ -123,10 +86,6 @@ int main() {
     Note* note1 = new Note(collection1, "Note number 1", "First description for note 1");
     Note* note2 = new Note(collection1, "Note number 2", "Second description for note 2");
     Note* note3 = new Note(collection1, "Note number 3", "Thirs description for note 3");
-
-    printNote(note1);
-    collection1->setCollectionName("Monday Edited");
-    printNote(note1);
 
     //VideogameMapView* videoG1 = new VideogameMapView(gc1);
     //videoG1->update();
@@ -356,14 +315,3 @@ void printNote(Note* printNote){
          << "\n     - collection: " << printNote->getCollection()
          << endl;
 }
-
-// output
-/*
-ofstream outFile;
-cout << "Writing to file..." << endl;
-outFile.open("/Users/andrea/CLionProjects/NoteProject/Output/output.txt");
-outFile << fixed << showpoint;
-cout << fixed << showpoint;
-outFile << "Prova 2 ---";
-outFile.close();
-*/
