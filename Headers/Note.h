@@ -25,6 +25,7 @@ public:
     void editCollection(string collection);
     void editImportant(bool important);
     void editCollectionSubject (Collection* collectionSubj);
+    void assignNewCollectionSubj(Collection* newCollectionSubject);
 
     // GETTERS
     int getId () const;

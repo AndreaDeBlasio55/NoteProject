@@ -263,10 +263,20 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
             } else if (valueNoteEdit == 2) {
                 cout << "Please type the new COLLECTION: " << endl;
                 cin >> collection;
-                Collection* newCollection = new Collection(collection);
-                collections.push_back(newCollection);
+                bool addNewCollection = true;
+                for(Collection* searchColl : collections){
+                    if (searchColl->getCollectionName() == collection){
+                        addNewCollection = false;
+                    }
+                }
+                // add new collection if it doesn't exist
+                Collection *newCollection = new Collection(collection);
+                if (addNewCollection == true) {
+                    collections.push_back(newCollection);
+                    myNewNotes[valueChoice]->assignNewCollectionSubj(newCollection);
+                }
                 myNewNotes[valueChoice]->editCollection(collection);
-                myNewNotes[valueChoice]->editCollectionSubject(newCollection);
+                //myNewNotes[valueChoice]->editCollectionSubject(newCollection);
                 // todo: cerca se la collection esiste, altrimenti creala
             } else if (valueNoteEdit == 3) {
                 cout << "Please type the new IMPORTANT: \n\t0 - false \n\t1 - true" << endl;

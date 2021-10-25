@@ -50,6 +50,7 @@ void Note::editCollection(string collection){
     }
     this->collection = collectionSubj->getCollectionName();
 }
+
 void Note::attach() {
     collectionSubj->subscribe(this);
 }
@@ -82,6 +83,11 @@ void Note::editCollectionSubject(Collection *collectionSubj) {
     } else {
         cout << "Edit collectionSubject failed: This note is not editable..." << endl;
     }
+}
+void Note::assignNewCollectionSubj(Collection *newCollectionSubject) {
+    detach();
+    this->collectionSubj = newCollectionSubject;
+    attach();
 }
 bool Note::getEditable () const{
     return editable;
