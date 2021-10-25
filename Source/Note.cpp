@@ -68,6 +68,13 @@ void Note::editImportant(bool important) {
         cout << "Edit important failed: This note is not editable..." << endl;
     }
 }
+void Note::editCollectionSubject(Collection *collectionSubj) {
+    if (editable) {
+        this->collectionSubj = collectionSubj;
+    } else {
+        cout << "Edit collectionSubject failed: This note is not editable..." << endl;
+    }
+}
 bool Note::getEditable () const{
     return editable;
 }

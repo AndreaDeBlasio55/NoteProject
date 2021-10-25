@@ -13,7 +13,7 @@ Collection* createCollection (vector<Collection*> col);
 tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes);
 // NOTES
 void readNotes(vector<Note*> notes);
-Note* createNote (Collection* collection, vector<Note*> notes);
+Note* createNote (vector<Collection*> collections, vector<Note*> notes);
 tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<Collection *> collections);
 
 int main() {
@@ -59,7 +59,7 @@ int main() {
             if (controllerCollectionOrNote == 0) {
                 collections.push_back(createCollection(collections));      // Create Collection
             } else {
-                notes.push_back(createNote(defaultCollection,notes));    // Create Note
+                notes.push_back(createNote(collections,notes));    // Create Note
             }
         } else if (controllerReadCreateEdit == 2) {
             if (controllerCollectionOrNote == 0) {
@@ -77,21 +77,20 @@ int main() {
     }
 
     // Creating Subjects
-    Collection* collection1 = new Collection("Monday");
-    Collection* collection2 = new Collection("Thursday");
-
-    cout << "Collection : " << collection1->getCollectionName() << endl;
+    //Collection* collection1 = new Collection("Monday");
 
     // Creating Observers
-    Note* note1 = new Note(collection1, "Note number 1", "First description for note 1");
-    Note* note2 = new Note(collection1, "Note number 2", "Second description for note 2");
-    Note* note3 = new Note(collection1, "Note number 3", "Thirs description for note 3");
+    Note* note1 = new Note(collections[0], "Note number 1", "First description for note 1");
+    Note* note2 = new Note(collections[0], "Note number 2", "Second description for note 2");
+    Note* note3 = new Note(collections[0], "Note number 3", "Thirs description for note 3");
 
     //VideogameMapView* videoG1 = new VideogameMapView(gc1);
     //videoG1->update();
 
-    int countNoteCollection1 = collection1->getCountNotes();
-    cout << "Notes in " << collection1->getCollectionName() << ": " << countNoteCollection1 << endl;
+    int countNoteCollection1 = collections[0]->getCountNotes();
+    cout << "Notes in " << collections[0]->getCollectionName() << ": " << countNoteCollection1 << endl;
+    cout << " COLLECTION DEFAULT: " << collections[0] << endl;
+
     return 0;
 }
 
@@ -117,8 +116,9 @@ void readCollection (vector<Collection*> col) {
     if (col.size() == 0){
         cout << "There is no Collections to read" << endl;
     } else {
+        cout << " COLLECTION DEFAULT: " << col[0] << endl;
         for (Collection *myCollection: col) {
-            cout << "\t" << myCollection->getCollectionName() << endl;
+            cout << "\t" << myCollection->getCollectionName() << "\t\t count: " << myCollection->getCountNotes() << endl;
         }
     }
 }
@@ -155,7 +155,7 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
         cout << "Type the new name of the collection: " << endl;
         string newNameCollection = "";
         cin >> newNameCollection;
-        myNewCollections[valueChoice]->setCollectionName(newNameCollection);
+        col[valueChoice]->setCollectionName(newNameCollection);
 
         // Updating all Notes:
         for (Note* myCurrentNote : notes){
@@ -192,7 +192,7 @@ void readNotes (vector<Note*> notes) {
     }
 }
 // _________ CREATE ___________________________
-Note* createNote (Collection* defaultCollection, vector<Note*> notes) {
+Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     string title = "";
     string description = "";
     string collection = "Default";
@@ -211,8 +211,8 @@ Note* createNote (Collection* defaultCollection, vector<Note*> notes) {
         editable = true;
     }
 
-    Note* newNote = new Note(defaultCollection, title, description, editable);
-    cout << "Success! Note created";
+    Note* newNote = new Note(collections[0], title, description, editable);
+    cout << "Success! Note created" << endl;
     return newNote;
 }
 // _________ EDIT _____________________________
@@ -266,13 +266,13 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
                 cout << "Please type the new DESCRIPTION: " << endl;
                 cin >> description;
                 myNewNotes[valueChoice]->editDescription(description);
-
             } else if (valueNoteEdit == 2) {
                 cout << "Please type the new COLLECTION: " << endl;
                 cin >> collection;
                 Collection* newCollection = new Collection(collection);
                 collections.push_back(newCollection);
                 myNewNotes[valueChoice]->editCollection(collection);
+                myNewNotes[valueChoice]->editCollectionSubject(newCollection);
                 // todo: cerca se la collection esiste, altrimenti creala
             } else if (valueNoteEdit == 3) {
                 cout << "Please type the new IMPORTANT: \n\t0 - false \n\t1 - true" << endl;

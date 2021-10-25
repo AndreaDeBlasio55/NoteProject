@@ -24,6 +24,7 @@ public:
     void deleteNote(int noteId);
     void editCollection(string collection);
     void editImportant(bool important);
+    void editCollectionSubject (Collection* collectionSubj);
 
     // GETTERS
     int getId () const;
