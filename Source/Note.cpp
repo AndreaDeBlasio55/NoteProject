@@ -48,6 +48,13 @@ void Note::editCollection(string collection){
     } else {
         cout << "Edit collection failed: This note is not editable..." << endl;
     }
+    this->collection = collectionSubj->getCollectionName();
+}
+void Note::attach() {
+    collectionSubj->subscribe(this);
+}
+void Note::detach() {
+    collectionSubj->unsubscribe(this);
 }
 // GETTERS
 int Note::getId () const{
@@ -81,10 +88,6 @@ bool Note::getEditable () const{
 }
 bool Note::getImportant() const{
     return important;
-}
-
-void Note::attach() {
-    collectionSubj->subscribe(this);
 }
 
 void Note::update() {

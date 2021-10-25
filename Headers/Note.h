@@ -37,6 +37,7 @@ public:
     // OBSERVER PATTERN METHODS
     virtual void update() override;
     virtual void attach() override;
+    virtual void detach() override;
 
     // DESTRUCTOR
     ~Note() override= default;
