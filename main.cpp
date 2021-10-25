@@ -206,7 +206,6 @@ Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     }
 
     Note* newNote = new Note(collections[0], title, description, editable);
-    cout << "DEFAULT: " << collections[0]->getCountNotes() << endl;
     cout << "Success! Note created" << endl;
     return newNote;
 }
