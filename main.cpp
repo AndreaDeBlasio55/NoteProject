@@ -335,7 +335,7 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
                 //myNewNotes[valueChoice]->editCollectionSubject(newCollection);
                 // todo: cerca se la collection esiste, altrimenti creala
             } else if (valueNoteEdit == 3) {
-                cout << "Please type the new IMPORTANT: ( " << myNewNotes[valueChoice]->getImportant() << "\n\t0 - false \n\t1 - true" << endl;
+                cout << "Please type the new IMPORTANT: ( " << myNewNotes[valueChoice]->getImportant() << " )\n\t0 - false \n\t1 - true" << endl;
                 cin >> important;
                 if (important == 0) {
                     importantBool = false;
@@ -383,7 +383,7 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
         if (canEditNote) {
             string noteDeleted = myNewNotes[valueChoice]->getTitle();
             myNewNotes.erase(myNewNotes.begin() + valueChoice);
-            myNewNotes[valueChoice]->detach();
+            myNewNotes[valueChoice]->deleteNote();
             cout << "Completed! - \t" << noteDeleted << " deleted!" << endl;
         } else {
             cout << "You can't delete this note (not editable)" << endl;

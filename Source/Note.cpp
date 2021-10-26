@@ -13,6 +13,7 @@ Note::Note(Collection* collectionSubj, string title, string description):collect
     this->title = title;
     this->description = description;
     this-> editable = true;
+    this->important = false;
     attach();
 }
 Note::Note(Collection* collectionSubj, string title, string description, bool editable):collectionSubj(collectionSubj){
@@ -22,6 +23,7 @@ Note::Note(Collection* collectionSubj, string title, string description, bool ed
     this->title = title;
     this->description = description;
     this->editable = editable;
+    this->important = false;
     attach();
 }
 // METHODS
