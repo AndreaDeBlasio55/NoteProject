@@ -93,6 +93,19 @@ int main() {
         << endl;
     }
 
+    // --- Release Memory: ---
+    // COLLECTIONS
+    for (int i=0; i<collections.size(); i++){
+        delete collections[i];
+        collections[i] = nullptr;
+    }
+    // NOTES
+    for (int i=0; i<notes.size(); i++){
+        delete notes[i];
+        notes[i] = nullptr;
+    }
+    // ------
+
     return 0;
 }
 
