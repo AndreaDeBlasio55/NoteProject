@@ -16,6 +16,7 @@ tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> 
 void readNotes(vector<Note*> notes);
 Note* createNote (vector<Collection*> collections, vector<Note*> notes);
 tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<Collection *> collections);
+tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vector<Collection*> collections);
 
 int main() {
     // --- COLLECTIONS ---
@@ -69,7 +70,11 @@ int main() {
                 tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == 3) {
-            tie(collections, notes) = deleteCollection(collections, notes);
+            if (controllerCollectionOrNote == 0) {
+                tie(collections, notes) = deleteCollection(collections, notes);
+            } else {
+                tie(notes, collections) = deleteNote(notes, collections);                                 // Edit Note
+            }
         } else if (controllerReadCreateEdit == 4) {
             controllerCollectionOrNote = choice1();                             // Go Back
         } else if (controllerReadCreateEdit == 5) {
@@ -342,6 +347,46 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
             cout << "Completed!" << endl;
         } else {
             cout << "This note is not Editable" << endl;
+        }
+    }
+    return make_tuple(myNewNotes, collections);
+}
+// --------- DELETE ---------------------------
+tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vector<Collection*> collections) {
+    cout << boolalpha << endl;
+    vector<Note *> myNewNotes;
+    cout << "Fetching Notes..." << endl;
+    if (notes.size() == 0) {
+        cout << "There is no Note to delete." << endl;
+    } else {
+        int indexFor = 0;
+        int valueChoice = -1;
+        cout << "Please select one of these notes: " << endl;
+        for (Note *myNote: notes) {
+            myNewNotes.push_back(myNote);
+            cout << "\t" << indexFor << " - Id: " << myNote->getId()
+                 << "\t Title: " << myNote->getTitle()
+                 << "\t\tDescription: " << myNote->getDescription()
+                 << "\t\tCollection: " << myNote->getCollection()
+                 << "\t\tImportant: " << myNote->getImportant()
+                 << "\t\tEditable: " << myNote->getEditable()
+                 << endl;
+            indexFor++;
+        }
+        while (valueChoice < 0 || valueChoice > notes.size()) {
+            cout << "Type here your choice: " << endl;
+            cin >> valueChoice;
+        }
+        // Check if we can edit this note:
+        bool canEditNote = false;
+        canEditNote = myNewNotes[valueChoice]->getEditable();
+        if (canEditNote) {
+            string noteDeleted = myNewNotes[valueChoice]->getTitle();
+            myNewNotes.erase(myNewNotes.begin() + valueChoice);
+            myNewNotes[valueChoice]->detach();
+            cout << "Completed! - \t" << noteDeleted << " deleted!" << endl;
+        } else {
+            cout << "You can't delete this note (not editable)" << endl;
         }
     }
     return make_tuple(myNewNotes, collections);
