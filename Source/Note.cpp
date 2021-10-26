@@ -12,7 +12,7 @@ Note::Note(Collection* collectionSubj, string title, string description):collect
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
-    this-> editable = true;
+    this->editable = true;
     this->important = false;
     attach();
 }
