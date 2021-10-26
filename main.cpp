@@ -297,33 +297,40 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
             bool importantBool = false;
             cin >> valueNoteEdit;
             if (valueNoteEdit == 0) {
-                cout << "Please type the new TITLE: " << endl;
+                cout << "Please type the new TITLE: ( " << myNewNotes[valueChoice]->getTitle() << " )" << endl;
                 cin >> title;
                 myNewNotes[valueChoice]->editTitle(title);
             } else if (valueNoteEdit == 1) {
-                cout << "Please type the new DESCRIPTION: " << endl;
+                cout << "Please type the new DESCRIPTION: ( " << myNewNotes[valueChoice]->getDescription() << " )" << endl;
                 cin >> description;
                 myNewNotes[valueChoice]->editDescription(description);
             } else if (valueNoteEdit == 2) {
-                cout << "Please type the new COLLECTION: " << endl;
+                cout << "Please type the new COLLECTION: ( " << myNewNotes[valueChoice]->getCollection() << " )" << endl;
                 cin >> collection;
                 bool addNewCollection = true;
+                int indexCollection = 0;
+                int indexOfOldCollection = 0;
                 for(Collection* searchColl : collections){
                     if (searchColl->getCollectionName() == collection){
                         addNewCollection = false;
+                        indexOfOldCollection = indexCollection;
                     }
+                    indexCollection++;
                 }
                 // add new collection if it doesn't exist
                 Collection *newCollection = new Collection(collection);
                 if (addNewCollection == true) {
                     collections.push_back(newCollection);
                     myNewNotes[valueChoice]->assignNewCollectionSubj(newCollection);
+                } else {
+                    Collection* oldCollectionNoNewName = collections[indexOfOldCollection];
+                    myNewNotes[valueChoice]->assignNewCollectionSubj(oldCollectionNoNewName);
                 }
                 myNewNotes[valueChoice]->editCollection(collection);
                 //myNewNotes[valueChoice]->editCollectionSubject(newCollection);
                 // todo: cerca se la collection esiste, altrimenti creala
             } else if (valueNoteEdit == 3) {
-                cout << "Please type the new IMPORTANT: \n\t0 - false \n\t1 - true" << endl;
+                cout << "Please type the new IMPORTANT: ( " << myNewNotes[valueChoice]->getImportant() << "\n\t0 - false \n\t1 - true" << endl;
                 cin >> important;
                 if (important == 0) {
                     importantBool = false;
