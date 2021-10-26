@@ -47,7 +47,7 @@ void Note::editCollection(string collection){
     } else {
         cout << "Edit collection failed: This note is not editable..." << endl;
     }
-    this->collection = collectionSubj->getCollectionName();
+    //this->collection = collectionSubj->getCollectionName();
 }
 
 void Note::attach() {

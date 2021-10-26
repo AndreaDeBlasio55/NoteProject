@@ -84,6 +84,7 @@ int main() {
         }
     }
 
+    /*
     // Creating Subjects
     //Collection* collection1 = new Collection("Monday");
 
@@ -97,6 +98,7 @@ int main() {
 
     int countNoteCollection1 = collections[0]->getCountNotes();
     cout << "Notes in " << collections[0]->getCollectionName() << ": " << countNoteCollection1 << endl;
+     */
 
     return 0;
 }
@@ -204,10 +206,12 @@ tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> 
         for (Note* myCurrentNote : notes){
             if (myCurrentNote->getCollection() == oldNameCollection) {
                 myCurrentNote->editCollection("Default");
-                myCurrentNote->editCollectionSubject(col[0]);
+                myCurrentNote->assignNewCollectionSubj(myNewCollections[0]);
                 cout << "Updating the note: \n\t "
                      << " - " << myCurrentNote->getTitle()
-                     << " - " <<  myCurrentNote->getId() << endl;
+                     << " - " <<  myCurrentNote->getId()
+                     << " - Collection reset to " << myCurrentNote->getCollection()
+                     << endl;
             }
         }
 
