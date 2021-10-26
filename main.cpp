@@ -374,13 +374,13 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
             cout << "Type here your choice: " << endl;
             cin >> valueChoice;
         }
-        // Check if we can edit this note:
-        bool canEditNote = false;
-        canEditNote = myNewNotes[valueChoice]->getEditable();
-        if (canEditNote) {
+        // Check if we can delete this note:
+        bool canDeleteNote = false;
+        canDeleteNote = myNewNotes[valueChoice]->getEditable();
+        if (canDeleteNote) {
             string noteDeleted = myNewNotes[valueChoice]->getTitle();
-            myNewNotes.erase(myNewNotes.begin() + valueChoice);
             myNewNotes[valueChoice]->deleteNote();
+            myNewNotes.erase(myNewNotes.begin() + valueChoice);
             cout << "Completed! - \t" << noteDeleted << " deleted!" << endl;
         } else {
             cout << "You can't delete this note (not editable)" << endl;
