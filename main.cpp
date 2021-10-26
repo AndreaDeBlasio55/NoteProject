@@ -84,21 +84,14 @@ int main() {
         }
     }
 
-    /*
-    // Creating Subjects
-    //Collection* collection1 = new Collection("Monday");
 
-    // Creating Observers
-    Note* note1 = new Note(collections[0], "Note number 1", "First description for note 1", false);
-    Note* note2 = new Note(collections[0], "Note number 2", "Second description for note 2");
-    Note* note3 = new Note(collections[0], "Note number 3", "Thirs description for note 3");
-
-    //VideogameMapView* videoG1 = new VideogameMapView(gc1);
-    //videoG1->update();
-
-    int countNoteCollection1 = collections[0]->getCountNotes();
-    cout << "Notes in " << collections[0]->getCollectionName() << ": " << countNoteCollection1 << endl;
-     */
+    cout << "Summary Collections:" << endl;
+    int indexCollection = 0;
+    for (Collection* currentCollection : collections){
+        cout << "\tName: " << currentCollection[indexCollection].getCollectionName()
+        << "\t\t\t notes: " <<  currentCollection[indexCollection].getCountNotes()
+        << endl;
+    }
 
     return 0;
 }
