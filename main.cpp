@@ -6,6 +6,8 @@ using namespace std;
 #include <tuple>
 
 
+bool isNumber(string str);
+
 int choice1 ();         // Collection or Note
 // COLLECTIONS
 void readCollection(vector<Collection*> col);
@@ -31,7 +33,7 @@ int main() {
     int controllerCollectionOrNote = -1;
     bool controllerWhileCollectionNote = false;
 
-    int controllerReadCreateEdit = -1;
+    string controllerReadCreateEdit = "";
     bool controllerWhileReadCreateEdit = false;
 
 
@@ -51,36 +53,42 @@ int main() {
         cout << "\tWhat do you want to do?:" << endl;
         cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Delete \n\t\t4 - Go Back \n\t\t5 - Exit" << endl;
         cin >> controllerReadCreateEdit;
-        if (controllerReadCreateEdit == 0) {
-            if (controllerCollectionOrNote == 0) {
-                readCollection(collections);                               // Read Collections
+        if (isNumber(controllerReadCreateEdit)) {
+            if (controllerReadCreateEdit == "0") {
+                if (controllerCollectionOrNote == 0) {
+                    readCollection(collections);                               // Read Collections
+                } else {
+                    readNotes(notes);                                        // Read Notes
+                }
+            } else if (controllerReadCreateEdit == "1") {
+                if (controllerCollectionOrNote == 0) {
+                    collections.push_back(createCollection(collections));      // Create Collection
+                } else {
+                    notes.push_back(createNote(collections, notes));    // Create Note
+                }
+            } else if (controllerReadCreateEdit == "2") {
+                if (controllerCollectionOrNote == 0) {
+                    tie(collections, notes) = editCollection(collections, notes);                 // Edit Collection
+                } else {
+                    tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
+                }
+            } else if (controllerReadCreateEdit == "3") {
+                if (controllerCollectionOrNote == 0) {
+                    tie(collections, notes) = deleteCollection(collections, notes);
+                } else {
+                    tie(notes, collections) = deleteNote(notes,
+                                                         collections);                                 // Edit Note
+                }
+            } else if (controllerReadCreateEdit == "4") {
+                controllerCollectionOrNote = choice1();                             // Go Back
+            } else if (controllerReadCreateEdit == "5") {
+                controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
             } else {
-                readNotes(notes);                                        // Read Notes
+                cout << "Please type a valid input." << endl;
             }
-        } else if (controllerReadCreateEdit == 1) {
-            if (controllerCollectionOrNote == 0) {
-                collections.push_back(createCollection(collections));      // Create Collection
-            } else {
-                notes.push_back(createNote(collections,notes));    // Create Note
-            }
-        } else if (controllerReadCreateEdit == 2) {
-            if (controllerCollectionOrNote == 0) {
-                tie(collections, notes) = editCollection(collections, notes);                 // Edit Collection
-            } else {
-                tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
-            }
-        } else if (controllerReadCreateEdit == 3) {
-            if (controllerCollectionOrNote == 0) {
-                tie(collections, notes) = deleteCollection(collections, notes);
-            } else {
-                tie(notes, collections) = deleteNote(notes, collections);                                 // Edit Note
-            }
-        } else if (controllerReadCreateEdit == 4) {
-            controllerCollectionOrNote = choice1();                             // Go Back
-        } else if (controllerReadCreateEdit == 5) {
-            controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
         } else {
             cout << "Please type a valid input." << endl;
+            controllerReadCreateEdit = "";
         }
     }
 
@@ -109,21 +117,33 @@ int main() {
     return 0;
 }
 
-// First Question
-int choice1 (){
-    int value = 0;
-    cout << "Start working with: \n\t0 - Collections \n\t1 - Notes" << endl;
-    cin >> value;
-    if (value == 0){
-        cout << "Great! Let's start working on Collections" << endl;
-    } else if (value == 1){
-        cout << "Great! Let's start working on Notes" << endl;
-    } else {
-        cout << "Please type a valid input... Try again!" << endl;
-    }
-    return value;
+
+bool isNumber(string str) {
+    for (int i = 0; i < str.length(); i++)
+        if (isdigit(str[i]) == false)
+            return false;
+    return true;
 }
 
+// First Question
+int choice1 (){
+    string value = "";
+    cout << "Start working with: \n\t0 - Collections \n\t1 - Notes" << endl;
+    cin >> value;
+    if (isNumber(value)) {
+        if (value == "0") {
+            cout << "Great! Let's start working on Collections" << endl;
+        } else if (value == "1") {
+            cout << "Great! Let's start working on Notes" << endl;
+        } else {
+            cout << "Please type a valid input... Try again!" << endl;
+        }
+    } else {
+        cout << "Please type a valid input... Try again!" << endl;
+        value = "2";  // -> invalid input
+    }
+    return stoi(value);;
+}
 // COLLECTIONS
 // __________ READ ____________________________
 void readCollection (vector<Collection*> collections) {
