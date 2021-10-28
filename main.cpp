@@ -51,44 +51,40 @@ int main() {
     // Second Question - READ CREATE EDIT
     while (!controllerWhileReadCreateEdit) {
         cout << "\tWhat do you want to do?:" << endl;
-        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Delete \n\t\t4 - Go Back \n\t\t5 - Exit" << endl;
+        cout << "\t\t0 - Read \n\t\t1 - Create \n\t\t2 - Edit \n\t\t3 - Delete \n\t\t4 - Go Back \n\t\t5 - Exit"
+             << endl;
         cin >> controllerReadCreateEdit;
-        if (isNumber(controllerReadCreateEdit)) {
-            if (controllerReadCreateEdit == "0") {
-                if (controllerCollectionOrNote == 0) {
-                    readCollection(collections);                               // Read Collections
-                } else {
-                    readNotes(notes);                                        // Read Notes
-                }
-            } else if (controllerReadCreateEdit == "1") {
-                if (controllerCollectionOrNote == 0) {
-                    collections.push_back(createCollection(collections));      // Create Collection
-                } else {
-                    notes.push_back(createNote(collections, notes));    // Create Note
-                }
-            } else if (controllerReadCreateEdit == "2") {
-                if (controllerCollectionOrNote == 0) {
-                    tie(collections, notes) = editCollection(collections, notes);                 // Edit Collection
-                } else {
-                    tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
-                }
-            } else if (controllerReadCreateEdit == "3") {
-                if (controllerCollectionOrNote == 0) {
-                    tie(collections, notes) = deleteCollection(collections, notes);
-                } else {
-                    tie(notes, collections) = deleteNote(notes,
-                                                         collections);                                 // Edit Note
-                }
-            } else if (controllerReadCreateEdit == "4") {
-                controllerCollectionOrNote = choice1();                             // Go Back
-            } else if (controllerReadCreateEdit == "5") {
-                controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
+        if (controllerReadCreateEdit == "0") {
+            if (controllerCollectionOrNote == 0) {
+                readCollection(collections);                               // Read Collections
             } else {
-                cout << "Please type a valid input." << endl;
+                readNotes(notes);                                        // Read Notes
             }
+        } else if (controllerReadCreateEdit == "1") {
+            if (controllerCollectionOrNote == 0) {
+                collections.push_back(createCollection(collections));      // Create Collection
+            } else {
+                notes.push_back(createNote(collections, notes));    // Create Note
+            }
+        } else if (controllerReadCreateEdit == "2") {
+            if (controllerCollectionOrNote == 0) {
+                tie(collections, notes) = editCollection(collections, notes);                 // Edit Collection
+            } else {
+                tie(notes, collections) = editNote(notes, collections);                                 // Edit Note
+            }
+        } else if (controllerReadCreateEdit == "3") {
+            if (controllerCollectionOrNote == 0) {
+                tie(collections, notes) = deleteCollection(collections, notes);
+            } else {
+                tie(notes, collections) = deleteNote(notes,
+                                                     collections);                                 // Edit Note
+            }
+        } else if (controllerReadCreateEdit == "4") {
+            controllerCollectionOrNote = choice1();                             // Go Back
+        } else if (controllerReadCreateEdit == "5") {
+            controllerWhileReadCreateEdit = true;                               // TERMINATE PROGRAM
         } else {
             cout << "Please type a valid input." << endl;
-            controllerReadCreateEdit = "";
         }
     }
 
@@ -163,40 +159,54 @@ Collection* createCollection (vector<Collection*> col) {
 }
 // _________ EDIT _____________________________
 tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes) {
-    vector<Collection*> myNewCollections;
+    vector<Collection *> myNewCollections;
     string oldNameCollection = "";       // to update the notes in that collection
     cout << "Fetching Collections..." << endl;
-    if (col.size() == 0){
-        cout << "There is no Collection to edit." << endl;
+
+    int indexFor = 0;
+    string valueChoice = "";
+    bool validateWhile = false;
+    int valueChoiceInt = 0;
+    cout << "Please select one of these collections: " << endl;
+    for (Collection *myCollection: col) {
+        myNewCollections.push_back(myCollection);
+        cout << "\t" << indexFor << " - " << myCollection->getCollectionName() << endl;
+        indexFor++;
+    }
+    if (col.size() == 1) {
+        cout << "There is only the collection:\n\t0 - Default \n so you can't edit this one." << endl;
     } else {
-        int indexFor = 0;
-        int valueChoice = -1;
-        cout << "Please select one of these collections: " << endl;
-        for (Collection *myCollection: col) {
-            myNewCollections.push_back(myCollection);
-            cout << "\t" << indexFor << " - " << myCollection->getCollectionName() << endl;
-            indexFor++;
+        cout << "Type here: " << endl;
+        cin >> valueChoice;
+        while (validateWhile == false) {
+            if (isNumber(valueChoice)) {
+                valueChoiceInt = stoi(valueChoice);
+                if (valueChoiceInt > 1 && valueChoiceInt <= col.size()) {
+                    validateWhile = true;
+                } else {
+                    cout << "Please type a value in this range: ( 1 - " << col.size() - 1 << " )" << endl;
+                    cin >> valueChoice;
+                }
+            } else {
+                cout << "Please type a value in this range: ( 1 - " << col.size() - 1 << " )" << endl;
+                cin >> valueChoice;
+            }
         }
-        while (valueChoice < 0 || valueChoice > col.size()) {
-            cout << "Type here: " << endl;
-            cin >> valueChoice;
-        }
-        oldNameCollection = myNewCollections[valueChoice]->getCollectionName();
-        cout << "Type the new name of the collection: " << endl;
+        oldNameCollection = myNewCollections[valueChoiceInt]->getCollectionName();
+        cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
         string newNameCollection = "";
         cin >> newNameCollection;
-        col[valueChoice]->setCollectionName(newNameCollection);
+        col[valueChoiceInt]->setCollectionName(newNameCollection);
 
         // Updating all Notes:
-        for (Note* myCurrentNote : notes){
+        for (Note *myCurrentNote: notes) {
             if (myCurrentNote->getCollection() == oldNameCollection) {
                 myCurrentNote->editCollection(newNameCollection);
                 cout << "Updating the note: \n\t "
-                << " - " << myCurrentNote->getTitle()
-                << " - " <<  myCurrentNote->getId() << endl;
+                     << " - " << myCurrentNote->getTitle()
+                     << " - " << myCurrentNote->getId() << endl;
             }
         }
-
         cout << "Completed!" << endl;
     }
     return make_tuple(myNewCollections, notes);
