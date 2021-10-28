@@ -289,19 +289,27 @@ Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     string title = "";
     string description = "";
     string collection = "Default";
-    int editableInt = -1;
+    string editableStr = "0";
     bool editable = false;
+    bool validateWhile = false;
 
     cout << "Type the title: " << endl;
     cin >> title;
     cout << "Type the description: " << endl;
     cin >> description;
     cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
-    cin >> editableInt;
-    if (editableInt == 0){
-        editable = false;
-    } else {
-        editable = true;
+    cin >> editableStr;
+    while (validateWhile == false) {
+        if (editableStr == "0") {
+            editable = false;
+            validateWhile = true;
+        } else if (editableStr == "1") {
+            editable = true;
+            validateWhile = true;
+        } else {
+            cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
+            cin >> editableStr;
+        }
     }
 
     Note* newNote = new Note(collections[0], title, description, editable);
