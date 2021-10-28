@@ -181,7 +181,7 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
         while (validateWhile == false) {
             if (isNumber(valueChoice)) {
                 valueChoiceInt = stoi(valueChoice);
-                if (valueChoiceInt > 1 && valueChoiceInt <= col.size()) {
+                if (valueChoiceInt >= 1 && valueChoiceInt < col.size()) {
                     validateWhile = true;
                 } else {
                     cout << "Please type a value in this range: ( 1 - " << col.size() - 1 << " )" << endl;
@@ -215,42 +215,52 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
 tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> col, vector<Note*> notes) {
     vector<Collection*> myNewCollections;
     string oldNameCollection = "";       // to update the notes in that collection
+    int valueChoiceInt = 0;
     cout << "Fetching Collections..." << endl;
-    if (col.size() == 0){
+    int indexFor = 0;
+    string valueChoice = "";
+    bool validateWhile = false;
+    cout << "Please select one of these collections: " << endl;
+    for (Collection *myCollection: col) {
+        myNewCollections.push_back(myCollection);
+        cout << "\t" << indexFor << " - " << myCollection->getCollectionName() << endl;
+        indexFor++;
+    }
+    if (col.size() <= 1){
         cout << "There is no Collection to edit." << endl;
     } else {
-        int indexFor = 0;
-        int valueChoice = -1;
-        cout << "Please select one of these collections: " << endl;
-        for (Collection *myCollection: col) {
-            myNewCollections.push_back(myCollection);
-            cout << "\t" << indexFor << " - " << myCollection->getCollectionName() << endl;
-            indexFor++;
+        cout << "Type here: " << endl;
+        cin >> valueChoice;
+        while (validateWhile == false) {
+            if (isNumber(valueChoice)) {
+                valueChoiceInt = stoi(valueChoice);
+                if (valueChoiceInt == 0){
+                    cout << "You can't delete the Default collection" << endl;
+                } else if (valueChoiceInt >= 1 && valueChoiceInt < col.size()) {
+                    oldNameCollection = myNewCollections[valueChoiceInt]->getCollectionName();
+                    myNewCollections.erase(myNewCollections.begin() + valueChoiceInt);
+                    validateWhile = true;
+                } else {
+                    cout << "Please type a value in this range: ( 1 - " << col.size() - 1 << " )" << endl;
+                    cin >> valueChoice;
+                }
+            } else {
+                cout << "Please type a value in this range: ( 1 - " << col.size() - 1 << " )" << endl;
+                cin >> valueChoice;
+            }
         }
-        while (valueChoice < 0 || valueChoice > col.size()) {
-            cout << "Type here: " << endl;
-            cin >> valueChoice;
-        }
-        if (valueChoice > 0) {
-            oldNameCollection = myNewCollections[valueChoice]->getCollectionName();
-            myNewCollections.erase(myNewCollections.begin() + valueChoice);
-        } else {
-            cout << "You can't delete the Default collection" << endl;
-        }
-
         // Updating all Notes:
-        for (Note* myCurrentNote : notes){
+        for (Note *myCurrentNote: notes) {
             if (myCurrentNote->getCollection() == oldNameCollection) {
                 myCurrentNote->editCollection("Default");
                 myCurrentNote->assignNewCollectionSubj(myNewCollections[0]);
                 cout << "Updating the note: \n\t "
                      << " - " << myCurrentNote->getTitle()
-                     << " - " <<  myCurrentNote->getId()
+                     << " - " << myCurrentNote->getId()
                      << " - Collection reset to " << myCurrentNote->getCollection()
                      << endl;
             }
         }
-
         cout << "Completed!" << endl;
     }
     return make_tuple(myNewCollections, notes);
