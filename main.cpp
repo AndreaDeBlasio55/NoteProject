@@ -462,12 +462,14 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
 tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vector<Collection*> collections) {
     cout << boolalpha << endl;
     vector<Note *> myNewNotes;
+    bool validateWhile = false;
     cout << "Fetching Notes..." << endl;
     if (notes.size() == 0) {
         cout << "There is no Note to delete." << endl;
     } else {
         int indexFor = 0;
         int valueChoice = -1;
+        string valueChoiceStr = "-1";
         cout << "Please select one of these notes: " << endl;
         for (Note *myNote: notes) {
             myNewNotes.push_back(myNote);
@@ -480,9 +482,20 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
                  << endl;
             indexFor++;
         }
-        while (valueChoice < 0 || valueChoice > notes.size()) {
-            cout << "Type here your choice: " << endl;
-            cin >> valueChoice;
+        cin >> valueChoiceStr;
+        while (validateWhile == false) {
+            if (isNumber(valueChoiceStr)) {
+                valueChoice = stoi(valueChoiceStr);
+                if (valueChoice >= 0 && valueChoice < notes.size()) {
+                    validateWhile = true;
+                } else {
+                   cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                    cin >> valueChoiceStr;
+                }
+            } else {
+                cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                cin >> valueChoiceStr;
+            }
         }
         // Check if we can delete this note:
         bool canDeleteNote = false;
@@ -491,7 +504,7 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
             string noteDeleted = myNewNotes[valueChoice]->getTitle();
             myNewNotes[valueChoice]->deleteNote();
             myNewNotes.erase(myNewNotes.begin() + valueChoice);
-            cout << "Completed! - \t" << noteDeleted << " deleted!" << endl;
+            cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
         } else {
             cout << "You can't delete this note (not editable)" << endl;
         }
