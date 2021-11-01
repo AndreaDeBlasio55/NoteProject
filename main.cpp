@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Headers/Note.h"
 #include <fstream>
 using namespace std;
@@ -21,6 +22,7 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
 tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vector<Collection*> collections);
 
 int main() {
+
     // --- COLLECTIONS ---
     vector<Collection *> collections;
     // Init collections with the Default Collection
@@ -296,7 +298,8 @@ Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     cout << "Type the title: " << endl;
     cin >> title;
     cout << "Type the description: " << endl;
-    cin >> description;
+    cin.ignore();
+    getline(cin, description);
     cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
     cin >> editableStr;
     while (validateWhile == false) {
@@ -390,7 +393,8 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
                         cout << "Please type the new DESCRIPTION: ( " << myNewNotes[valueChoice]->getDescription()
                              << " )"
                              << endl;
-                        cin >> description;
+                        cin.ignore();
+                        getline(cin, description);
                         myNewNotes[valueChoice]->editDescription(description);
                         validateWhile2 = true;
                     } else if (valueNoteEdit == 2) {
