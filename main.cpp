@@ -40,7 +40,7 @@ int main() {
 
 
     // First Question: Working on Collection or Note
-    controllerCollectionOrNote = choice1();
+//    controllerCollectionOrNote = choice1();
     while (!controllerWhileCollectionNote) {
         if (controllerCollectionOrNote != 0 && controllerCollectionOrNote != 1) {
             controllerCollectionOrNote = choice1();
@@ -78,8 +78,7 @@ int main() {
             if (controllerCollectionOrNote == 0) {
                 tie(collections, notes) = deleteCollection(collections, notes);
             } else {
-                tie(notes, collections) = deleteNote(notes,
-                                                     collections);                                 // Edit Note
+                tie(notes, collections) = deleteNote(notes,collections);                                 // Edit Note
             }
         } else if (controllerReadCreateEdit == "4") {
             controllerCollectionOrNote = choice1();                             // Go Back
@@ -127,20 +126,25 @@ bool isNumber(string str) {
 int choice1 (){
     string value = "";
     cout << "Start working with: \n\t0 - Collections \n\t1 - Notes" << endl;
-    cin >> value;
-    if (isNumber(value)) {
-        if (value == "0") {
-            cout << "Great! Let's start working on Collections" << endl;
-        } else if (value == "1") {
-            cout << "Great! Let's start working on Notes" << endl;
+    bool validInput = false;
+    while (!validInput) {
+        cin >> value;
+        if (isNumber(value)) {
+            if (value == "0") {
+                cout << "Great! Let's start working on Collections" << endl;
+                validInput = true;
+            } else if (value == "1") {
+                cout << "Great! Let's start working on Notes" << endl;
+                validInput = true;
+            } else {
+                cout << "Please type a valid input... Try again! Range: 0 - 1" << endl;
+            }
         } else {
-            cout << "Please type a valid input... Try again!" << endl;
+            cout << "Please type a valid input... Try again! Range: 0 - 1" << endl;
+            value = "2";  // -> invalid input
         }
-    } else {
-        cout << "Please type a valid input... Try again!" << endl;
-        value = "2";  // -> invalid input
     }
-    return stoi(value);;
+    return stoi(value);
 }
 // COLLECTIONS
 // __________ READ ____________________________
@@ -154,7 +158,8 @@ void readCollection (vector<Collection*> collections) {
 Collection* createCollection (vector<Collection*> col) {
     string collectionName = "";
     cout << "Type the name of the collection. " << endl;
-    cin >> collectionName;
+    cin.ignore();
+    getline(cin, collectionName);
     Collection* newCol = new Collection(collectionName);
     cout << "Collection name is: " << newCol->getCollectionName() << endl;
     return newCol;
@@ -197,7 +202,8 @@ tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> co
         oldNameCollection = myNewCollections[valueChoiceInt]->getCollectionName();
         cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
         string newNameCollection = "";
-        cin >> newNameCollection;
+        cin.ignore();
+        getline(cin, newNameCollection);
         col[valueChoiceInt]->setCollectionName(newNameCollection);
 
         // Updating all Notes:
@@ -296,7 +302,8 @@ Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     bool validateWhile = false;
 
     cout << "Type the title: " << endl;
-    cin >> title;
+    cin.ignore();
+    getline(cin, title);
     cout << "Type the description: " << endl;
     cin.ignore();
     getline(cin, description);
@@ -386,7 +393,8 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
                     valueNoteEdit = stoi(valueNoteEditStr);
                     if (valueNoteEdit == 0) {
                         cout << "Please type the new TITLE: ( " << myNewNotes[valueChoice]->getTitle() << " )" << endl;
-                        cin >> title;
+                        cin.ignore();
+                        getline(cin, title);
                         myNewNotes[valueChoice]->editTitle(title);
                         validateWhile2 = true;
                     } else if (valueNoteEdit == 1) {
@@ -400,7 +408,8 @@ tuple<vector<Note*>, vector<Collection*>> editNote (vector<Note*> notes, vector<
                     } else if (valueNoteEdit == 2) {
                         cout << "Please type the new COLLECTION: ( " << myNewNotes[valueChoice]->getCollection() << " )"
                              << endl;
-                        cin >> collection;
+                        cin.ignore();
+                        getline(cin, collection);
                         bool addNewCollection = true;
                         int indexCollection = 0;
                         int indexOfOldCollection = 0;
