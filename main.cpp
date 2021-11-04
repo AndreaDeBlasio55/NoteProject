@@ -12,7 +12,7 @@ bool isNumber(string str);
 int choice1 ();         // Collection or Note
 // COLLECTIONS
 void readCollection(vector<Collection*> col);
-Collection* createCollection (vector<Collection*> col);
+tuple<vector<Collection*>, bool> createCollection (vector<Collection*> col);
 tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes);
 tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> col, vector<Note*> notes);
 // NOTES
@@ -64,7 +64,11 @@ int main() {
             }
         } else if (controllerReadCreateEdit == "1") {
             if (controllerCollectionOrNote == 0) {
-                collections.push_back(createCollection(collections));      // Create Collection
+                bool isNewCollection = true;
+                tie(collections, isNewCollection) = createCollection(collections);                 // Edit Collection
+                if (!isNewCollection){
+                    collections.pop_back();
+                }
             } else {
                 notes.push_back(createNote(collections, notes));    // Create Note
             }
@@ -155,14 +159,22 @@ void readCollection (vector<Collection*> collections) {
     }
 }
 // _________ CREATE ___________________________
-Collection* createCollection (vector<Collection*> col) {
+tuple<vector<Collection*>, bool> createCollection (vector<Collection*> col) {
     string collectionName = "";
+    bool isNewCollection = true;
     cout << "Type the name of the collection. " << endl;
     cin.ignore();
     getline(cin, collectionName);
+    for (int i=0; i<col.size(); i++){
+        if (collectionName == col[i]->getCollectionName()){
+            cout << "This name is already taken, try another name." << endl;
+            isNewCollection = false;
+        }
+    }
     Collection* newCol = new Collection(collectionName);
     cout << "Collection name is: " << newCol->getCollectionName() << endl;
-    return newCol;
+    col.push_back(newCol);
+    return make_tuple(col, isNewCollection);
 }
 // _________ EDIT _____________________________
 tuple<vector<Collection*>, vector<Note*>> editCollection (vector<Collection*> col, vector<Note*> notes) {
@@ -235,7 +247,7 @@ tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> 
         indexFor++;
     }
     if (col.size() <= 1){
-        cout << "There is no Collection to edit." << endl;
+        cout << "There is no Collection to delete." << endl;
     } else {
         cout << "Type here: " << endl;
         cin >> valueChoice;
@@ -244,6 +256,7 @@ tuple<vector<Collection*>, vector<Note*>> deleteCollection (vector<Collection*> 
                 valueChoiceInt = stoi(valueChoice);
                 if (valueChoiceInt == 0){
                     cout << "You can't delete the Default collection" << endl;
+                    validateWhile = true;
                 } else if (valueChoiceInt >= 1 && valueChoiceInt < col.size()) {
                     oldNameCollection = myNewCollections[valueChoiceInt]->getCollectionName();
                     myNewCollections.erase(myNewCollections.begin() + valueChoiceInt);
@@ -295,17 +308,17 @@ void readNotes (vector<Note*> notes) {
 // _________ CREATE ___________________________
 Note* createNote (vector<Collection*> collections, vector<Note*> notes) {
     string title = "";
-    string description = "";
+    string description = " ";
     string collection = "Default";
     string editableStr = "0";
     bool editable = false;
     bool validateWhile = false;
 
-    cout << "Type the title: " << endl;
+    cout << "Type the title:" << endl;
     cin.ignore();
     getline(cin, title);
-    cout << "Type the description: " << endl;
-    cin.ignore();
+    cout << "Type the description:" << endl;
+    //cin.ignore();
     getline(cin, description);
     cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
     cin >> editableStr;
