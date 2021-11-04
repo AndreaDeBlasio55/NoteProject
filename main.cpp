@@ -172,7 +172,6 @@ tuple<vector<Collection*>, bool> createCollection (vector<Collection*> col) {
         }
     }
     Collection* newCol = new Collection(collectionName);
-    cout << "Collection name is: " << newCol->getCollectionName() << endl;
     col.push_back(newCol);
     return make_tuple(col, isNewCollection);
 }
