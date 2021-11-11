@@ -150,6 +150,7 @@ int choice1 (){
     }
     return stoi(value);
 }
+// todo: collections methods need to be inside CollectionView Class
 // COLLECTIONS
 // __________ READ ____________________________
 void readCollection (vector<Collection*> collections) {

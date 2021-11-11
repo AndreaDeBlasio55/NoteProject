@@ -9,6 +9,7 @@
 #include "NoteNew.h"
 #include <iostream>
 #include <list>
+#include <vector>
 using namespace std;
 
 class CollectionNew : public Subject {
@@ -22,9 +23,14 @@ public:
 
     // SETTER
     void editCollectionName(string name);
+
     // GETTER
     string getCollectionName () const;
     int getCountNotes() const;
+
+    // NOTES METHODS
+    void readNotes () const;
+    void createNote ();
 
 private:
     string name;
