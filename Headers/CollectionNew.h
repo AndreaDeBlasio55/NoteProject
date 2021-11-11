@@ -9,7 +9,8 @@
 #include "NoteNew.h"
 #include <list>
 #include <iostream>
-#include "vector"
+#include <string>
+#include <vector>
 using namespace std;
 
 class CollectionNew : public Subject {
@@ -45,7 +46,7 @@ public:
 private:
     string name;
     bool editable;
-    vector<NoteNew *> notes;
+    std::vector<NoteNew *> notes;
     list <Observer*> observerNote;
 
     int indexNote;

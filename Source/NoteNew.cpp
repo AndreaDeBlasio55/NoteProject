@@ -1,7 +1,7 @@
 
 #include <iostream>
-#include "../Headers/NoteNew.h"
-#include <string>
+#include "../Headers/CollectionNew.h"
+#include <vector>
 using namespace std;
 
 // CONSTRUCTOR
