@@ -120,9 +120,8 @@ void CollectionNew::createNote () {
     cout << "Success! Note created" << endl;
 }
 // -------------- EDIT --------------
-void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collections) {
+void CollectionNew::editNote () {
     cout << boolalpha << endl;
-    vector<Note *> myNewNotes;
     bool validateWhile = false;
     bool validateWhile2 = false;
     bool validateWhile3 = false;
@@ -131,19 +130,16 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
     if (notes.size() == 0) {
         cout << "There is no Note to edit." << endl;
     } else {
-        int indexFor = 0;
         int valueChoice = -1;
         cout << "Please select one of these notes: " << endl;
-        for (Note *myNote: notes) {
-            myNewNotes.push_back(myNote);
-            cout << "\t" << indexFor << " - Id: " << myNote->getId()
-                 << "\t Title: " << myNote->getTitle()
-                 << "\t\tDescription: " << myNote->getDescription()
-                 << "\t\tCollection: " << myNote->getCollection()
-                 << "\t\tImportant: " << myNote->getImportant()
-                 << "\t\tEditable: " << myNote->getEditable()
+        for (int i=0; i<notes.size(); i++) {
+            cout << "\t" << i << " - Id: " << notes[i]->getId()
+                 << "\t Title: " << notes[i]->getTitle()
+                 << "\t\tDescription: " << notes[i]->getDescription()
+                 << "\t\tCollection: " << notes[i]->getCollection()
+                 << "\t\tImportant: " << notes[i]->getImportant()
+                 << "\t\tEditable: " << notes[i]->getEditable()
                  << endl;
-            indexFor++;
         }
         // Select the note
         cin >> valueChoiceStr;
@@ -164,7 +160,7 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
         }
         // Check if we can edit this note:
         bool canEditNote = false;
-        canEditNote = myNewNotes[valueChoice]->getEditable();
+        canEditNote = notes[valueChoice]->getEditable();
         if (canEditNote) {
             cout << "What do you want to edit: "
                  << "\n\t0 - Title "
@@ -185,28 +181,30 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
                 if (isNumber(valueNoteEditStr)) {
                     valueNoteEdit = stoi(valueNoteEditStr);
                     if (valueNoteEdit == 0) {
-                        cout << "Please type the new TITLE: ( " << myNewNotes[valueChoice]->getTitle() << " )" << endl;
+                        cout << "Please type the new TITLE: ( " << notes[valueChoice]->getTitle() << " )" << endl;
                         cin.ignore();
                         getline(cin, title);
-                        myNewNotes[valueChoice]->editTitle(title);
+                        notes[valueChoice]->editTitle(title);
                         validateWhile2 = true;
                     } else if (valueNoteEdit == 1) {
-                        cout << "Please type the new DESCRIPTION: ( " << myNewNotes[valueChoice]->getDescription()
+                        cout << "Please type the new DESCRIPTION: ( " << notes[valueChoice]->getDescription()
                              << " )"
                              << endl;
                         cin.ignore();
                         getline(cin, description);
-                        myNewNotes[valueChoice]->editDescription(description);
+                        notes[valueChoice]->editDescription(description);
                         validateWhile2 = true;
-                    } else if (valueNoteEdit == 2) {
-                        cout << "Please type the new COLLECTION: ( " << myNewNotes[valueChoice]->getCollection() << " )"
+                    }
+                    /* todo: how to change collection without getting other collection?
+                    else if (valueNoteEdit == 2) {
+                        cout << "This note is inside: ( " << name << " )"
                              << endl;
                         cin.ignore();
                         getline(cin, collection);
                         bool addNewCollection = true;
                         int indexCollection = 0;
                         int indexOfOldCollection = 0;
-                        for (Collection *searchColl: collections) {
+                        for (CollectionNew *searchColl: collections) {
                             if (searchColl->getCollectionName() == collection) {
                                 addNewCollection = false;
                                 indexOfOldCollection = indexCollection;
@@ -223,9 +221,10 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
                             myNewNotes[valueChoice]->assignNewCollectionSubj(oldCollectionNoNewName);
                         }
                         myNewNotes[valueChoice]->editCollection(collection);
+                        */
                         validateWhile2 = true;
                     } else if (valueNoteEdit == 3) {
-                        cout << "Please type the new IMPORTANT: " << myNewNotes[valueChoice]->getImportant()
+                        cout << "Please type the new IMPORTANT: " << notes[valueChoice]->getImportant()
                              << "\n\t0 - false \n\t1 - true " << endl;
                         string importantStr = "";
                         cin >> importantStr;
@@ -247,7 +246,7 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
                                 cin >> importantStr;
                             }
                         }
-                        myNewNotes[valueChoice]->editImportant(importantBool);
+                        notes[valueChoice]->editImportant(importantBool);
                         validateWhile2 = true;
                     } else {
                         cout << "Please type a valid input!" << endl;
@@ -262,5 +261,11 @@ void CollectionNew::editNote (vector<Note*> notes, vector<Collection*> collectio
             cout << "This note is not Editable" << endl;
         }
     }
-    return make_tuple(myNewNotes, collections);
+}
+
+bool CollectionNew::isNumber(string str) {
+    for (int i = 0; i < str.length(); i++)
+        if (isdigit(str[i]) == false)
+            return false;
+    return true;
 }
