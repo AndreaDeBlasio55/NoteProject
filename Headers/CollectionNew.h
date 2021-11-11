@@ -28,9 +28,12 @@ public:
     string getCollectionName () const;
     int getCountNotes() const;
 
+    // CONTROLLER
+    bool isNumber(string isNumber);
     // NOTES METHODS
     void readNotes () const;
     void createNote ();
+    void editNote ();
 
 private:
     string name;
