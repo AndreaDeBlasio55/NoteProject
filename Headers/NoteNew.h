@@ -29,9 +29,14 @@ public:
     bool getEditable () const;
     bool getImportant () const;
 
+    // SETTERS
+    void editTitle (string title);
+    void editDescription (string description);
+    void editImportant (bool important);
+    void editCollection (string collection);
 
     // DESTRUCTOR
-    ~NoteNew() override= default;
+    ~NoteNew();
 private:
     int noteId;
     string collection;

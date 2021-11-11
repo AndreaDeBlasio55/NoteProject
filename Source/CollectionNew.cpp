@@ -9,6 +9,7 @@
 
 #include <list>
 #include "../Headers/CollectionNew.h"
+#include <vector>
 using namespace std;
 
 CollectionNew::CollectionNew(string name, bool editable) {
@@ -132,7 +133,7 @@ void CollectionNew::editNote () {
     } else {
         int valueChoice = -1;
         cout << "Please select one of these notes: " << endl;
-        for (int i=0; i<notes.size(); i++) {
+        for (int i = 0; i < notes.size(); i++) {
             cout << "\t" << i << " - Id: " << notes[i]->getId()
                  << "\t Title: " << notes[i]->getTitle()
                  << "\t\tDescription: " << notes[i]->getDescription()
@@ -195,35 +196,36 @@ void CollectionNew::editNote () {
                         notes[valueChoice]->editDescription(description);
                         validateWhile2 = true;
                     }
-                    /* todo: how to change collection without getting other collection?
-                    else if (valueNoteEdit == 2) {
-                        cout << "This note is inside: ( " << name << " )"
-                             << endl;
-                        cin.ignore();
-                        getline(cin, collection);
-                        bool addNewCollection = true;
-                        int indexCollection = 0;
-                        int indexOfOldCollection = 0;
-                        for (CollectionNew *searchColl: collections) {
-                            if (searchColl->getCollectionName() == collection) {
-                                addNewCollection = false;
-                                indexOfOldCollection = indexCollection;
+                        /* todo: how to change collection without getting other collection?
+                        else if (valueNoteEdit == 2) {
+                            cout << "This note is inside: ( " << name << " )"
+                                 << endl;
+                            cin.ignore();
+                            getline(cin, collection);
+                            bool addNewCollection = true;
+                            int indexCollection = 0;
+                            int indexOfOldCollection = 0;
+                            for (CollectionNew *searchColl: collections) {
+                                if (searchColl->getCollectionName() == collection) {
+                                    addNewCollection = false;
+                                    indexOfOldCollection = indexCollection;
+                                }
+                                indexCollection++;
                             }
-                            indexCollection++;
-                        }
-                        // add new collection if it doesn't exist
-                        Collection *newCollection = new Collection(collection);
-                        if (addNewCollection == true) {
-                            collections.push_back(newCollection);
-                            myNewNotes[valueChoice]->assignNewCollectionSubj(newCollection);
-                        } else {
-                            Collection *oldCollectionNoNewName = collections[indexOfOldCollection];
-                            myNewNotes[valueChoice]->assignNewCollectionSubj(oldCollectionNoNewName);
-                        }
-                        myNewNotes[valueChoice]->editCollection(collection);
-                        */
+                            // add new collection if it doesn't exist
+                            Collection *newCollection = new Collection(collection);
+                            if (addNewCollection == true) {
+                                collections.push_back(newCollection);
+                                myNewNotes[valueChoice]->assignNewCollectionSubj(newCollection);
+                            } else {
+                                Collection *oldCollectionNoNewName = collections[indexOfOldCollection];
+                                myNewNotes[valueChoice]->assignNewCollectionSubj(oldCollectionNoNewName);
+                            }
+                            myNewNotes[valueChoice]->editCollection(collection);
                         validateWhile2 = true;
-                    } else if (valueNoteEdit == 3) {
+                    }
+                         */
+                    else if (valueNoteEdit == 3) {
                         cout << "Please type the new IMPORTANT: " << notes[valueChoice]->getImportant()
                              << "\n\t0 - false \n\t1 - true " << endl;
                         string importantStr = "";
@@ -262,7 +264,86 @@ void CollectionNew::editNote () {
         }
     }
 }
+void CollectionNew::deleteNote () {
+    cout << boolalpha << endl;
+    bool validateWhile = false;
+    cout << "Fetching Notes..." << endl;
+    if (notes.size() == 0) {
+        cout << "There are no notes to delete" << endl;
+    } else {
+        int indexFor = 0;
+        int valueChoice = -1;
+        string valueChoiceStr = "-1";
+        cout << "Please select one of these notes: " << endl;
+        for (int i=0; i<notes.size(); i++) {
+            cout << "\t" << indexFor << " - Id: " << notes[i]->getId()
+                 << "\t Title: " << notes[i]->getTitle()
+                 << "\t\tDescription: " << notes[i]->getDescription()
+                 << "\t\tCollection: " << notes[i]->getCollection()
+                 << "\t\tImportant: " << notes[i]->getImportant()
+                 << "\t\tEditable: " << notes[i]->getEditable()
+                 << endl;
+            indexFor++;
+        }
+        cin >> valueChoiceStr;
+        while (validateWhile == false) {
+            if (isNumber(valueChoiceStr)) {
+                valueChoice = stoi(valueChoiceStr);
+                if (valueChoice >= 0 && valueChoice < notes.size()) {
+                    validateWhile = true;
+                } else {
+                    cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                    cin >> valueChoiceStr;
+                }
+            } else {
+                cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                cin >> valueChoiceStr;
+            }
+        }
+        // Check if we can delete this note:
+        bool canDeleteNote = false;
+        canDeleteNote = notes[valueChoice]->getEditable();
+        if (canDeleteNote) {
+            string noteDeleted = notes[valueChoice]->getTitle();
+            notes.erase(notes.begin() + valueChoice);
+            cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
+        } else {
+            cout << "You can't delete this note (not editable)" << endl;
+        }
+    }
+}
 
+// SINGLE NOTE METHODS
+void CollectionNew::editTitle(int indexNote, string title){
+    if (notes[indexNote]->getEditable()) {
+        notes[indexNote]->editTitle(title);
+    } else {
+        cout << "Edit title failed: This note is not editable..." << endl;
+    }
+}
+void CollectionNew::editDescription(int indexNote, string description){
+    if (notes[indexNote]->getEditable()) {
+        notes[indexNote]->editDescription(description);
+    } else {
+        cout << "Edit title failed: This note is not editable..." << endl;
+    }
+}
+void CollectionNew::editCollection(int indexNote, string collection){
+    if (notes[indexNote]->getEditable()) {
+        notes[indexNote]->editCollection(collection);
+    } else {
+        cout << "Edit title failed: This note is not editable..." << endl;
+    }
+}
+void CollectionNew::editImportant(int indexNote, bool important) {
+    if (notes[indexNote]->getEditable()) {
+        notes[indexNote]->editImportant(important);
+    } else {
+        cout << "Edit title failed: This note is not editable..." << endl;
+    }
+}
+// ---------------------------------------------
+// HELPERS
 bool CollectionNew::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
         if (isdigit(str[i]) == false)

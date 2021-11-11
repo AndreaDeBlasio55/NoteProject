@@ -7,9 +7,9 @@
 
 #include "Subject.h"
 #include "NoteNew.h"
-#include <iostream>
 #include <list>
-#include <vector>
+#include <iostream>
+#include "vector"
 using namespace std;
 
 class CollectionNew : public Subject {
@@ -28,18 +28,31 @@ public:
     string getCollectionName () const;
     int getCountNotes() const;
 
-    // CONTROLLER
+    // HELPER FUNCTIONS
     bool isNumber(string isNumber);
     // NOTES METHODS
     void readNotes () const;
     void createNote ();
     void editNote ();
+    void deleteNote ();
+
+    void editTitle (int indexNote, string titleNote);
+    void editDescription (int indexNote, string descriptionNote);
+    void editCollection(int indexNote, string collectionNote);
+    void editImportant(int indexNote, bool importantNote);
+
 
 private:
     string name;
     bool editable;
     vector<NoteNew *> notes;
     list <Observer*> observerNote;
+
+    int indexNote;
+    string titleNote;
+    string descriptionNote;
+    string collectionNote;
+    bool importantNote;
 };
 
 #endif //NOTEPROJECT_COLLECTIONNEW_H
