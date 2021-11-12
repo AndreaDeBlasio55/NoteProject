@@ -1,12 +1,6 @@
 //
 // Created by Andrea on 11/11/21.
 //
-
-//
-// Created by Andrea on 21/10/21.
-//
-
-
 #include <list>
 #include "../Headers/CollectionNew.h"
 #include <vector>

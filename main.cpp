@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Headers/Note.h"
+#include "Headers/CollectionView.h"
 #include <fstream>
 using namespace std;
 #include <vector>
@@ -23,12 +24,29 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
 
 int main() {
 
-
-
-
-
-    // OLD CODE
-
+    string firstInputStr = "";
+    int firstInput = -1;
+    CollectionView* controllerCollections = new CollectionView();
+    cout << "What would you do?: "
+            "\n\t0 - Read Collections"
+            "\n\t1 - Create Collection"
+            "\n\t2 - Edit Collection"
+            "\n\t3 - Delete Collection" << endl;
+    getline(cin, firstInputStr);
+    if (isNumber(firstInputStr)) {
+        firstInput = stoi(firstInputStr);
+        if (firstInput == 0) {
+            controllerCollections->readCollections();
+        } else if (firstInput == 1) {
+            controllerCollections->createCollection();
+        } else {
+            cout << "No valid input" << endl;
+        }
+    } else {
+        cout << "No valid input" << endl;
+    }
+    //] OLD CODE
+    /*
     // --- COLLECTIONS ---
     vector<Collection *> collections;
     // Init collections with the Default Collection
@@ -120,6 +138,7 @@ int main() {
         notes[i] = nullptr;
     }
     // ------
+     */
 
     return 0;
 }

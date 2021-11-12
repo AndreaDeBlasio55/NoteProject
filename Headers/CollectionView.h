@@ -1,9 +1,9 @@
 //
-// Created by Andrea on 19/10/21.
+// Created by Andrea on 12/11/21.
 //
 
-#ifndef NOTEPROJECT_NOTE_H
-#define NOTEPROJECT_NOTE_H
+#ifndef NOTEPROJECT_COLLECTIONVIEW_H
+#define NOTEPROJECT_COLLECTIONVIEW_H
 
 #include <iostream>
 #include <string>
@@ -35,4 +35,4 @@ public:
 private:
     vector<CollectionNew*> collectionSubj;
 };
-#endif //NOTEPROJECT_NOTE_H
+#endif //NOTEPROJECT_COLLECTIONVIEW_H

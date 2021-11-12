@@ -11,7 +11,7 @@
 using namespace std;
 
 // CONSTRUCTOR
-CollectionView::CollectionView(){
+CollectionView::CollectionView():collectionSubj(){
     //attach();
 }
 // METHODS
