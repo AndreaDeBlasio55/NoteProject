@@ -23,6 +23,12 @@ tuple<vector<Note*>, vector<Collection*>> deleteNote (vector<Note*> notes, vecto
 
 int main() {
 
+
+
+
+
+    // OLD CODE
+
     // --- COLLECTIONS ---
     vector<Collection *> collections;
     // Init collections with the Default Collection

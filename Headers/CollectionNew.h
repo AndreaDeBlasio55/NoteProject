@@ -16,7 +16,6 @@ using namespace std;
 class CollectionNew : public Subject {
 public:
     CollectionNew(string name, bool editable);
-    virtual ~CollectionNew() = default;
 
     virtual void subscribe(Observer* o) override;
     virtual void unsubscribe(Observer* o) override;
@@ -42,6 +41,7 @@ public:
     void editCollection(int indexNote, string collectionNote);
     void editImportant(int indexNote, bool importantNote);
 
+    virtual ~CollectionNew() = default;
 
 private:
     string name;
