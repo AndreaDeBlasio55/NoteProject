@@ -82,6 +82,50 @@ void CollectionView::createCollection() {
     auto *newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
 }
+
+// _________ EDIT ___________________________
+
+
+// _________ DELETE ___________________________
+void CollectionView::deleteCollection() {
+    int valueChoiceInt = 0;
+    string valueChoice = "";
+    bool validateWhile = false;
+    cout << "Fetching Collections..." << endl;
+    for (int i=0; i<collectionSubj.size(); i++) {
+        cout << "\t" << i << " - " << collectionSubj[i]->getCollectionName() << "\t editable: " << collectionSubj[i]->getEditable() << endl;
+    }
+    if (collectionSubj.empty()){
+        cout << "There isn't Collection to delete." << endl;
+    } else {
+        cout << "Type here your choice: " << endl;
+        cin >> valueChoice;
+        while (validateWhile == false) {
+            if (isNumber(valueChoice)) {
+                valueChoiceInt = stoi(valueChoice);
+                if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
+                    validateWhile = true;
+                    if (collectionSubj[valueChoiceInt]->getEditable()) {
+                        collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
+                    } else {
+                        cout << "This collection isn't editable" << endl;
+                    }
+                    indexCollection = valueChoiceInt;
+                } else {
+                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                    cin >> valueChoice;
+                }
+            } else {
+                cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                cin >> valueChoice;
+            }
+        }
+    }
+    cin.ignore();
+    cin.clear();
+}
+
+
 // OBSERVER METHODS
 
 void CollectionView::attach() {
@@ -100,9 +144,6 @@ void CollectionView::update() {
 
 // SETTERS
 
-void CollectionView::deleteCollection() {
-    detach();
-}
 /*
 void CollectionView::editCollection(bool important) {
 
