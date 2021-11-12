@@ -29,6 +29,9 @@ int CollectionNew::getCountNotes () const {
     }
     return value;
 }
+bool CollectionNew::getEditable () const {
+    return editable;
+}
 string CollectionNew::getCollectionName() const {
     return name;
 }

@@ -12,14 +12,20 @@ using namespace std;
 
 // CONSTRUCTOR
 CollectionView::CollectionView():collectionSubj(){
+    this->indexCollection = -1;
     //attach();
 }
 // METHODS
 // _________ READ ___________________________
 void CollectionView::readCollections() const {
     cout << "Reading Collections..." << endl;
-    for (auto & collection : collectionSubj) {
-        cout << "\t" << collection->getCollectionName() << "\t\t count: " << collection->getCountNotes() << endl;
+    if (collectionSubj.size() == 0){
+        cout << "There aren't collections here" << endl;
+    } else {
+        for (auto &collection: collectionSubj) {
+            cout << boolalpha;
+            cout << "\t" << collection->getCollectionName() << "\t\t editable: " << collection->getEditable() << endl;
+        }
     }
 }
 // _________ CREATE ___________________________
@@ -33,7 +39,6 @@ void CollectionView::createCollection () {
     // Manage Name
     while (!controllerWhileName) {
         cout << "Type the name of the collection. " << endl;
-        cin.ignore();
         getline(cin, collectionName);
         for (int i = 0; i < collectionSubj.size(); i++) {
             if (collectionName == collectionSubj[i]->getCollectionName()) {
@@ -46,7 +51,7 @@ void CollectionView::createCollection () {
             controllerWhileName = true;
             while (!controllerWhileEditable) {
                 cout << "Editable? \n\t0 - false \n\t1 - true" << endl;
-                cin >> editableStr;
+                getline(cin, editableStr);
                 if (isNumber(editableStr)) {
                     int inputInt = stoi(editableStr);
                     if (inputInt == 0) {
@@ -70,24 +75,25 @@ void CollectionView::createCollection () {
     collectionSubj.push_back(newCol);
 }
 // OBSERVER METHODS
-/*
+
 void CollectionView::attach() {
-    collectionSubj->subscribe(this);
+    collectionSubj[indexCollection]->subscribe(this);
 }
 void CollectionView::detach() {
-    collectionSubj->unsubscribe(this);
+    collectionSubj[indexCollection]->unsubscribe(this);
 }
 void CollectionView::update() {
-    this->collection = collectionSubj->getCollectionName();
-    cout << title << " - id: " << noteId << " - " << " is updating collection name... " << this->collection << endl;
+
 }
 
 // GETTERS
 
 // SETTERS
-void CollectionView::deleteCollection() {
+
+void CollectionView::deleteCollection(){
     detach();
 }
+/*
 void CollectionView::editCollection(bool important) {
 
 }

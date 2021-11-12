@@ -27,6 +27,7 @@ public:
     // GETTER
     string getCollectionName () const;
     int getCountNotes() const;
+    bool getEditable () const;
 
     // HELPER FUNCTIONS
     bool isNumber(string isNumber);

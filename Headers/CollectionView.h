@@ -23,6 +23,7 @@ public:
     // GETTERS
     void readCollections() const;
     void createCollection();
+    void deleteCollection();
     static bool isNumber(string str);
 
     // OBSERVER PATTERN METHODS
@@ -33,6 +34,7 @@ public:
     // DESTRUCTOR
     ~CollectionView() override= default;
 private:
+    int indexCollection;
     vector<CollectionNew*> collectionSubj;
 };
 #endif //NOTEPROJECT_COLLECTIONVIEW_H
