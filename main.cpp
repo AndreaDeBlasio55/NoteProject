@@ -37,7 +37,9 @@ int main() {
                 "\n\t3 - Delete Collection"
                 "\n\t4 - Exit" << endl;
         getline(cin, firstInputStr);
-        if (isNumber(firstInputStr)) {
+        if (firstInputStr == ""){
+            cout << "Not valid input" << endl;
+        } else if (isNumber(firstInputStr)) {
             firstInput = stoi(firstInputStr);
             if (firstInput == 0) {
                 controllerCollections->readCollections();
@@ -46,7 +48,7 @@ int main() {
             } else if (firstInput == 4) {
                 controllerWhileMain = false;
             } else {
-                cout << "No valid input" << endl;
+                cout << "Not valid input" << endl;
             }
         } else {
             cout << "No valid input" << endl;

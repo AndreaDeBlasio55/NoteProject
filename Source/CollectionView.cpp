@@ -8,18 +8,20 @@
 #include <iostream>
 #include "../Headers/CollectionView.h"
 #include <string>
+
 using namespace std;
 
 // CONSTRUCTOR
-CollectionView::CollectionView():collectionSubj(){
+CollectionView::CollectionView() : collectionSubj() {
     this->indexCollection = -1;
     //attach();
 }
+
 // METHODS
 // _________ READ ___________________________
 void CollectionView::readCollections() const {
     cout << "Reading Collections..." << endl;
-    if (collectionSubj.size() == 0){
+    if (collectionSubj.empty()) {
         cout << "There aren't collections here" << endl;
     } else {
         for (auto &collection: collectionSubj) {
@@ -28,18 +30,22 @@ void CollectionView::readCollections() const {
         }
     }
 }
+
 // _________ CREATE ___________________________
-void CollectionView::createCollection () {
-    string collectionName = "";
+void CollectionView::createCollection() {
+    string collectionName = "Default";
     bool controllerWhileName = false;
-    bool isNewCollection = true;
     bool controllerWhileEditable = false;
     string editableStr = "0";
     bool isEditable = true;
     // Manage Name
     while (!controllerWhileName) {
+        bool isNewCollection = true;
         cout << "Type the name of the collection. " << endl;
         getline(cin, collectionName);
+        if (collectionName == ""){
+            collectionName = "Default";
+        }
         for (int i = 0; i < collectionSubj.size(); i++) {
             if (collectionName == collectionSubj[i]->getCollectionName()) {
                 cout << "This name is already taken, try another name." << endl;
@@ -52,7 +58,9 @@ void CollectionView::createCollection () {
             while (!controllerWhileEditable) {
                 cout << "Editable? \n\t0 - false \n\t1 - true" << endl;
                 getline(cin, editableStr);
-                if (isNumber(editableStr)) {
+                if (editableStr == "") {
+                    cout << "Not valid input... valide range ( 0 - 1 )" << endl;
+                } else if (isNumber(editableStr)) {
                     int inputInt = stoi(editableStr);
                     if (inputInt == 0) {
                         isEditable = false;
@@ -71,7 +79,7 @@ void CollectionView::createCollection () {
             controllerWhileName = false;
         }
     }
-    auto* newCol = new CollectionNew(collectionName, isEditable);
+    auto *newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
 }
 // OBSERVER METHODS
@@ -79,9 +87,11 @@ void CollectionView::createCollection () {
 void CollectionView::attach() {
     collectionSubj[indexCollection]->subscribe(this);
 }
+
 void CollectionView::detach() {
     collectionSubj[indexCollection]->unsubscribe(this);
 }
+
 void CollectionView::update() {
 
 }
@@ -90,7 +100,7 @@ void CollectionView::update() {
 
 // SETTERS
 
-void CollectionView::deleteCollection(){
+void CollectionView::deleteCollection() {
     detach();
 }
 /*
