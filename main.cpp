@@ -45,6 +45,8 @@ int main() {
                 controllerCollections->readCollections();
             } else if (firstInput == 1) {
                 controllerCollections->createCollection();
+            } else if (firstInput == 2) {
+                controllerCollections->editCollection();
             } else if (firstInput == 3) {
                 controllerCollections->deleteCollection();
             } else if (firstInput == 4) {

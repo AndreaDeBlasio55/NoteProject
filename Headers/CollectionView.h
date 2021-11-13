@@ -26,7 +26,7 @@ public:
     void createCollection();
 
     void editCollection();
-    void editCollectionName();
+    void editCollectionName(int value);
     void editCollectionNotes();
 
     void deleteCollection();

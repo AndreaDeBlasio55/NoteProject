@@ -106,58 +106,91 @@ void CollectionView::createCollection() {
 // _________ EDIT ___________________________
 void CollectionView::editCollection() {
     // todo: edit collection -> menu: change name, change editable, change notes...
-    /*
-        cout << "Fetching Collections..." << endl;
-        int indexFor = 0;
-        string valueChoice = "";
-        bool validateWhile = false;
-        int valueChoiceInt = 0;
 
-        readCollections();
+    int indexFor = 0;
+    string valueChoice = "";
+    bool validateWhile = false;
+    int valueChoiceInt = 0;
 
-        if (collectionSubj.empty()) {
-            cout << "There aren't collections here." << endl;
-        } else {
-            cout << "Type here: " << endl;
-            cin >> valueChoice;
-            while (validateWhile == false) {
-                if (isNumber(valueChoice)) {
-                    valueChoiceInt = stoi(valueChoice);
-                    if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
-                        validateWhile = true;
+    if (collectionSubj.empty()) {
+        cout << "There aren't collections here." << endl;
+    } else {
+        cout << "Please select a collection to edit:" << endl;
+        for (int i=0; i<collectionSubj.size(); i++) {
+            cout << boolalpha;
+            cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
+        }
+        cin >> valueChoice;
+        while (validateWhile == false) {
+            if (isNumber(valueChoice)) {
+                valueChoiceInt = stoi(valueChoice);
+                if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
+                    // menu edit collection
+                    if (collectionSubj[valueChoiceInt]->getEditable()) {
+                        cout<< "What do you want to edit? \n\t0 - Collection Name \n\t1 - Notes \n\tExit - use any other input"<< endl;
+                        string inputEditStr = "";
+                        int inputEditInt = 0;
+                        cin >> inputEditStr;
+                        if (isNumber(inputEditStr)) {
+                            inputEditInt = stoi(inputEditStr);
+                            if (inputEditInt == 0) {
+                                editCollectionName(valueChoiceInt);
+                            } else if (inputEditInt == 1) {
+                                editCollectionNotes();
+                            } else {
+                                cin.ignore();
+                                cin.clear();
+                                cout << "Exit" << endl;
+                            }
+                        } else {
+                            cin.ignore();
+                            cin.clear();
+                            cout << "Exit" << endl;
+                        }
                     } else {
-                        cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
-                        cin >> valueChoice;
+                        cout << "This Collection isn't editable" << endl;
+                        cin.ignore();
+                        cin.clear();
                     }
+                    validateWhile = true;
                 } else {
-                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )"
+                         << endl;
                     cin >> valueChoice;
-                }
-            }
 
-            cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
-            string newNameCollection = "";
-            cin.ignore();
-            getline(cin, newNameCollection);
-            col[valueChoiceInt]->setCollectionName(newNameCollection);
-
-            // Updating all Notes:
-            for (Note *myCurrentNote: notes) {
-                if (myCurrentNote->getCollection() == oldNameCollection) {
-                    myCurrentNote->editCollection(newNameCollection);
-                    cout << "Updating the note: \n\t "
-                         << " - " << myCurrentNote->getTitle()
-                         << " - " << myCurrentNote->getId() << endl;
+                    cin.ignore();
+                    cin.clear();
                 }
+            } else {
+                cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                cin >> valueChoice;
+
+                cin.ignore();
+                cin.clear();
             }
-            cout << "Completed!" << endl;
+        }
+    }
+}
+
+void CollectionView::editCollectionName(int index) {
+    string oldNameCollection = collectionSubj[index]->getCollectionName();
+    cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
+    string newNameCollection = "";
+    cin.ignore();
+    getline(cin, newNameCollection);
+    collectionSubj[index]->editCollectionName(newNameCollection);
+    /*
+    // Updating all Notes:
+    for (Note *myCurrentNote: notes) {
+        if (myCurrentNote->getCollection() == oldNameCollection) {
+            myCurrentNote->editCollection(newNameCollection);
+            cout << "Updating the note: \n\t "
+                 << " - " << myCurrentNote->getTitle()
+                 << " - " << myCurrentNote->getId() << endl;
         }
     }
      */
-}
-
-void CollectionView::editCollectionName() {
-
+    cout << "Completed!" << endl;
 }
 void CollectionView::editCollectionNotes () {
 
