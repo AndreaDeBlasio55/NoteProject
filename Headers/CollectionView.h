@@ -21,8 +21,10 @@ public:
 
 
     // GETTERS
-    void readCollections() const;
+    void readCollections();
+    void readCollectionNotes();
     void createCollection();
+    void editCollection();
     void deleteCollection();
     static bool isNumber(string str);
 

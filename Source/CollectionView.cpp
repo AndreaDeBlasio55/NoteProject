@@ -19,18 +19,35 @@ CollectionView::CollectionView() : collectionSubj() {
 
 // METHODS
 // _________ READ ___________________________
-void CollectionView::readCollections() const {
+void CollectionView::readCollections(){
     cout << "Reading Collections..." << endl;
     if (collectionSubj.empty()) {
         cout << "There aren't collections here" << endl;
     } else {
-        for (auto &collection: collectionSubj) {
+        for (int i=0; i<collectionSubj.size(); i++) {
             cout << boolalpha;
-            cout << "\t" << collection->getCollectionName() << "\t\t editable: " << collection->getEditable() << endl;
+            cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
         }
+        readCollectionNotes();
     }
 }
 
+void CollectionView::readCollectionNotes(){
+    cout << "Select one of the collections to read the notes or press \"Enter \" to continue" << endl;
+    string inputStr = "";
+    cin >> inputStr;
+    if (isNumber(inputStr)){
+        int inputInt = 0;
+        inputInt = stoi(inputStr);
+        if (inputInt >= 0 && inputInt < collectionSubj.size()){
+            cout << collectionSubj[inputInt]->getCollectionName() << " selected!" << endl;
+            // todo: read all notes here
+            collectionSubj[inputInt]->readNotes();
+        }
+    }
+    cin.ignore();
+    cin.clear();
+}
 // _________ CREATE ___________________________
 void CollectionView::createCollection() {
     string collectionName = "Default";
@@ -82,10 +99,59 @@ void CollectionView::createCollection() {
     auto *newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
 }
-
 // _________ EDIT ___________________________
+void CollectionView::editCollection() {
+    // todo: edit collection -> menu: change name, change editable, change notes...
+    /*
+        cout << "Fetching Collections..." << endl;
+        int indexFor = 0;
+        string valueChoice = "";
+        bool validateWhile = false;
+        int valueChoiceInt = 0;
+        cout << "Please select one of these collections: " << endl;
 
+        readCollections();
 
+        if (collectionSubj.empty()) {
+            cout << "There aren't collections here." << endl;
+        } else {
+            cout << "Type here: " << endl;
+            cin >> valueChoice;
+            while (validateWhile == false) {
+                if (isNumber(valueChoice)) {
+                    valueChoiceInt = stoi(valueChoice);
+                    if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
+                        validateWhile = true;
+                    } else {
+                        cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                        cin >> valueChoice;
+                    }
+                } else {
+                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
+                    cin >> valueChoice;
+                }
+            }
+
+            cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
+            string newNameCollection = "";
+            cin.ignore();
+            getline(cin, newNameCollection);
+            col[valueChoiceInt]->setCollectionName(newNameCollection);
+
+            // Updating all Notes:
+            for (Note *myCurrentNote: notes) {
+                if (myCurrentNote->getCollection() == oldNameCollection) {
+                    myCurrentNote->editCollection(newNameCollection);
+                    cout << "Updating the note: \n\t "
+                         << " - " << myCurrentNote->getTitle()
+                         << " - " << myCurrentNote->getId() << endl;
+                }
+            }
+            cout << "Completed!" << endl;
+        }
+    }
+     */
+}
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection() {
     int valueChoiceInt = 0;

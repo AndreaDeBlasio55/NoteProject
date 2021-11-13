@@ -54,7 +54,7 @@ void CollectionNew::readNotes () const {
     cout << boolalpha << endl;
     cout << "Reading Notes..." << endl;
     if (notes.size() == 0){
-        cout << "There is no Notes to read inside the collection: " << name << endl;
+        cout << "There aren't Notes to read inside the collection: " << name << endl;
     } else {
         for (NoteNew *myNote: notes) {
             cout << "\tTitle: " << myNote->getTitle()
