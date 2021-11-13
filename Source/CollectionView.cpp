@@ -33,10 +33,12 @@ void CollectionView::readCollections(){
 }
 
 void CollectionView::readCollectionNotes(){
-    cout << "Select one of the collections to read the notes or press \"Enter \" to continue" << endl;
+    cout << "Select one of the collections to read the notes or press any other input to exit" << endl;
     string inputStr = "";
     cin >> inputStr;
-    if (isNumber(inputStr)){
+    if (inputStr.length() == 0){
+        cout << "Exit" << endl;
+    } else if (isNumber(inputStr)){
         int inputInt = 0;
         inputInt = stoi(inputStr);
         if (inputInt >= 0 && inputInt < collectionSubj.size()){
@@ -44,6 +46,8 @@ void CollectionView::readCollectionNotes(){
             // todo: read all notes here
             collectionSubj[inputInt]->readNotes();
         }
+    } else {
+        cout << "Exit" << endl;
     }
     cin.ignore();
     cin.clear();
@@ -108,7 +112,6 @@ void CollectionView::editCollection() {
         string valueChoice = "";
         bool validateWhile = false;
         int valueChoiceInt = 0;
-        cout << "Please select one of these collections: " << endl;
 
         readCollections();
 
@@ -151,6 +154,13 @@ void CollectionView::editCollection() {
         }
     }
      */
+}
+
+void CollectionView::editCollectionName() {
+
+}
+void CollectionView::editCollectionNotes () {
+
 }
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection() {

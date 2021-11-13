@@ -20,12 +20,17 @@ public:
     // METHODS
 
 
-    // GETTERS
     void readCollections();
     void readCollectionNotes();
+
     void createCollection();
+
     void editCollection();
+    void editCollectionName();
+    void editCollectionNotes();
+
     void deleteCollection();
+
     static bool isNumber(string str);
 
     // OBSERVER PATTERN METHODS
