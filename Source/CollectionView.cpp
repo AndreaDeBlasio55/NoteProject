@@ -100,7 +100,7 @@ void CollectionView::createCollection(){
             controllerWhileName = false;
         }
     }
-    auto *newCol = new CollectionNew(collectionName, isEditable);
+    CollectionNew* newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
     //attach();
 }
@@ -134,7 +134,7 @@ void CollectionView::editCollection() {
                             if (inputEditInt == 0) {
                                 editCollectionName(valueChoiceInt);
                             } else if (inputEditInt == 1) {
-                                collectionSubj[indexCollection]->menuNotes();
+                                collectionSubj[valueChoiceInt]->menuNotes();
                                 cin.ignore();
                                 cin.clear();
                             } else {

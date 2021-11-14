@@ -7,12 +7,15 @@
 #include <vector>
 using namespace std;
 
-CollectionNew::CollectionNew(string name, bool editable) {
-    this->name = name;
+CollectionNew::CollectionNew(string nameCollection, bool editable):notes() {
+    this->nameCollection = nameCollection;
     this->editable = editable;
-    this->indexNote = -1;
-    this->importantNote = false;
-    this->titleNote = "";
+    for (int i=0; i<notes.size(); i ++){
+        notes[i]->editTitle("");
+        notes[i]->editDescription("");
+        notes[i]->editCollection(nameCollection);
+        notes[i]->editImportant(false);
+    }
 }
 void CollectionNew::subscribe(Observer *o) {
     observerNote.push_back(o);
@@ -37,18 +40,18 @@ bool CollectionNew::getEditable () const {
     return editable;
 }
 string CollectionNew::getCollectionName() const {
-    return name;
+    return this->nameCollection;
 }
 
 // SETTERS
 void CollectionNew::editCollectionName(string collectionName) {
     if (this->editable) {
-        cout << "Changed collection name from: " << this->name << " to: " << endl;
-        this->name = collectionName;
+        cout << "Changed collection name from: " << this->nameCollection << " to: " << endl;
+        this->nameCollection = collectionName;
         cout << "\t" << collectionName << endl;
         notify();
     } else {
-        cout << "The Collection: " << this->name << " is not editable." << endl;
+        cout << "The Collection: " << this->nameCollection << " is not editable." << endl;
     }
 }
 
@@ -88,9 +91,10 @@ void CollectionNew::menuNotes () {
     }
 }
 // -------------- READ --------------
-void CollectionNew::readNotes () const {
+void CollectionNew::readNotes () {
     cout << boolalpha << endl;
-    cout << "Reading Notes from " << this->getCollectionName() << endl;
+    cout << "Reading Notes from " << endl;
+    cout << notes.size() << endl;
     if (notes.empty()){
         cout << "There aren't Notes to read inside the collection: " << this->getCollectionName() << endl;
     } else {
@@ -109,7 +113,7 @@ void CollectionNew::readNotes () const {
 void CollectionNew::createNote () {
     string title = "";
     string description = " ";
-    string collection = name;
+    string collection = nameCollection;
 
     string editableStr = "0";
     bool editable = false;
@@ -349,6 +353,7 @@ void CollectionNew::deleteNote () {
 }
 
 // SINGLE NOTE METHODS
+/*
 void CollectionNew::editTitle(int indexNote, string title){
     if (notes[indexNote]->getEditable()) {
         notes[indexNote]->editTitle(title);
@@ -377,6 +382,7 @@ void CollectionNew::editImportant(int indexNote, bool important) {
         cout << "Edit title failed: This note is not editable..." << endl;
     }
 }
+ */
 // ---------------------------------------------
 // HELPERS
 bool CollectionNew::isNumber(string str) {

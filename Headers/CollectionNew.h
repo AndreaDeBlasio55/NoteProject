@@ -1,5 +1,5 @@
 //
-// Created by Andrea on 11/11/21.
+// Created by Andrea on 14/11/21.
 //
 
 #ifndef NOTEPROJECT_COLLECTIONNEW_H
@@ -17,9 +17,9 @@ class CollectionNew : public Subject {
 public:
     CollectionNew(string name, bool editable);
 
-    virtual void subscribe(Observer* o) override;
-    virtual void unsubscribe(Observer* o) override;
-    virtual void notify() override;
+    void subscribe(Observer* o) override;
+    void unsubscribe(Observer* o) override;
+    void notify() override;
 
     // SETTER
     void editCollectionName(string name);
@@ -33,29 +33,25 @@ public:
     bool isNumber(string isNumber);
     // NOTES METHODS
     void menuNotes();
-    void readNotes () const;
+    void readNotes ();
     void createNote ();
     void editNote ();
     void deleteNote ();
 
+    /*
     void editTitle (int indexNote, string titleNote);
     void editDescription (int indexNote, string descriptionNote);
     void editCollection(int indexNote, string collectionNote);
     void editImportant(int indexNote, bool importantNote);
-
-    virtual ~CollectionNew() = default;
+*/
+    ~CollectionNew() override = default;
 
 private:
-    string name;
+    string nameCollection;
     bool editable;
-    std::vector<NoteNew *> notes;
+    vector<NoteNew *> notes;
     list <Observer*> observerNote;
 
-    int indexNote;
-    string titleNote;
-    string descriptionNote;
-    string collectionNote;
-    bool importantNote{};
 };
 
 #endif //NOTEPROJECT_COLLECTIONNEW_H
