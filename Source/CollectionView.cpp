@@ -12,7 +12,7 @@
 using namespace std;
 
 // CONSTRUCTOR
-CollectionView::CollectionView() : collectionSubj() {
+CollectionView::CollectionView() : collectionSubj(){
     this->indexCollection = -1;
     //attach();
 }
@@ -53,7 +53,7 @@ void CollectionView::readCollectionNotes(){
     cin.clear();
 }
 // _________ CREATE ___________________________
-void CollectionView::createCollection() {
+void CollectionView::createCollection(){
     string collectionName = "Default";
     bool controllerWhileName = false;
     bool controllerWhileEditable = false;
@@ -102,12 +102,10 @@ void CollectionView::createCollection() {
     }
     auto *newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
+    //attach();
 }
 // _________ EDIT ___________________________
 void CollectionView::editCollection() {
-    // todo: edit collection -> menu: change name, change editable, change notes...
-
-    int indexFor = 0;
     string valueChoice = "";
     bool validateWhile = false;
     int valueChoiceInt = 0;
@@ -136,7 +134,9 @@ void CollectionView::editCollection() {
                             if (inputEditInt == 0) {
                                 editCollectionName(valueChoiceInt);
                             } else if (inputEditInt == 1) {
-                                editCollectionNotes();
+                                collectionSubj[indexCollection]->menuNotes();
+                                cin.ignore();
+                                cin.clear();
                             } else {
                                 cin.ignore();
                                 cin.clear();
@@ -171,7 +171,6 @@ void CollectionView::editCollection() {
         }
     }
 }
-
 void CollectionView::editCollectionName(int index) {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
     cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
@@ -192,9 +191,7 @@ void CollectionView::editCollectionName(int index) {
      */
     cout << "Completed!" << endl;
 }
-void CollectionView::editCollectionNotes () {
 
-}
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection() {
     int valueChoiceInt = 0;
@@ -216,6 +213,8 @@ void CollectionView::deleteCollection() {
                     validateWhile = true;
                     if (collectionSubj[valueChoiceInt]->getEditable()) {
                         collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
+                        indexCollection = valueChoiceInt;
+                        //detach();
                     } else {
                         cout << "This collection isn't editable" << endl;
                     }
@@ -233,7 +232,6 @@ void CollectionView::deleteCollection() {
     cin.ignore();
     cin.clear();
 }
-
 
 // OBSERVER METHODS
 

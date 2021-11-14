@@ -3,12 +3,16 @@
 //
 #include <list>
 #include "../Headers/CollectionNew.h"
+#include <iostream>
 #include <vector>
 using namespace std;
 
 CollectionNew::CollectionNew(string name, bool editable) {
     this->name = name;
     this->editable = editable;
+    this->indexNote = -1;
+    this->importantNote = false;
+    this->titleNote = "";
 }
 void CollectionNew::subscribe(Observer *o) {
     observerNote.push_back(o);
@@ -49,12 +53,46 @@ void CollectionNew::editCollectionName(string collectionName) {
 }
 
 // NOTES METHODS
+void CollectionNew::menuNotes () {
+    bool controllerWhileMenuNotes = true;
+    string inputStr = "";
+    int inputInt = -1;
+    while (controllerWhileMenuNotes) {
+        cout << "What would you do?: "
+                "\n\t0 - Read Notes"
+                "\n\t1 - Create Note"
+                "\n\t2 - Edit Note"
+                "\n\t3 - Delete Note"
+                "\n\t4 - Exit" << endl;
+        cin.ignore();
+        cin.clear();
+        getline(cin, inputStr);
+        if (isNumber(inputStr)) {
+            inputInt = stoi(inputStr);
+            if (inputInt == 0) {
+                readNotes();
+            } else if (inputInt == 1) {
+                createNote();
+            } else if (inputInt == 2) {
+                editNote();
+            } else if (inputInt == 3) {
+                deleteNote();
+            } else if (inputInt == 4) {
+                controllerWhileMenuNotes = false;
+            } else {
+                cout << "Not valid input" << endl;
+            }
+        } else {
+            cout << "No valid input" << endl;
+        }
+    }
+}
 // -------------- READ --------------
 void CollectionNew::readNotes () const {
     cout << boolalpha << endl;
-    cout << "Reading Notes..." << endl;
-    if (notes.size() == 0){
-        cout << "There aren't Notes to read inside the collection: " << name << endl;
+    cout << "Reading Notes from " << this->getCollectionName() << endl;
+    if (notes.empty()){
+        cout << "There aren't Notes to read inside the collection: " << this->getCollectionName() << endl;
     } else {
         for (NoteNew *myNote: notes) {
             cout << "\tTitle: " << myNote->getTitle()

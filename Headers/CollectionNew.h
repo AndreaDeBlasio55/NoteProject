@@ -32,6 +32,7 @@ public:
     // HELPER FUNCTIONS
     bool isNumber(string isNumber);
     // NOTES METHODS
+    void menuNotes();
     void readNotes () const;
     void createNote ();
     void editNote ();
@@ -54,7 +55,7 @@ private:
     string titleNote;
     string descriptionNote;
     string collectionNote;
-    bool importantNote;
+    bool importantNote{};
 };
 
 #endif //NOTEPROJECT_COLLECTIONNEW_H
