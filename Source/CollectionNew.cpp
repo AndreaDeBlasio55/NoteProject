@@ -70,7 +70,9 @@ void CollectionNew::menuNotes () {
         cin.ignore();
         cin.clear();
         getline(cin, inputStr);
-        if (isNumber(inputStr)) {
+        if (inputStr.empty()){
+            cout << "Not valid input" << endl;
+        } else if (isNumber(inputStr)) {
             inputInt = stoi(inputStr);
             if (inputInt == 0) {
                 readNotes();
@@ -124,7 +126,7 @@ void CollectionNew::createNote () {
     bool validateWhileImportant = false;
 
     cout << "Type the title:" << endl;
-    cin.ignore();
+    cin.clear();
     getline(cin, title);
     cout << "Type the description:" << endl;
     //cin.ignore();
