@@ -67,28 +67,29 @@ void CollectionNew::menuNotes () {
                 "\n\t2 - Edit Note"
                 "\n\t3 - Delete Note"
                 "\n\t4 - Exit" << endl;
-        cin.ignore();
         cin.clear();
-        getline(cin, inputStr);
+        cin >> inputStr;
         if (inputStr.empty()){
             cout << "Not valid input" << endl;
-        } else if (isNumber(inputStr)) {
-            inputInt = stoi(inputStr);
-            if (inputInt == 0) {
-                readNotes();
-            } else if (inputInt == 1) {
-                createNote();
-            } else if (inputInt == 2) {
-                editNote();
-            } else if (inputInt == 3) {
-                deleteNote();
-            } else if (inputInt == 4) {
-                controllerWhileMenuNotes = false;
-            } else {
-                cout << "Not valid input" << endl;
-            }
         } else {
-            cout << "No valid input" << endl;
+            if (isNumber(inputStr)) {
+                inputInt = stoi(inputStr);
+                if (inputInt == 0) {
+                    readNotes();
+                } else if (inputInt == 1) {
+                    createNote();
+                } else if (inputInt == 2) {
+                    editNote();
+                } else if (inputInt == 3) {
+                    deleteNote();
+                } else if (inputInt == 4) {
+                    controllerWhileMenuNotes = false;
+                } else {
+                    cout << "Not valid input" << endl;
+                }
+            } else {
+                cout << "No valid input" << endl;
+            }
         }
     }
 }
@@ -127,8 +128,10 @@ void CollectionNew::createNote () {
 
     cout << "Type the title:" << endl;
     cin.clear();
+    cin.ignore();
     getline(cin, title);
     cout << "Type the description:" << endl;
+    cin.clear();
     //cin.ignore();
     getline(cin, description);
     cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
@@ -154,12 +157,15 @@ void CollectionNew::createNote () {
             validateWhileImportant = true;
         } else {
             cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
+            cin.clear();
+            cin.ignore();
             cin >> importantStr;
         }
     }
     NoteNew* newNote = new NoteNew(title, description, collection, editable, important);
     notes.push_back(newNote);
     cout << "Success! Note created" << endl;
+
 }
 // -------------- EDIT --------------
 void CollectionNew::editNote () {
