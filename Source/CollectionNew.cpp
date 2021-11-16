@@ -48,6 +48,9 @@ void CollectionNew::editCollectionName(string collectionName) {
     if (this->editable) {
         cout << "Changed collection name from: " << this->nameCollection << " to: " << endl;
         this->nameCollection = collectionName;
+        for (int i=0; i<notes.size(); i++){
+            notes[i]->editCollection(collectionName);
+        }
         cout << "\t" << collectionName << endl;
         notify();
     } else {
@@ -96,8 +99,7 @@ void CollectionNew::menuNotes () {
 // -------------- READ --------------
 void CollectionNew::readNotes () {
     cout << boolalpha << endl;
-    cout << "Reading Notes from " << endl;
-    cout << notes.size() << endl;
+    cout << "Reading Notes from Collection: " << nameCollection << endl;
     if (notes.empty()){
         cout << "There aren't Notes to read inside the collection: " << this->getCollectionName() << endl;
     } else {
