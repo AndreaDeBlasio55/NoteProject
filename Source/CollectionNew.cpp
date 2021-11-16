@@ -58,7 +58,7 @@ void CollectionNew::editCollectionName(string collectionName) {
     }
 }
 void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollection) {
-    NoteNew *currentNoteSelected = nullptr;
+    NoteNew *currentNoteSelected;
     bool validatorWhile = false;
     if (this->editable) {
         if (!notes.empty()) {
@@ -70,34 +70,46 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
                     cout << i << " - " << notes[i]->getTitle() << endl;
                 }
                 cin >> indexNoteStr;
-                indexNote = stoi(indexNoteStr);
                 if (isNumber(indexNoteStr)) {
+                    indexNote = stoi(indexNoteStr);
                     if (indexNote >= 0 && indexNote < notes.size()) {
                         cout << notes[indexNote]->getTitle() << " Selected!" << endl;
                         currentNoteSelected = notes[indexNote];
                         validatorWhile = true;
+
+                        string destinationCollectionStr = "";
+                        cout << "Type the index of the destination or another value to exit:" << endl;
+                        int currentIndexCollection = -1;
+                        for (int i = 0; i < destinationCollection.size(); i++) {
+                            if (destinationCollection[i]->getCollectionName() == nameCollection) {
+                                currentIndexCollection = i;
+                                cout << i << " - " << destinationCollection[i]->getCollectionName()
+                                     << " the note is here " << endl;
+                            } else {
+                                cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
+                            }
+                        }
+                        cin >> destinationCollectionStr;
+                        if (isNumber(destinationCollectionStr)) {
+                            int destinationInt = stoi(destinationCollectionStr);
+                            destinationCollection[destinationInt]->notes.push_back(currentNoteSelected);
+                            cout << "Moved to " << destinationCollection[destinationInt]->getCollectionName()
+                                 << " from: " << nameCollection << endl;
+                            notes.erase(notes.begin() + indexNote);
+                            validatorWhile = true;
+                        } else {
+                            cout << "Exit" << endl;
+                            validatorWhile = true;
+                        }
+                        notify();
                     } else {
                         cout << "Wrong input" << endl;
+                        validatorWhile = false;
                     }
                 } else {
                     cout << "Wrong input" << endl;
+                    validatorWhile = false;
                 }
-                string destinationCollectionStr = "";
-                cout << "Type the name of the destination:" << endl;
-                for (int i = 0; i < destinationCollection.size(); i++) {
-                    cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
-                    destinationCollection[i]->notes.push_back(currentNoteSelected);
-                }
-                getline(cin, destinationCollectionStr);
-                for (int i = 0; i < destinationCollection.size(); i++) {
-                    if (destinationCollection[i]->getCollectionName() == destinationCollectionStr) {
-                        cout << "Found the collection... Sending note..." << endl;
-                        destinationCollection[i]->notes.push_back(currentNoteSelected);
-                        //destinationCollection[i]->notes.push_back();
-                        validatorWhile = true;
-                    }
-                }
-                notify();
             }
         } else {
             cout << "There aren't notes here" << endl;
