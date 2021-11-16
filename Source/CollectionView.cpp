@@ -125,7 +125,7 @@ void CollectionView::editCollection() {
                 if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
                     // menu edit collection
                     if (collectionSubj[valueChoiceInt]->getEditable()) {
-                        cout<< "What do you want to edit? \n\t0 - Collection Name \n\t1 - Notes \n\tExit - use any other input"<< endl;
+                        cout<< "What do you want to edit? \n\t0 - Collection Name \n\t1 - Notes \n\t2 - Move a note to another collection \n\tExit - use any other input"<< endl;
                         string inputEditStr = "";
                         int inputEditInt = 0;
                         cin >> inputEditStr;
@@ -135,6 +135,10 @@ void CollectionView::editCollection() {
                                 editCollectionName(valueChoiceInt);
                             } else if (inputEditInt == 1) {
                                 collectionSubj[valueChoiceInt]->menuNotes();
+                                cin.ignore();
+                                cin.clear();
+                            } else if (inputEditInt == 2) {
+                                collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);
                                 cin.ignore();
                                 cin.clear();
                             } else {

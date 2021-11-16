@@ -23,6 +23,7 @@ public:
 
     // SETTER
     void editCollectionName(string name);
+    void changeCollection(vector<CollectionNew*> destinationCollection);
 
     // GETTER
     string getCollectionName () const;

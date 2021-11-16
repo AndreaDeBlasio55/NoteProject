@@ -57,6 +57,55 @@ void CollectionNew::editCollectionName(string collectionName) {
         cout << "The Collection: " << this->nameCollection << " is not editable." << endl;
     }
 }
+void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollection) {
+    NoteNew *currentNoteSelected = nullptr;
+    bool validatorWhile = false;
+    if (this->editable) {
+        if (!notes.empty()) {
+            while (!validatorWhile) {
+                string indexNoteStr = "";
+                int indexNote = -1;
+                cout << "Please select the note you want to move" << endl;
+                for (int i = 0; i < notes.size(); i++) {
+                    cout << i << " - " << notes[i]->getTitle() << endl;
+                }
+                cin >> indexNoteStr;
+                indexNote = stoi(indexNoteStr);
+                if (isNumber(indexNoteStr)) {
+                    if (indexNote >= 0 && indexNote < notes.size()) {
+                        cout << notes[indexNote]->getTitle() << " Selected!" << endl;
+                        currentNoteSelected = notes[indexNote];
+                        validatorWhile = true;
+                    } else {
+                        cout << "Wrong input" << endl;
+                    }
+                } else {
+                    cout << "Wrong input" << endl;
+                }
+                string destinationCollectionStr = "";
+                cout << "Type the name of the destination:" << endl;
+                for (int i = 0; i < destinationCollection.size(); i++) {
+                    cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
+                    destinationCollection[i]->notes.push_back(currentNoteSelected);
+                }
+                getline(cin, destinationCollectionStr);
+                for (int i = 0; i < destinationCollection.size(); i++) {
+                    if (destinationCollection[i]->getCollectionName() == destinationCollectionStr) {
+                        cout << "Found the collection... Sending note..." << endl;
+                        destinationCollection[i]->notes.push_back(currentNoteSelected);
+                        //destinationCollection[i]->notes.push_back();
+                        validatorWhile = true;
+                    }
+                }
+                notify();
+            }
+        } else {
+            cout << "There aren't notes here" << endl;
+        }
+    } else {
+        cout << "Collection note editable" << endl;
+    }
+}
 
 // NOTES METHODS
 void CollectionNew::menuNotes () {
