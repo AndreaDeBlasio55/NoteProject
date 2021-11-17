@@ -110,6 +110,7 @@ void CollectionView::editCollection() {
     bool validateWhile = false;
     int valueChoiceInt = 0;
 
+
     if (collectionSubj.empty()) {
         cout << "There aren't collections here." << endl;
     } else {
