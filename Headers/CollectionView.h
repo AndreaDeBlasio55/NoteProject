@@ -18,8 +18,6 @@ public:
     CollectionView();
 
     // METHODS
-
-
     void readCollections();
     void readCollectionNotes();
 
@@ -41,6 +39,8 @@ public:
     ~CollectionView() override= default;
 private:
     int indexCollection;
+    int countCollections;
+    vector<int> countNotes;
     vector<CollectionNew*> collectionSubj;
 };
 #endif //NOTEPROJECT_COLLECTIONVIEW_H

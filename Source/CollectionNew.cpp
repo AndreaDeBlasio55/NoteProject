@@ -31,9 +31,10 @@ void CollectionNew::notify() {
 // GETTERS
 int CollectionNew::getCountNotes () const {
     int value = 0;
-    for (auto itr= begin(observerNote); itr!= end(observerNote); itr++){
-        value += 1;
-    }
+    //for (auto itr= begin(observerNote); itr!= end(observerNote); itr++){
+    //    value += 1;
+    //}
+    value = notes.size();
     return value;
 }
 bool CollectionNew::getEditable () const {

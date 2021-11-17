@@ -102,7 +102,8 @@ void CollectionView::createCollection(){
     }
     CollectionNew* newCol = new CollectionNew(collectionName, isEditable);
     collectionSubj.push_back(newCol);
-    //attach();
+
+    attach();
 }
 // _________ EDIT ___________________________
 void CollectionView::editCollection() {
@@ -217,6 +218,9 @@ void CollectionView::deleteCollection() {
                 if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
                     validateWhile = true;
                     if (collectionSubj[valueChoiceInt]->getEditable()) {
+
+                        detach();
+
                         collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
                         indexCollection = valueChoiceInt;
                         //detach();
@@ -236,20 +240,25 @@ void CollectionView::deleteCollection() {
     }
     cin.ignore();
     cin.clear();
+
 }
 
 // OBSERVER METHODS
 
 void CollectionView::attach() {
-    collectionSubj[indexCollection]->subscribe(this);
+    this->countCollections = collectionSubj.size();
+    collectionSubj[countCollections-1]->subscribe(this);
 }
 
 void CollectionView::detach() {
-    collectionSubj[indexCollection]->unsubscribe(this);
+    this->countCollections = collectionSubj.size();
+    collectionSubj[countCollections-1]->unsubscribe(this);
 }
 
 void CollectionView::update() {
-
+    for (int i=0; i<collectionSubj.size(); i++){
+        this->countNotes[i] = collectionSubj[i]->getCountNotes();
+    }
 }
 
 // GETTERS
