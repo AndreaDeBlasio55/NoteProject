@@ -74,34 +74,43 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
                     indexNote = stoi(indexNoteStr);
                     if (indexNote >= 0 && indexNote < notes.size()) {
                         cout << notes[indexNote]->getTitle() << " Selected!" << endl;
-                        currentNoteSelected = notes[indexNote];
-                        validatorWhile = true;
+                        if (notes[indexNote]->getEditable()) {
+                            currentNoteSelected = notes[indexNote];
+                            validatorWhile = true;
 
-                        string destinationCollectionStr = "";
-                        cout << "Type the index of the destination or another value to exit:" << endl;
-                        int currentIndexCollection = -1;
-                        for (int i = 0; i < destinationCollection.size(); i++) {
-                            if (destinationCollection[i]->getCollectionName() == nameCollection) {
-                                currentIndexCollection = i;
-                                cout << i << " - " << destinationCollection[i]->getCollectionName()
-                                     << " the note is here " << endl;
-                            } else {
-                                cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
+                            string destinationCollectionStr = "";
+                            cout << "Type the index of the destination or another value to exit:" << endl;
+                            int currentIndexCollection = -1;
+                            for (int i = 0; i < destinationCollection.size(); i++) {
+                                if (destinationCollection[i]->getCollectionName() == nameCollection) {
+                                    currentIndexCollection = i;
+                                    cout << i << " - " << destinationCollection[i]->getCollectionName()
+                                         << " - The note is here " << endl;
+                                } else {
+                                    cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
+                                }
                             }
-                        }
-                        cin >> destinationCollectionStr;
-                        if (isNumber(destinationCollectionStr)) {
-                            int destinationInt = stoi(destinationCollectionStr);
-                            destinationCollection[destinationInt]->notes.push_back(currentNoteSelected);
-                            cout << "Moved to " << destinationCollection[destinationInt]->getCollectionName()
-                                 << " from: " << nameCollection << endl;
-                            notes.erase(notes.begin() + indexNote);
-                            validatorWhile = true;
+                            cin >> destinationCollectionStr;
+                            if (isNumber(destinationCollectionStr)) {
+                                int destinationInt = stoi(destinationCollectionStr);
+                                if (destinationCollection[destinationInt]->getEditable()) {
+                                    destinationCollection[destinationInt]->notes.push_back(currentNoteSelected);
+                                    cout << "Moved to " << destinationCollection[destinationInt]->getCollectionName()
+                                         << " from: " << nameCollection << endl;
+                                    notes.erase(notes.begin() + indexNote);
+                                    validatorWhile = true;
+                                } else {
+                                    cout << "Target collection is not editable, you can't add/edit/delete notes" << endl;
+                                }
+                            } else {
+                                cout << "Exit" << endl;
+                                validatorWhile = true;
+                            }
+                            notify();
                         } else {
-                            cout << "Exit" << endl;
-                            validatorWhile = true;
+                            cout << "This note is not editable - It can be edit/deleted only deleting the collection: " << nameCollection << endl;
+                            validatorWhile = false;
                         }
-                        notify();
                     } else {
                         cout << "Wrong input" << endl;
                         validatorWhile = false;
@@ -276,8 +285,7 @@ void CollectionNew::editNote () {
             cout << "What do you want to edit: "
                  << "\n\t0 - Title "
                  << "\n\t1 - Description "
-                 << "\n\t2 - Collection "
-                 << "\n\t3 - Important "
+                 << "\n\t2 - Important "
                  << endl;
             string valueNoteEditStr = "";
             int valueNoteEdit = -1;
@@ -305,37 +313,7 @@ void CollectionNew::editNote () {
                         getline(cin, description);
                         notes[valueChoice]->editDescription(description);
                         validateWhile2 = true;
-                    }
-                        /* todo: how to change collection without getting other collection?
-                        else if (valueNoteEdit == 2) {
-                            cout << "This note is inside: ( " << name << " )"
-                                 << endl;
-                            cin.ignore();
-                            getline(cin, collection);
-                            bool addNewCollection = true;
-                            int indexCollection = 0;
-                            int indexOfOldCollection = 0;
-                            for (CollectionNew *searchColl: collections) {
-                                if (searchColl->getCollectionName() == collection) {
-                                    addNewCollection = false;
-                                    indexOfOldCollection = indexCollection;
-                                }
-                                indexCollection++;
-                            }
-                            // add new collection if it doesn't exist
-                            Collection *newCollection = new Collection(collection);
-                            if (addNewCollection == true) {
-                                collections.push_back(newCollection);
-                                myNewNotes[valueChoice]->assignNewCollectionSubj(newCollection);
-                            } else {
-                                Collection *oldCollectionNoNewName = collections[indexOfOldCollection];
-                                myNewNotes[valueChoice]->assignNewCollectionSubj(oldCollectionNoNewName);
-                            }
-                            myNewNotes[valueChoice]->editCollection(collection);
-                        validateWhile2 = true;
-                    }
-                         */
-                    else if (valueNoteEdit == 3) {
+                    } else if (valueNoteEdit == 2) {
                         cout << "Please type the new IMPORTANT: " << notes[valueChoice]->getImportant()
                              << "\n\t0 - false \n\t1 - true " << endl;
                         string importantStr = "";
