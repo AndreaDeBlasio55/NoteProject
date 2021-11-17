@@ -257,10 +257,17 @@ void CollectionView::detach() {
 
 void CollectionView::update() {
     for (int i=0; i<collectionSubj.size(); i++){
-        this->countNotes[i] = collectionSubj[i]->getCountNotes();
+        int value = collectionSubj[i]->getCountNotes();
+        countNotes.push_back(value);
+        cout << "\t" << collectionSubj[i]->getCollectionName() << " has " << countNotes[i] <<" notes "<< endl;
     }
 }
 
+void CollectionView::summary(){
+    cout << "Summary: " << endl;
+    update();
+
+}
 // GETTERS
 
 // SETTERS

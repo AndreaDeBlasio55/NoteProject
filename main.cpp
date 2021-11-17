@@ -58,6 +58,8 @@ int main() {
             cout << "No valid input" << endl;
         }
     }
+    controllerCollections->summary();
+
     //] OLD CODE
     /*
     // --- COLLECTIONS ---

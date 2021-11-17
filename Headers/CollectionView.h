@@ -28,6 +28,8 @@ public:
 
     void deleteCollection();
 
+    void summary();
+
     static bool isNumber(string str);
 
     // OBSERVER PATTERN METHODS
