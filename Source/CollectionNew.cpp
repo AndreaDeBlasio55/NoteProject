@@ -61,7 +61,7 @@ void CollectionNew::editCollectionName(string collectionName) {
 void CollectionNew::editEditable(){
     bool controllerEditable = this->editable;
     this->editable = !controllerEditable;
-    cout << "Changed editable " << nameCollection << " is now " << this->editable << endl;
+    cout << "Changed editable! \t" << nameCollection << " - editable: " << this->editable << endl;
 }
 void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollection) {
     NoteNew *currentNoteSelected;
