@@ -18,20 +18,20 @@ CollectionNew::CollectionNew(string nameCollection, bool editable):notes() {
     }
 }
 void CollectionNew::subscribe(Observer *o) {
-    observerNote.push_back(o);
+    observerCollectionView.push_back(o);
 }
 void CollectionNew::unsubscribe(Observer *o) {
-    observerNote.remove(o);
+    observerCollectionView.remove(o);
 }
 void CollectionNew::notify() {
-    for (auto itr= begin(observerNote); itr!= end(observerNote); itr++){
+    for (auto itr= begin(observerCollectionView); itr != end(observerCollectionView); itr++){
         (*itr)->update();
     }
 }
 // GETTERS
 int CollectionNew::getCountNotes () const {
     int value = 0;
-    //for (auto itr= begin(observerNote); itr!= end(observerNote); itr++){
+    //for (auto itr= begin(observerCollectionView); itr!= end(observerCollectionView); itr++){
     //    value += 1;
     //}
     value = (int)notes.size();
@@ -57,6 +57,11 @@ void CollectionNew::editCollectionName(string collectionName) {
     } else {
         cout << "The Collection: " << this->nameCollection << " is not editable." << endl;
     }
+}
+void CollectionNew::editEditable(){
+    bool controllerEditable = this->editable;
+    this->editable = !controllerEditable;
+    cout << "Changed editable " << nameCollection << " is now " << this->editable << endl;
 }
 void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollection) {
     NoteNew *currentNoteSelected;

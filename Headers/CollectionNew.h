@@ -23,6 +23,7 @@ public:
 
     // SETTER
     void editCollectionName(string name);
+    void editEditable();
     void changeCollection(vector<CollectionNew*> destinationCollection);
 
     // GETTER
@@ -51,7 +52,7 @@ private:
     string nameCollection;
     bool editable;
     vector<NoteNew *> notes;
-    list <Observer*> observerNote;
+    list <Observer*> observerCollectionView;
 
 };
 
