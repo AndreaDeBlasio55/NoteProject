@@ -181,9 +181,20 @@ void CollectionView::editCollectionName(int index) {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
     cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
     string newNameCollection = "";
+    bool newName = true;
     cin.ignore();
     getline(cin, newNameCollection);
-    collectionSubj[index]->editCollectionName(newNameCollection);
+    for (int i=0; i<collectionSubj.size(); i++){
+        if (newNameCollection == collectionSubj[i]->getCollectionName()){
+            newName = false;
+        }
+    }
+    if (newName) {
+        collectionSubj[index]->editCollectionName(newNameCollection);
+        cout << "Completed!" << endl;
+    } else {
+        cout << "The name is already taken." << endl;
+    }
     /*
     // Updating all Notes:
     for (Note *myCurrentNote: notes) {
@@ -195,7 +206,6 @@ void CollectionView::editCollectionName(int index) {
         }
     }
      */
-    cout << "Completed!" << endl;
 }
 
 // _________ DELETE ___________________________
