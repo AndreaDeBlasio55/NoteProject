@@ -408,6 +408,7 @@ void CollectionNew::deleteNote () {
 }
 
 // SINGLE NOTE METHODS
+/*
 string CollectionNew::noteName(int index)  const{
     return notes[index]->getTitle();
 }
@@ -422,36 +423,6 @@ bool CollectionNew::noteImportant(int index)  const{
 }
 bool CollectionNew::noteEditable(int index)  const{
     return notes[index]->getEditable();
-}
-
-/*
-void CollectionNew::editTitle(int indexNote, string title){
-    if (notes[indexNote]->getEditable()) {
-        notes[indexNote]->editTitle(title);
-    } else {
-        cout << "Edit title failed: This note is not editable..." << endl;
-    }
-}
-void CollectionNew::editDescription(int indexNote, string description){
-    if (notes[indexNote]->getEditable()) {
-        notes[indexNote]->editDescription(description);
-    } else {
-        cout << "Edit title failed: This note is not editable..." << endl;
-    }
-}
-void CollectionNew::editCollection(int indexNote, string collection){
-    if (notes[indexNote]->getEditable()) {
-        notes[indexNote]->editCollection(collection);
-    } else {
-        cout << "Edit title failed: This note is not editable..." << endl;
-    }
-}
-void CollectionNew::editImportant(int indexNote, bool important) {
-    if (notes[indexNote]->getEditable()) {
-        notes[indexNote]->editImportant(important);
-    } else {
-        cout << "Edit title failed: This note is not editable..." << endl;
-    }
 }
  */
 // ---------------------------------------------

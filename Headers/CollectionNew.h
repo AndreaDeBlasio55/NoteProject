@@ -40,19 +40,13 @@ public:
     void editNote ();
     void deleteNote ();
     // SINGLE NOTE GETTERS
+    /*
     string noteName(int index) const;
     string noteDescription(int index) const;
     int noteId(int index) const;
     bool noteEditable(int index) const;
     bool noteImportant(int index) const;
-
-
-    /*
-    void editTitle (int indexNote, string titleNote);
-    void editDescription (int indexNote, string descriptionNote);
-    void editCollection(int indexNote, string collectionNote);
-    void editImportant(int indexNote, bool importantNote);
-*/
+    */
     ~CollectionNew() override = default;
 
 private:

@@ -18,7 +18,7 @@ TEST(CollectionNew, Costructor_BAD){
     ASSERT_EQ("Collection 2",
               collectionName);
 }
-TEST(CollectionNew, Edit_Collection_Name){
+TEST(CollectionNew, Edit_Collection_Name_GOOD){
     CollectionNew c("Collection 1", true);
     c.editCollectionName("Collection 1 Edited");
     string collectionName = c.getCollectionName();
@@ -32,14 +32,18 @@ TEST(CollectionNew, Edit_Collection_Name_BAD){
     ASSERT_EQ("Collection 1",
               collectionName);
 }
-TEST(CollectionNew, Create_Note){
+TEST(CollectionNew, Edit_Collection_Editable_GOOD){
     CollectionNew c("Collection 1", true);
-    c.createNote("Note 1", "Description Note 1", true, false);
-    string noteName = c.notes[0]->getTitle();
-    ASSERT_EQ("Note 1",
-              collectionName);
+    bool valueEditable = c.getEditable();
+    valueEditable = !valueEditable;
+    ASSERT_EQ(false, valueEditable);
 }
-
+TEST(CollectionNew, Edit_Collection_Editable_BAD){
+    CollectionNew c("Collection 1", false);
+    bool valueEditable = c.getEditable();
+    valueEditable = !valueEditable;
+    ASSERT_EQ(false, valueEditable);
+}
 
 
 
