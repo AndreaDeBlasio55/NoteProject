@@ -46,17 +46,12 @@ string CollectionNew::getCollectionName() const {
 
 // SETTERS
 void CollectionNew::editCollectionName(string collectionName) {
-    if (this->editable) {
-        cout << "Changed collection name from: " << this->nameCollection << " to: " << endl;
-        this->nameCollection = collectionName;
-        for (int i=0; i<notes.size(); i++){
-            notes[i]->editCollection(collectionName);
-        }
-        cout << "\t" << collectionName << endl;
-        notify();
-    } else {
-        cout << "The Collection: " << this->nameCollection << " is not editable." << endl;
+    cout << "Changed collection name from: " << this->nameCollection << " to: " << endl;
+    this->nameCollection = collectionName;
+    for (int i = 0; i < notes.size(); i++) {
+        notes[i]->editCollection(collectionName);
     }
+    notify();
 }
 void CollectionNew::editEditable(){
     bool controllerEditable = this->editable;

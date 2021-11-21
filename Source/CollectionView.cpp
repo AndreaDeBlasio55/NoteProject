@@ -179,33 +179,28 @@ void CollectionView::editCollection() {
 
 void CollectionView::editCollectionName(int index) {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
-    cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
-    string newNameCollection = "";
-    bool newName = true;
-    cin.ignore();
-    getline(cin, newNameCollection);
-    for (int i=0; i<collectionSubj.size(); i++){
-        if (newNameCollection == collectionSubj[i]->getCollectionName()){
-            newName = false;
+    if (collectionSubj[index]->getEditable()) {
+        cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
+        string newNameCollection = "";
+        bool newName = true;
+        cin.clear();
+        cin.ignore();
+        getline(cin, newNameCollection);
+        for (int i = 0; i < collectionSubj.size(); i++) {
+            if (newNameCollection == collectionSubj[i]->getCollectionName()) {
+                newName = false;
+            }
         }
-    }
-    if (newName) {
-        collectionSubj[index]->editCollectionName(newNameCollection);
-        cout << "Completed!" << endl;
+        if (newName) {
+            collectionSubj[index]->editCollectionName(newNameCollection);
+        } else {
+            cout << "The name is already taken." << endl;
+        }
     } else {
-        cout << "The name is already taken." << endl;
+        cout << "The Collection: " << oldNameCollection << " is not editable." << endl;
     }
-    /*
-    // Updating all Notes:
-    for (Note *myCurrentNote: notes) {
-        if (myCurrentNote->getCollection() == oldNameCollection) {
-            myCurrentNote->editCollection(newNameCollection);
-            cout << "Updating the note: \n\t "
-                 << " - " << myCurrentNote->getTitle()
-                 << " - " << myCurrentNote->getId() << endl;
-        }
-    }
-     */
+    cin.clear();
+    cin.ignore();
 }
 
 // _________ DELETE ___________________________
