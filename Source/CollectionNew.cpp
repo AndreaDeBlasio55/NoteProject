@@ -46,7 +46,7 @@ string CollectionNew::getCollectionName() const {
 
 // SETTERS
 void CollectionNew::editCollectionName(string collectionName) {
-    cout << "Changed collection name from: " << this->nameCollection << " to: " << endl;
+    cout << "Changed collection name from " << this->nameCollection << " to " << collectionName << endl;
     this->nameCollection = collectionName;
     for (int i = 0; i < notes.size(); i++) {
         notes[i]->editCollection(collectionName);
@@ -131,40 +131,44 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
 
 // NOTES METHODS
 void CollectionNew::menuNotes () {
-    bool controllerWhileMenuNotes = true;
-    string inputStr = "";
-    int inputInt = -1;
-    while (controllerWhileMenuNotes) {
-        cout << "What would you do?: "
-                "\n\t0 - Read Notes"
-                "\n\t1 - Create Note"
-                "\n\t2 - Edit Note"
-                "\n\t3 - Delete Note"
-                "\n\t4 - Exit" << endl;
-        cin.clear();
-        cin >> inputStr;
-        if (inputStr.empty()){
-            cout << "Not valid input" << endl;
-        } else {
-            if (isNumber(inputStr)) {
-                inputInt = stoi(inputStr);
-                if (inputInt == 0) {
-                    readNotes();
-                } else if (inputInt == 1) {
-                    createNote();
-                } else if (inputInt == 2) {
-                    editNote();
-                } else if (inputInt == 3) {
-                    deleteNote();
-                } else if (inputInt == 4) {
-                    controllerWhileMenuNotes = false;
-                } else {
-                    cout << "Not valid input" << endl;
-                }
+    if (this->editable) {
+        bool controllerWhileMenuNotes = true;
+        string inputStr = "";
+        int inputInt = -1;
+        while (controllerWhileMenuNotes) {
+            cout << "What would you do?: "
+                    "\n\t0 - Read Notes"
+                    "\n\t1 - Create Note"
+                    "\n\t2 - Edit Note"
+                    "\n\t3 - Delete Note"
+                    "\n\t4 - Exit" << endl;
+            cin.clear();
+            cin >> inputStr;
+            if (inputStr.empty()) {
+                cout << "Not valid input" << endl;
             } else {
-                cout << "No valid input" << endl;
+                if (isNumber(inputStr)) {
+                    inputInt = stoi(inputStr);
+                    if (inputInt == 0) {
+                        readNotes();
+                    } else if (inputInt == 1) {
+                        createNote();
+                    } else if (inputInt == 2) {
+                        editNote();
+                    } else if (inputInt == 3) {
+                        deleteNote();
+                    } else if (inputInt == 4) {
+                        controllerWhileMenuNotes = false;
+                    } else {
+                        cout << "Not valid input" << endl;
+                    }
+                } else {
+                    cout << "No valid input" << endl;
+                }
             }
         }
+    } else {
+        cout << "The Collection: " << this->nameCollection << " isn't editable" << endl;
     }
 }
 // -------------- READ --------------

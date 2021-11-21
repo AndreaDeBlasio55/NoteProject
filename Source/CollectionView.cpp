@@ -143,9 +143,15 @@ void CollectionView::editCollection() {
                                 cin.ignore();
                                 cin.clear();
                             } else if (inputEditInt == 3) {
-                                collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);
-                                cin.ignore();
-                                cin.clear();
+                                if (collectionSubj[valueChoiceInt]->getEditable()) {
+                                    collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);
+                                    cin.ignore();
+                                    cin.clear();
+                                } else {
+                                    cout << "The Collection: " << collectionSubj[valueChoiceInt]->getCollectionName() << " isn't editable" << endl;
+                                    cin.ignore();
+                                    cin.clear();
+                                }
                             } else {
                                 cin.ignore();
                                 cin.clear();
@@ -195,12 +201,14 @@ void CollectionView::editCollectionName(int index) {
             collectionSubj[index]->editCollectionName(newNameCollection);
         } else {
             cout << "The name is already taken." << endl;
+            cin.clear();
+            cin.ignore();
         }
     } else {
         cout << "The Collection: " << oldNameCollection << " is not editable." << endl;
+        cin.clear();
+        cin.ignore();
     }
-    cin.clear();
-    cin.ignore();
 }
 
 // _________ DELETE ___________________________
@@ -271,7 +279,6 @@ void CollectionView::update() {
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
-
 }
 // GETTERS
 
