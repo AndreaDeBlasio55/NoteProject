@@ -52,7 +52,7 @@ public:
 private:
     string nameCollection;
     bool editable;
-    vector<NoteNew *> notes;
+    vector<NoteNew*> notes;
     list <Observer*> observerCollectionView;
 
 };

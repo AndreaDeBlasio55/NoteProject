@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 #include "Observer.h"
-#include "CollectionNew.h"
+#include "Collection.h"
 using namespace std;
 
 class NoteNew{
