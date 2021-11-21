@@ -408,6 +408,22 @@ void CollectionNew::deleteNote () {
 }
 
 // SINGLE NOTE METHODS
+string CollectionNew::noteName(int index)  const{
+    return notes[index]->getTitle();
+}
+string CollectionNew::noteDescription(int index)  const{
+    return notes[index]->getDescription();
+}
+int CollectionNew::noteId(int index)  const{
+    return notes[index]->getId();
+}
+bool CollectionNew::noteImportant(int index)  const{
+    return notes[index]->getImportant();
+}
+bool CollectionNew::noteEditable(int index)  const{
+    return notes[index]->getEditable();
+}
+
 /*
 void CollectionNew::editTitle(int indexNote, string title){
     if (notes[indexNote]->getEditable()) {
