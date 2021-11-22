@@ -357,6 +357,7 @@ void CollectionNew::editNote () {
         }
     }
 }
+// -------------- DELETE ------------
 void CollectionNew::deleteNote () {
     cout << boolalpha << endl;
     bool validateWhile = false;
@@ -398,6 +399,8 @@ void CollectionNew::deleteNote () {
         canDeleteNote = notes[valueChoice]->getEditable();
         if (canDeleteNote) {
             string noteDeleted = notes[valueChoice]->getTitle();
+            delete notes[valueChoice];
+            notes[valueChoice] = nullptr;
             notes.erase(notes.begin() + valueChoice);
             cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
         } else {
@@ -405,6 +408,13 @@ void CollectionNew::deleteNote () {
         }
     }
 }
+void CollectionNew::deleteAllNotes() {
+    for (int i=0; i<notes.size(); i++){
+        delete notes[i];
+        notes[i] = nullptr;
+    }
+}
+
 
 // SINGLE NOTE METHODS
 /*

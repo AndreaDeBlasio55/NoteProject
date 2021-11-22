@@ -38,6 +38,7 @@ public:
     void readNotes ();
     void createNote ();
     void editNote ();
+    void deleteAllNotes();
     void deleteNote ();
     // SINGLE NOTE GETTERS
     /*

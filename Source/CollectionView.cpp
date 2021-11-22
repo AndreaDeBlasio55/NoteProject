@@ -231,9 +231,8 @@ void CollectionView::deleteCollection() {
                 if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
                     validateWhile = true;
                     if (collectionSubj[valueChoiceInt]->getEditable()) {
-
                         detach();
-
+                        collectionSubj[valueChoiceInt]->deleteAllNotes();
                         collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
                         indexCollection = valueChoiceInt;
                         //detach();
