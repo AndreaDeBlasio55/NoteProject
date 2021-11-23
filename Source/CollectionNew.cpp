@@ -409,7 +409,9 @@ void CollectionNew::deleteNote () {
     }
 }
 void CollectionNew::deleteAllNotes() {
+    cout << "Deleting all notes from: " << nameCollection << endl;
     for (int i=0; i<notes.size(); i++){
+        cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
         delete notes[i];
         notes[i] = nullptr;
     }

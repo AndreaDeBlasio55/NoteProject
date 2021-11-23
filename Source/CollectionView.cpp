@@ -232,7 +232,11 @@ void CollectionView::deleteCollection() {
                     validateWhile = true;
                     if (collectionSubj[valueChoiceInt]->getEditable()) {
                         detach();
+                        // release memory
                         collectionSubj[valueChoiceInt]->deleteAllNotes();
+                        delete collectionSubj[valueChoiceInt];
+                        collectionSubj[valueChoiceInt] = nullptr;
+                        // ---
                         collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
                         indexCollection = valueChoiceInt;
                         //detach();
@@ -278,6 +282,17 @@ void CollectionView::update() {
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
+    cleanMemory();
+}
+
+void CollectionView::cleanMemory() {
+    for (int i=0; i<collectionSubj.size(); i++){
+        collectionSubj[i]->deleteAllNotes();
+        cout << "Deleted " << collectionSubj[i]->getCollectionName() << endl;
+        delete collectionSubj[i];
+        collectionSubj[i] = nullptr;
+    }
+
 }
 // GETTERS
 

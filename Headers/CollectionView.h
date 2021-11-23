@@ -28,6 +28,8 @@ public:
 
     void deleteCollection();
 
+    void cleanMemory();
+
     void summary();
 
     static bool isNumber(string str);
