@@ -282,6 +282,8 @@ void CollectionView::update() {
     }
 }
 
+// ------------
+
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
@@ -297,29 +299,8 @@ void CollectionView::cleanMemory() {
     }
 
 }
-// GETTERS
 
-// SETTERS
-
-/*
-void CollectionView::editCollection(bool important) {
-
-}
-void CollectionView::editCollectionSubject(Collection *collectionSubj) {
-    if (editable) {
-        this->collectionSubj = collectionSubj;
-    } else {
-        cout << "Edit collectionSubject failed: This note is not editable..." << endl;
-    }
-}
-
-void CollectionView::assignNewCollectionSubj(CollectionNew *newCollectionSubject) {
-    detach();
-    this->collectionSubj = newCollectionSubject;
-    attach();
-}
- */
-// HELPERS
+// HELPER
 bool CollectionView::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
         if (isdigit(str[i]) == false)
