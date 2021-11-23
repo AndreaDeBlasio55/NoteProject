@@ -48,6 +48,7 @@ string CollectionNew::getCollectionName() const {
 void CollectionNew::editCollectionName(string collectionName) {
     cout << "Changed collection name from " << this->nameCollection << " to " << collectionName << endl;
     this->nameCollection = collectionName;
+    // change the collection name to all the notes
     for (int i = 0; i < notes.size(); i++) {
         notes[i]->editCollection(collectionName);
     }
@@ -416,26 +417,6 @@ void CollectionNew::deleteAllNotes() {
         notes[i] = nullptr;
     }
 }
-
-
-// SINGLE NOTE METHODS
-/*
-string CollectionNew::noteName(int index)  const{
-    return notes[index]->getTitle();
-}
-string CollectionNew::noteDescription(int index)  const{
-    return notes[index]->getDescription();
-}
-int CollectionNew::noteId(int index)  const{
-    return notes[index]->getId();
-}
-bool CollectionNew::noteImportant(int index)  const{
-    return notes[index]->getImportant();
-}
-bool CollectionNew::noteEditable(int index)  const{
-    return notes[index]->getEditable();
-}
- */
 // ---------------------------------------------
 // HELPERS
 bool CollectionNew::isNumber(string str) {

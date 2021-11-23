@@ -40,14 +40,7 @@ public:
     void editNote ();
     void deleteAllNotes();
     void deleteNote ();
-    // SINGLE NOTE GETTERS
-    /*
-    string noteName(int index) const;
-    string noteDescription(int index) const;
-    int noteId(int index) const;
-    bool noteEditable(int index) const;
-    bool noteImportant(int index) const;
-    */
+
     ~CollectionNew() override = default;
 
 private:
