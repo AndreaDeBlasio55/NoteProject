@@ -48,6 +48,14 @@ TEST(NoteNew, Edit_Title_GOOD){
     string noteTitle = note.getTitle();
     ASSERT_EQ("Note New Title", noteTitle);
 }
+TEST(NoteNew, Edit_Title_BAD){
+    NoteNew note("Note 1", "Description note 1", "Collection 1",false, false);
+    if (note.getEditable()) {
+        note.editTitle("Note New Title");
+    }
+    string noteTitle = note.getTitle();
+    EXPECT_EQ("Note New Title", noteTitle);
+}
 TEST(NoteNew, Edit_Description_GOOD){
     NoteNew note("Note 1", "Description note 1", "Collection 1",true, false);
     note.editDescription("New Description");
