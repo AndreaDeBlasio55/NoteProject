@@ -13,7 +13,8 @@ using namespace std;
 
 // CONSTRUCTOR
 CollectionView::CollectionView() : collectionSubj(){
-    this->indexCollection = -1;
+    this->countCollections = 0;
+    //this->indexCollection = -1;
     //attach();
 }
 
@@ -52,6 +53,7 @@ void CollectionView::readCollectionNotes(){
     cin.ignore();
     cin.clear();
 }
+
 // _________ CREATE ___________________________
 void CollectionView::createCollection(){
     string collectionName = "Default";
@@ -105,6 +107,7 @@ void CollectionView::createCollection(){
 
     attach();
 }
+
 // _________ EDIT ___________________________
 void CollectionView::editCollection() {
     string valueChoice = "";
@@ -133,18 +136,18 @@ void CollectionView::editCollection() {
                         if (isNumber(inputEditStr)) {
                             inputEditInt = stoi(inputEditStr);
                             if (inputEditInt == 0) {
-                                editCollectionName(valueChoiceInt);
+                                editCollectionName(valueChoiceInt);                     // change collection name
                             } else if (inputEditInt == 1) {
-                                collectionSubj[valueChoiceInt]->editEditable();
+                                collectionSubj[valueChoiceInt]->editEditable();         // change editable
                                 cin.ignore();
                                 cin.clear();
                             } else if (inputEditInt == 2) {
-                                collectionSubj[valueChoiceInt]->menuNotes();
+                                collectionSubj[valueChoiceInt]->menuNotes();            // open notes menu
                                 cin.ignore();
                                 cin.clear();
                             } else if (inputEditInt == 3) {
                                 if (collectionSubj[valueChoiceInt]->getEditable()) {
-                                    collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);
+                                    collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);   // change the collection of a note
                                     cin.ignore();
                                     cin.clear();
                                 } else {
@@ -238,12 +241,12 @@ void CollectionView::deleteCollection() {
                         collectionSubj[valueChoiceInt] = nullptr;
                         // ---
                         collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
-                        indexCollection = valueChoiceInt;
+                        //indexCollection = valueChoiceInt;
                         //detach();
                     } else {
                         cout << "This collection isn't editable" << endl;
                     }
-                    indexCollection = valueChoiceInt;
+                    //indexCollection = valueChoiceInt;
                 } else {
                     cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
                     cin >> valueChoice;

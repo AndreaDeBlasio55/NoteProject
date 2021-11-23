@@ -42,8 +42,8 @@ public:
     // DESTRUCTOR
     ~CollectionView() override= default;
 private:
-    int indexCollection;
-    int countCollections;
+    //int indexCollection;
+    int countCollections;               // to manage attach and detach
     vector<int> countNotes;
     vector<CollectionNew*> collectionSubj;
 };
