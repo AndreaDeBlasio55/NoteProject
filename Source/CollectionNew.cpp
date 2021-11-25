@@ -101,6 +101,7 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
                                          << " from: " << nameCollection << endl;
                                     notes.erase(notes.begin() + indexNote);
                                     validatorWhile = true;
+                                    notify();
                                 } else {
                                     cout << "Target collection is not editable, you can't add/edit/delete notes" << endl;
                                 }
@@ -108,7 +109,6 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
                                 cout << "Exit" << endl;
                                 validatorWhile = true;
                             }
-                            notify();
                         } else {
                             cout << "This note is not editable - It can be edit/deleted only deleting the collection: " << nameCollection << endl;
                             validatorWhile = false;
