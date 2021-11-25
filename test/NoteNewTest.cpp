@@ -4,7 +4,6 @@
 
 #include "gtest/gtest.h"
 #include "../Headers/NoteNew.h"
-#include "../Headers/Collection.h"
 
 TEST(NoteNew, Costructor_GOOD){
     NoteNew note("Note 1", "Description note 1", "Collection 1",true, false);
