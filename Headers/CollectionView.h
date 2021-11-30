@@ -21,7 +21,7 @@ public:
     void readCollections();
     void readCollectionNotes();
 
-    void createCollection();
+    void createCollection(string collectionName, bool isEditable);
 
     void editCollection();
     void editCollectionName(int value);

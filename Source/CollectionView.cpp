@@ -54,57 +54,23 @@ void CollectionView::readCollectionNotes(){
     cin.clear();
 }
 
-// _________ CREATE ___________________________
-void CollectionView::createCollection(){
-    string collectionName = "Default";
-    bool controllerWhileName = false;
-    bool controllerWhileEditable = false;
-    string editableStr = "0";
-    bool isEditable = true;
-    // Manage Name
-    while (!controllerWhileName) {
-        bool isNewCollection = true;
-        cout << "Type the name of the collection. " << endl;
-        getline(cin, collectionName);
-        if (collectionName == ""){
-            collectionName = "Default";
-        }
+// _________ CREATE ___________________________ DONE
+void CollectionView::createCollection(string collectionName, bool isEditable){
+    bool isNewCollection = true;
+
+    if (!collectionSubj.empty()) {
         for (int i = 0; i < collectionSubj.size(); i++) {
             if (collectionName == collectionSubj[i]->getCollectionName()) {
-                cout << "This name is already taken, try another name." << endl;
                 isNewCollection = false;
             }
         }
-        // Manage Editable
-        if (isNewCollection == true) {
-            controllerWhileName = true;
-            while (!controllerWhileEditable) {
-                cout << "Editable? \n\t0 - false \n\t1 - true" << endl;
-                getline(cin, editableStr);
-                if (editableStr == "") {
-                    cout << "Not valid input... valide range ( 0 - 1 )" << endl;
-                } else if (isNumber(editableStr)) {
-                    int inputInt = stoi(editableStr);
-                    if (inputInt == 0) {
-                        isEditable = false;
-                        controllerWhileEditable = true;
-                    } else if (inputInt == 1) {
-                        isEditable = true;
-                        controllerWhileEditable = true;
-                    } else {
-                        cout << "Please type a valid input" << endl;
-                    }
-                } else {
-                    cout << "Please type a number input" << endl;
-                }
-            }
-        } else {
-            controllerWhileName = false;
-        }
     }
-    CollectionNew* newCol = new CollectionNew(collectionName, isEditable);
-    collectionSubj.push_back(newCol);
-
+    if (isNewCollection) {
+        CollectionNew *newCol = new CollectionNew(collectionName, isEditable);
+        collectionSubj.push_back(newCol);
+    } else {
+        cout << "This name is already used, try to create another collection" << endl;
+    }
     attach();
 }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Headers/CollectionView.h"
+#include "Headers/CollectionViewInterface.h"
 using namespace std;
 
 bool isNumber(string str);
@@ -10,7 +11,9 @@ int main() {
     bool controllerWhileMain = true;
     string firstInputStr = "";
     int firstInput = -1;
+
     CollectionView* controllerCollections = new CollectionView();
+    CollectionViewInterface* inputController = new CollectionViewInterface(controllerCollections);
     while (controllerWhileMain) {
         cout << "What would you do?: "
                 "\n\t0 - Read Collections"
@@ -24,13 +27,13 @@ int main() {
         } else if (isNumber(firstInputStr)) {
             firstInput = stoi(firstInputStr);
             if (firstInput == 0) {
-                controllerCollections->readCollections();
+                //controllerCollections->readCollections();
             } else if (firstInput == 1) {
-                controllerCollections->createCollection();
+                inputController->interfaceCreateCollection();
             } else if (firstInput == 2) {
-                controllerCollections->editCollection();
+                //controllerCollections->editCollection();
             } else if (firstInput == 3) {
-                controllerCollections->deleteCollection();
+                //controllerCollections->deleteCollection();
             } else if (firstInput == 4) {
                 controllerWhileMain = false;
             } else {
@@ -40,7 +43,7 @@ int main() {
             cout << "No valid input" << endl;
         }
     }
-    controllerCollections->summary();
+    //controllerCollections->summary();
 
     return 0;
 }
