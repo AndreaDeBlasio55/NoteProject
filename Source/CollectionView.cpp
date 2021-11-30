@@ -181,53 +181,37 @@ void CollectionView::editCollectionName(int index) {
 }
 
 // _________ DELETE ___________________________
-void CollectionView::deleteCollection() {
-    int valueChoiceInt = 0;
-    string valueChoice = "";
-    bool validateWhile = false;
-    cout << "Fetching Collections..." << endl;
-    for (int i=0; i<collectionSubj.size(); i++) {
-        cout << "\t" << i << " - " << collectionSubj[i]->getCollectionName() << "\t editable: " << collectionSubj[i]->getEditable() << endl;
+void CollectionView::deleteCollection(int index) {
+    if (collectionSubj[index]->getEditable()) {
+        detach();
+        // release memory
+        collectionSubj[index]->deleteAllNotes();
+        delete collectionSubj[index];
+        collectionSubj[index] = nullptr;
+        // ---
+        collectionSubj.erase(collectionSubj.begin() + index);
+        //indexCollection = valueChoiceInt;
+        //detach();
+    } else {
+        cout << "This collection isn't editable" << endl;
     }
+}
+
+void CollectionView::getCollections (){
     if (collectionSubj.empty()){
         cout << "There isn't Collection to delete." << endl;
     } else {
-        cout << "Type here your choice: " << endl;
-        cin >> valueChoice;
-        while (validateWhile == false) {
-            if (isNumber(valueChoice)) {
-                valueChoiceInt = stoi(valueChoice);
-                if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
-                    validateWhile = true;
-                    if (collectionSubj[valueChoiceInt]->getEditable()) {
-                        detach();
-                        // release memory
-                        collectionSubj[valueChoiceInt]->deleteAllNotes();
-                        delete collectionSubj[valueChoiceInt];
-                        collectionSubj[valueChoiceInt] = nullptr;
-                        // ---
-                        collectionSubj.erase(collectionSubj.begin() + valueChoiceInt);
-                        //indexCollection = valueChoiceInt;
-                        //detach();
-                    } else {
-                        cout << "This collection isn't editable" << endl;
-                    }
-                    //indexCollection = valueChoiceInt;
-                } else {
-                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
-                    cin >> valueChoice;
-                }
-            } else {
-                cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
-                cin >> valueChoice;
-            }
+        for (int i = 0; i < collectionSubj.size(); i++) {
+            cout << "\t" << i << " - " << collectionSubj[i]->getCollectionName() << "\t editable: "
+                 << collectionSubj[i]->getEditable() << endl;
         }
     }
-    cin.ignore();
-    cin.clear();
-
 }
-
+int CollectionView::getCollectionsCount (){
+    int collectionCount = 0;
+    collectionCount = collectionSubj.size();
+    return collectionCount;
+}
 // OBSERVER METHODS
 
 void CollectionView::attach() {

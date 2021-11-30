@@ -27,13 +27,13 @@ int main() {
         } else if (isNumber(firstInputStr)) {
             firstInput = stoi(firstInputStr);
             if (firstInput == 0) {
-                //controllerCollections->readCollections();
+                controllerCollections->readCollections();
             } else if (firstInput == 1) {
                 inputController->interfaceCreateCollection();
             } else if (firstInput == 2) {
                 //controllerCollections->editCollection();
             } else if (firstInput == 3) {
-                //controllerCollections->deleteCollection();
+                inputController->interfaceDeleteCollection();
             } else if (firstInput == 4) {
                 controllerWhileMain = false;
             } else {

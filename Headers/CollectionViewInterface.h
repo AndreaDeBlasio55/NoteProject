@@ -15,8 +15,7 @@ public:
     CollectionViewInterface(CollectionView* collectionView);
 
     void interfaceCreateCollection();
-    void userEditCollection();
-    void userDeleteCollection();
+    void interfaceDeleteCollection();
 
     bool isNumber(string str);
     ~CollectionViewInterface() =default;

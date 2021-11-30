@@ -10,6 +10,7 @@ CollectionViewInterface::CollectionViewInterface(CollectionView* collectionView)
     this->collectionView = collectionView;
 }
 
+// INTERFACE CREATE COLLECTION
 void CollectionViewInterface::interfaceCreateCollection() {
     string collectionName = "Default";
     bool controllerWhileName = false;
@@ -49,7 +50,34 @@ void CollectionViewInterface::interfaceCreateCollection() {
     collectionView->createCollection(collectionName, isEditable);
 }
 
-
+void CollectionViewInterface::interfaceDeleteCollection() {
+    int valueChoiceInt = 0;
+    string valueChoice = "";
+    bool validateWhile = false;
+    int collectionCounts = collectionView-> getCollectionsCount();
+    cout << "Fetching Collections... Type here your choice: " << endl;
+    // get all the collections name
+    collectionView->getCollections();
+    cin >> valueChoice;
+    while (validateWhile == false) {
+        if (isNumber(valueChoice)) {
+            valueChoiceInt = stoi(valueChoice);
+            if (valueChoiceInt >= 0 && valueChoiceInt < collectionCounts) {
+                validateWhile = true;
+                collectionView->deleteCollection(valueChoiceInt);
+                //indexCollection = valueChoiceInt;
+            } else {
+                cout << "Please type a value in this range: ( 0 - " << collectionCounts - 1 << " )" << endl;
+                cin >> valueChoice;
+            }
+        } else {
+            cout << "Please type a value in this range: ( 0 - " << collectionCounts - 1 << " )" << endl;
+            cin >> valueChoice;
+        }
+    }
+    cin.ignore();
+    cin.clear();
+}
 
 // HELPER
 bool CollectionViewInterface::isNumber(string str) {

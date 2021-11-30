@@ -26,7 +26,9 @@ public:
     void editCollection();
     void editCollectionName(int value);
 
-    void deleteCollection();
+    int getCollectionsCount();
+    void getCollections();
+    void deleteCollection(int index);
 
     void cleanMemory();
 
