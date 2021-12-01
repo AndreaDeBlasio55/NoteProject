@@ -89,17 +89,9 @@ void CollectionViewInterface::interfaceEditCollection() {
                         cin.ignore();
                         cin.clear();
                     } else if (inputEditInt == 3) {
-                        if (collectionSubj[valueChoiceInt]->getEditable()) {
-                            collectionSubj[valueChoiceInt]->changeCollection(
-                                    collectionSubj);   // change the collection of a note
-                            cin.ignore();
-                            cin.clear();
-                        } else {
-                            cout << "The Collection: " << collectionSubj[valueChoiceInt]->getCollectionName()
-                                 << " isn't editable" << endl;
-                            cin.ignore();
-                            cin.clear();
-                        }
+                        collectionView->changeCollection(valueChoiceInt);
+                        cin.ignore();
+                        cin.clear();
                     } else {
                         cin.ignore();
                         cin.clear();
