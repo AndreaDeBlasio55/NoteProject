@@ -31,7 +31,7 @@ int main() {
             } else if (firstInput == 1) {
                 inputController->interfaceCreateCollection();
             } else if (firstInput == 2) {
-                //controllerCollections->editCollection();
+                inputController->interfaceEditCollection();
             } else if (firstInput == 3) {
                 inputController->interfaceDeleteCollection();
             } else if (firstInput == 4) {

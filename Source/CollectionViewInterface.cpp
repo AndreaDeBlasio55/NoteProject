@@ -130,7 +130,7 @@ void CollectionViewInterface::interfaceDeleteCollection() {
     int collectionCounts = collectionView-> getCollectionsCount();
     cout << "Fetching Collections... Type here your choice: " << endl;
     // get all the collections name
-    collectionView->getCollections();
+    collectionView->readCollections();
     cin >> valueChoice;
     while (validateWhile == false) {
         if (isNumber(valueChoice)) {
