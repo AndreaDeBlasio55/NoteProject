@@ -181,6 +181,9 @@ void CollectionView::editCollectionName(int index) {
 void CollectionView::editEditable(int index){
     collectionSubj[index]->editEditable();
 }
+void CollectionView::changeCollection(int index){
+    collectionSubj[index]->changeCollection(collectionSubj);
+}
 
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection(int index) {
