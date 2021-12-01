@@ -16,6 +16,7 @@ public:
 
     void interfaceCreateCollection();
     void interfaceDeleteCollection();
+    void interfaceReadCollections();
 
     bool isNumber(string str);
     ~CollectionViewInterface() =default;

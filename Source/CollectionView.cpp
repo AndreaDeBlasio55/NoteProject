@@ -29,7 +29,7 @@ void CollectionView::readCollections(){
             cout << boolalpha;
             cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
         }
-        readCollectionNotes();
+        //readCollectionNotes();
     }
 }
 

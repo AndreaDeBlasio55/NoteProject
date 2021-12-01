@@ -10,6 +10,11 @@ CollectionViewInterface::CollectionViewInterface(CollectionView* collectionView)
     this->collectionView = collectionView;
 }
 
+// INTERFACE READ COLLECTION
+void CollectionViewInterface::interfaceReadCollections() {
+    collectionView->readCollections();
+}
+
 // INTERFACE CREATE COLLECTION
 void CollectionViewInterface::interfaceCreateCollection() {
     string collectionName = "Default";
@@ -50,6 +55,7 @@ void CollectionViewInterface::interfaceCreateCollection() {
     collectionView->createCollection(collectionName, isEditable);
 }
 
+// INTERFACE DELETE COLLECTION
 void CollectionViewInterface::interfaceDeleteCollection() {
     int valueChoiceInt = 0;
     string valueChoice = "";

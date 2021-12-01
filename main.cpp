@@ -27,7 +27,7 @@ int main() {
         } else if (isNumber(firstInputStr)) {
             firstInput = stoi(firstInputStr);
             if (firstInput == 0) {
-                controllerCollections->readCollections();
+                inputController->interfaceReadCollections();
             } else if (firstInput == 1) {
                 inputController->interfaceCreateCollection();
             } else if (firstInput == 2) {
