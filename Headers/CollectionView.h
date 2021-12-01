@@ -24,7 +24,7 @@ public:
     void createCollection(string collectionName, bool isEditable);
 
     void editCollection();
-    void editCollectionName(int value);
+    void editCollectionName(int value, string newNameCol);
     void editEditable(int index);
     void changeCollection(int index);
 

@@ -74,6 +74,7 @@ void CollectionView::createCollection(string collectionName, bool isEditable){
 }
 
 // _________ EDIT ___________________________
+/*
 void CollectionView::editCollection() {
     string valueChoice = "";
     bool validateWhile = false;
@@ -150,16 +151,13 @@ void CollectionView::editCollection() {
         }
     }
 }
+*/
 
-void CollectionView::editCollectionName(int index) {
+void CollectionView::editCollectionName(int index, string newNameCol) {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
     if (collectionSubj[index]->getEditable()) {
-        cout << "Type the new name of the collection: ( " << oldNameCollection << " )" << endl;
-        string newNameCollection = "";
+        string newNameCollection = newNameCol;
         bool newName = true;
-        cin.clear();
-        cin.ignore();
-        getline(cin, newNameCollection);
         for (int i = 0; i < collectionSubj.size(); i++) {
             if (newNameCollection == collectionSubj[i]->getCollectionName()) {
                 newName = false;
@@ -174,8 +172,7 @@ void CollectionView::editCollectionName(int index) {
         }
     } else {
         cout << "The Collection: " << oldNameCollection << " is not editable." << endl;
-        cin.clear();
-        cin.ignore();
+
     }
 }
 void CollectionView::editEditable(int index){

@@ -79,7 +79,12 @@ void CollectionViewInterface::interfaceEditCollection() {
                 if (isNumber(inputEditStr)) {
                     inputEditInt = stoi(inputEditStr);
                     if (inputEditInt == 0) {
-                        collectionView->editCollectionName(valueChoiceInt);                     // change collection name
+                        cout << "Type the new name of the collection: " << endl;
+                        string newNameCollection = "";
+                        cin.clear();
+                        cin.ignore();
+                        getline(cin, newNameCollection);
+                        collectionView->editCollectionName(valueChoiceInt, newNameCollection);                     // change collection name
                     } else if (inputEditInt == 1) {
                         collectionView->editEditable(valueChoiceInt);        // change editable
                         cin.ignore();
