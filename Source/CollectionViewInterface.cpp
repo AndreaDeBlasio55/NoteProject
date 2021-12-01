@@ -55,6 +55,81 @@ void CollectionViewInterface::interfaceCreateCollection() {
     collectionView->createCollection(collectionName, isEditable);
 }
 
+// INTERFACE CREATE COLLECTION
+void CollectionViewInterface::interfaceEditCollection() {
+    string valueChoice = "";
+    bool validateWhile = false;
+    int valueChoiceInt = 0;
+    int collectionCount = collectionView->getCollectionsCount();
+
+    collectionView->readCollections();
+
+    cin >> valueChoice;
+    while (validateWhile == false) {
+        if (isNumber(valueChoice)) {
+            valueChoiceInt = stoi(valueChoice);
+            if (valueChoiceInt >= 0 && valueChoiceInt < collectionCount) {
+                // menu edit collection
+                cout
+                        << "What do you want to edit? \n\t0 - Collection Name \n\t1 - Change editable \n\t2 - Notes \n\t3 - Move a note to another collection \n\tExit - use any other input"
+                        << endl;
+                string inputEditStr = "";
+                int inputEditInt = 0;
+                cin >> inputEditStr;
+                if (isNumber(inputEditStr)) {
+                    inputEditInt = stoi(inputEditStr);
+                    if (inputEditInt == 0) {
+                        collectionView->editCollectionName(valueChoiceInt);                     // change collection name
+                    } else if (inputEditInt == 1) {
+                        collectionView->editEditable(valueChoiceInt);        // change editable
+                        cin.ignore();
+                        cin.clear();
+                    } else if (inputEditInt == 2) {
+                        //collectionSubj[valueChoiceInt]->menuNotes();            // open notes menu
+                        cin.ignore();
+                        cin.clear();
+                    } else if (inputEditInt == 3) {
+                        if (collectionSubj[valueChoiceInt]->getEditable()) {
+                            collectionSubj[valueChoiceInt]->changeCollection(
+                                    collectionSubj);   // change the collection of a note
+                            cin.ignore();
+                            cin.clear();
+                        } else {
+                            cout << "The Collection: " << collectionSubj[valueChoiceInt]->getCollectionName()
+                                 << " isn't editable" << endl;
+                            cin.ignore();
+                            cin.clear();
+                        }
+                    } else {
+                        cin.ignore();
+                        cin.clear();
+                        cout << "Exit" << endl;
+                    }
+                } else {
+                    cin.ignore();
+                    cin.clear();
+                    cout << "Exit" << endl;
+                }
+
+                validateWhile = true;
+            } else {
+                cout << "Please type a value in this range: ( 0 - " << collectionCount - 1 << " )"
+                     << endl;
+                cin >> valueChoice;
+
+                cin.ignore();
+                cin.clear();
+            }
+        } else {
+            cout << "Please type a value in this range: ( 0 - " << collectionCount - 1 << " )" << endl;
+            cin >> valueChoice;
+
+            cin.ignore();
+            cin.clear();
+        }
+    }
+}
+
 // INTERFACE DELETE COLLECTION
 void CollectionViewInterface::interfaceDeleteCollection() {
     int valueChoiceInt = 0;

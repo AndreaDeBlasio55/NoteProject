@@ -21,7 +21,6 @@ CollectionView::CollectionView() : collectionSubj(){
 // METHODS
 // _________ READ ___________________________
 void CollectionView::readCollections(){
-    cout << "Reading Collections..." << endl;
     if (collectionSubj.empty()) {
         cout << "There aren't collections here" << endl;
     } else {
@@ -179,6 +178,9 @@ void CollectionView::editCollectionName(int index) {
         cin.ignore();
     }
 }
+void CollectionView::editEditable(int index){
+    collectionSubj[index]->editEditable();
+}
 
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection(int index) {
@@ -197,16 +199,6 @@ void CollectionView::deleteCollection(int index) {
     }
 }
 
-void CollectionView::getCollections (){
-    if (collectionSubj.empty()){
-        cout << "There isn't Collection to delete." << endl;
-    } else {
-        for (int i = 0; i < collectionSubj.size(); i++) {
-            cout << "\t" << i << " - " << collectionSubj[i]->getCollectionName() << "\t editable: "
-                 << collectionSubj[i]->getEditable() << endl;
-        }
-    }
-}
 int CollectionView::getCollectionsCount (){
     int collectionCount = 0;
     collectionCount = collectionSubj.size();
