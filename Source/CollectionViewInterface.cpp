@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "../Headers/CollectionViewInterface.h"
+#include <string>
 using namespace std;
 
 CollectionViewInterface::CollectionViewInterface(CollectionView* collectionView) {
@@ -90,7 +91,7 @@ void CollectionViewInterface::interfaceEditCollection() {
                         cin.ignore();
                         cin.clear();
                     } else if (inputEditInt == 2) {
-                        //collectionSubj[valueChoiceInt]->menuNotes();            // open notes menu
+                        collectionView->noteMenu(valueChoiceInt);      // open notes menu
                         cin.ignore();
                         cin.clear();
                     } else if (inputEditInt == 3) {

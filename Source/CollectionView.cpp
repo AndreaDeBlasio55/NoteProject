@@ -7,6 +7,7 @@
 //
 #include <iostream>
 #include "../Headers/CollectionView.h"
+#include "../Headers/NoteMenu.h"
 #include <string>
 
 using namespace std;
@@ -240,6 +241,11 @@ void CollectionView::cleanMemory() {
         collectionSubj[i] = nullptr;
     }
 
+}
+
+void CollectionView::noteMenu(int index) {
+    NoteMenu* noteMenu = new NoteMenu(collectionSubj[index]);
+    noteMenu->openMenu();
 }
 
 // HELPER

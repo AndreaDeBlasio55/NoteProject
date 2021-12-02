@@ -19,7 +19,7 @@ public:
     void interfaceEditCollection();
     void interfaceDeleteCollection();
 
-    bool isNumber(string str);
+    static bool isNumber(string str);
     ~CollectionViewInterface() =default;
 
 private:

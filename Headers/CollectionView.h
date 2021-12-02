@@ -31,6 +31,7 @@ public:
     int getCollectionsCount();
     void deleteCollection(int index);
 
+    void noteMenu(int index);
     void cleanMemory();
 
     void summary();

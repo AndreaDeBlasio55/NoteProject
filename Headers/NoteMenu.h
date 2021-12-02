@@ -11,7 +11,12 @@ class NoteMenu{
 public:
     NoteMenu(CollectionNew* collection);
 
+    // HELPER FUNCTIONS
+    bool isNumber(string isNumber);
+
     void openMenu();
+
+    ~NoteMenu() = default;
 private:
     CollectionNew* collection;
 };
