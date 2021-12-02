@@ -29,14 +29,6 @@ void CollectionNew::notify() {
     }
 }
 // GETTERS
-int CollectionNew::getCountNotes () const {
-    int value = 0;
-    //for (auto itr= begin(observerCollectionView); itr!= end(observerCollectionView); itr++){
-    //    value += 1;
-    //}
-    value = (int)notes.size();
-    return value;
-}
 bool CollectionNew::getEditable () const {
     return editable;
 }
@@ -130,6 +122,15 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
     }
 }
 
+// ------- NOTES -------
+int CollectionNew::getCountNotes () const {
+    int value = 0;
+    //for (auto itr= begin(observerCollectionView); itr!= end(observerCollectionView); itr++){
+    //    value += 1;
+    //}
+    value = (int)notes.size();
+    return value;
+}
 // -------------- READ --------------
 void CollectionNew::readNotes () {
     cout << boolalpha << endl;
@@ -137,13 +138,14 @@ void CollectionNew::readNotes () {
     if (notes.empty()){
         cout << "There aren't Notes to read inside the collection: " << this->getCollectionName() << endl;
     } else {
-        for (NoteNew *myNote: notes) {
-            cout << "\tTitle: " << myNote->getTitle()
-                 << "\t\tId: " << myNote->getId()
-                 << "\t\tDescription: " << myNote->getDescription()
-                 << "\t\tCollection: " << myNote->getCollection()
-                 << "\t\tImportant: " << myNote->getImportant()
-                 << "\t\tEditable: " << myNote->getEditable()
+        for (int i=0; i<notes.size(); i++) {
+            cout << i << " - "
+                 << "Title: " << notes[i]->getTitle()
+                 << "\t\tId: " << notes[i]->getId()
+                 << "\t\tDescription: " << notes[i]->getDescription()
+                 << "\t\tCollection: " << notes[i]->getCollection()
+                 << "\t\tImportant: " << notes[i]->getImportant()
+                 << "\t\tEditable: " << notes[i]->getEditable()
                  << endl;
         }
     }
@@ -267,56 +269,20 @@ void CollectionNew::editNote () {
     }
 }
 // -------------- DELETE ------------
-void CollectionNew::deleteNote () {
-    cout << boolalpha << endl;
-    bool validateWhile = false;
-    cout << "Fetching Notes..." << endl;
-    if (notes.size() == 0) {
-        cout << "There are no notes to delete" << endl;
+void CollectionNew::deleteNote (int index) {
+    bool canDeleteNote = false;
+    canDeleteNote = notes[index]->getEditable();
+    if (canDeleteNote) {
+        string noteDeleted = notes[index]->getTitle();
+        delete notes[index];
+        notes[index] = nullptr;
+        notes.erase(notes.begin() + index);
+        cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
     } else {
-        int indexFor = 0;
-        int valueChoice = -1;
-        string valueChoiceStr = "-1";
-        cout << "Please select one of these notes: " << endl;
-        for (int i=0; i<notes.size(); i++) {
-            cout << "\t" << indexFor << " - Id: " << notes[i]->getId()
-                 << "\t Title: " << notes[i]->getTitle()
-                 << "\t\tDescription: " << notes[i]->getDescription()
-                 << "\t\tCollection: " << notes[i]->getCollection()
-                 << "\t\tImportant: " << notes[i]->getImportant()
-                 << "\t\tEditable: " << notes[i]->getEditable()
-                 << endl;
-            indexFor++;
-        }
-        cin >> valueChoiceStr;
-        while (validateWhile == false) {
-            if (isNumber(valueChoiceStr)) {
-                valueChoice = stoi(valueChoiceStr);
-                if (valueChoice >= 0 && valueChoice < notes.size()) {
-                    validateWhile = true;
-                } else {
-                    cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
-                    cin >> valueChoiceStr;
-                }
-            } else {
-                cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
-                cin >> valueChoiceStr;
-            }
-        }
-        // Check if we can delete this note:
-        bool canDeleteNote = false;
-        canDeleteNote = notes[valueChoice]->getEditable();
-        if (canDeleteNote) {
-            string noteDeleted = notes[valueChoice]->getTitle();
-            delete notes[valueChoice];
-            notes[valueChoice] = nullptr;
-            notes.erase(notes.begin() + valueChoice);
-            cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
-        } else {
-            cout << "You can't delete this note (not editable)" << endl;
-        }
+        cout << "You can't delete this note" << endl;
     }
 }
+
 void CollectionNew::deleteAllNotes() {
     cout << "Deleting all notes from: " << nameCollection << endl;
     for (int i=0; i<notes.size(); i++){

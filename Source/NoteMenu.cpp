@@ -105,6 +105,40 @@ void NoteMenu::createNote () {
     }
     this->collection->createNote(title, description,collection, editable, important);
 }
+
+void NoteMenu::deleteNote () {
+    cout << boolalpha << endl;
+    bool validateWhile = false;
+    int notesCount = collection->getCountNotes();
+    if (notesCount == 0) {
+        cout << "There aren't notes to delete" << endl;
+    } else {
+        int indexFor = 0;
+        int valueChoice = -1;
+        string valueChoiceStr = "-1";
+        cout << "Please select one of these notes: " << endl;
+
+        // getting notes
+        collection->readNotes();
+
+        cin >> valueChoiceStr;
+        while (validateWhile == false) {
+            if (isNumber(valueChoiceStr)) {
+                valueChoice = stoi(valueChoiceStr);
+                if (valueChoice >= 0 && valueChoice < notes.size()) {
+                    validateWhile = true;
+                } else {
+                    cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                    cin >> valueChoiceStr;
+                }
+            } else {
+                cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                cin >> valueChoiceStr;
+            }
+        }
+        collection->deleteNote(valueChoice);
+    }
+}
 // HELPERS
 bool NoteMenu::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)

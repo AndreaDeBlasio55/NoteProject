@@ -16,6 +16,7 @@ public:
 
     void openMenu();
     void createNote();
+    void deleteNote();
 
     ~NoteMenu() = default;
 private:

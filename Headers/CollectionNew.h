@@ -38,7 +38,7 @@ public:
     void createNote (string title, string description, string collection, bool editable, bool important);
     void editNote ();
     void deleteAllNotes();
-    void deleteNote ();
+    void deleteNote (int index);
 
     ~CollectionNew() override = default;
 
