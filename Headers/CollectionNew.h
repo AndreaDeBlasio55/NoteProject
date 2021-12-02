@@ -34,9 +34,8 @@ public:
     // HELPER FUNCTIONS
     bool isNumber(string isNumber);
     // NOTES METHODS
-    void menuNotes();
     void readNotes ();
-    void createNote ();
+    void createNote (string title, string description, string collection, bool editable, bool important);
     void editNote ();
     void deleteAllNotes();
     void deleteNote ();

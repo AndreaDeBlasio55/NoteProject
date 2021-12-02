@@ -33,7 +33,7 @@ void NoteMenu::openMenu() {
                     if (inputInt == 0) {
                         collection->readNotes();
                     } else if (inputInt == 1) {
-                        collection->createNote();
+                        createNote();
                     } else if (inputInt == 2) {
                         collection->editNote();
                     } else if (inputInt == 3) {
@@ -53,6 +53,58 @@ void NoteMenu::openMenu() {
     }
 }
 
+// -------------- CREATE --------------
+void NoteMenu::createNote () {
+    string title = "";
+    string description = " ";
+    string collection = this->collection->getCollectionName();
+
+    string editableStr = "0";
+    bool editable = false;
+    bool validateWhileEditable = false;
+
+    string importantStr = "0";
+    bool important = false;
+    bool validateWhileImportant = false;
+
+    cout << "Type the title:" << endl;
+    cin.clear();
+    cin.ignore();
+    getline(cin, title);
+    cout << "Type the description:" << endl;
+    cin.clear();
+    //cin.ignore();
+    getline(cin, description);
+    cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
+    cin >> editableStr;
+    while (validateWhileEditable == false) {
+        if (editableStr == "0") {
+            editable = false;
+            validateWhileEditable = true;
+        } else if (editableStr == "1") {
+            editable = true;
+            validateWhileEditable = true;
+        } else {
+            cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
+            cin >> editableStr;
+        }
+    }
+    while (validateWhileImportant == false) {
+        if (importantStr == "0") {
+            important = false;
+            validateWhileImportant = true;
+        } else if (importantStr == "1") {
+            important = true;
+            validateWhileImportant = true;
+        } else {
+            cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
+            cin.clear();
+            cin.ignore();
+            cin >> importantStr;
+        }
+    }
+    this->collection->createNote(title, description,collection, editable, important);
+}
 // HELPERS
 bool NoteMenu::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)

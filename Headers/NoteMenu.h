@@ -12,9 +12,10 @@ public:
     NoteMenu(CollectionNew* collection);
 
     // HELPER FUNCTIONS
-    bool isNumber(string isNumber);
+    static bool isNumber(string isNumber);
 
     void openMenu();
+    void createNote();
 
     ~NoteMenu() = default;
 private:

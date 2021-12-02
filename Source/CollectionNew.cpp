@@ -149,59 +149,9 @@ void CollectionNew::readNotes () {
     }
 }
 // -------------- CREATE --------------
-void CollectionNew::createNote () {
-    string title = "";
-    string description = " ";
-    string collection = nameCollection;
-
-    string editableStr = "0";
-    bool editable = false;
-    bool validateWhileEditable = false;
-
-    string importantStr = "0";
-    bool important = false;
-    bool validateWhileImportant = false;
-
-    cout << "Type the title:" << endl;
-    cin.clear();
-    cin.ignore();
-    getline(cin, title);
-    cout << "Type the description:" << endl;
-    cin.clear();
-    //cin.ignore();
-    getline(cin, description);
-    cout << "Type is editable: \n\t0 - false \n\t1 - true " << endl;
-    cin >> editableStr;
-    while (validateWhileEditable == false) {
-        if (editableStr == "0") {
-            editable = false;
-            validateWhileEditable = true;
-        } else if (editableStr == "1") {
-            editable = true;
-            validateWhileEditable = true;
-        } else {
-            cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
-            cin >> editableStr;
-        }
-    }
-    while (validateWhileImportant == false) {
-        if (importantStr == "0") {
-            important = false;
-            validateWhileImportant = true;
-        } else if (importantStr == "1") {
-            important = true;
-            validateWhileImportant = true;
-        } else {
-            cout << "Wrong input, please type: \n\t0 - false \n\t1 - true " << endl;
-            cin.clear();
-            cin.ignore();
-            cin >> importantStr;
-        }
-    }
+void CollectionNew::createNote (string title, string description, string collection, bool editable, bool important) {
     NoteNew* newNote = new NoteNew(title, description, collection, editable, important);
     notes.push_back(newNote);
-    cout << "Success! Note created" << endl;
-
 }
 // -------------- EDIT --------------
 void CollectionNew::editNote () {
