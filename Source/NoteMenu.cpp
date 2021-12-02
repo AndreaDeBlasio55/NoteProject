@@ -37,7 +37,7 @@ void NoteMenu::openMenu() {
                     } else if (inputInt == 2) {
                         collection->editNote();
                     } else if (inputInt == 3) {
-                        collection->deleteNote();
+                        deleteNote();
                     } else if (inputInt == 4) {
                         controllerWhileMenuNotes = false;
                     } else {
@@ -125,14 +125,14 @@ void NoteMenu::deleteNote () {
         while (validateWhile == false) {
             if (isNumber(valueChoiceStr)) {
                 valueChoice = stoi(valueChoiceStr);
-                if (valueChoice >= 0 && valueChoice < notes.size()) {
+                if (valueChoice >= 0 && valueChoice < notesCount) {
                     validateWhile = true;
                 } else {
-                    cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                    cout << "Please type a valid input in this range: ( 0 - " << notesCount-1 << " )"<< endl;
                     cin >> valueChoiceStr;
                 }
             } else {
-                cout << "Please type a valid input in this range: ( 0 - " << notes.size()-1 << " )"<< endl;
+                cout << "Please type a valid input in this range: ( 0 - " << notesCount-1 << " )"<< endl;
                 cin >> valueChoiceStr;
             }
         }
