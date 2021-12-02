@@ -15,6 +15,7 @@ public:
     static bool isNumber(string isNumber);
 
     void openMenu();
+    void readNotes() const;
     void createNote();
     void deleteNote();
 

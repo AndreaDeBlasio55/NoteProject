@@ -31,7 +31,7 @@ void NoteMenu::openMenu() {
                 if (isNumber(inputStr)) {
                     inputInt = stoi(inputStr);
                     if (inputInt == 0) {
-                        collection->readNotes();
+                        readNotes();
                     } else if (inputInt == 1) {
                         createNote();
                     } else if (inputInt == 2) {
@@ -53,6 +53,10 @@ void NoteMenu::openMenu() {
     }
 }
 
+// -------------- READ --------------
+void NoteMenu::readNotes () const{
+    collection->readNotes();
+}
 // -------------- CREATE --------------
 void NoteMenu::createNote () {
     string title = "";
@@ -106,6 +110,7 @@ void NoteMenu::createNote () {
     this->collection->createNote(title, description,collection, editable, important);
 }
 
+// -------------- DELETE --------------
 void NoteMenu::deleteNote () {
     cout << boolalpha << endl;
     bool validateWhile = false;
@@ -139,6 +144,7 @@ void NoteMenu::deleteNote () {
         collection->deleteNote(valueChoice);
     }
 }
+
 // HELPERS
 bool NoteMenu::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)

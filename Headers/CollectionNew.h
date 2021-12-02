@@ -32,7 +32,7 @@ public:
     bool getEditable () const;
 
     // HELPER FUNCTIONS
-    bool isNumber(string isNumber);
+    static bool isNumber(string isNumber);
     // NOTES METHODS
     void readNotes ();
     void createNote (string title, string description, string collection, bool editable, bool important);

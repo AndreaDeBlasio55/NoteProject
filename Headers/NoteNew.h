@@ -34,7 +34,6 @@ public:
     void editDescription (string description);
     void editImportant (bool important);
     void editCollection (string collection);
-
     // DESTRUCTOR
     ~NoteNew();
 private:
