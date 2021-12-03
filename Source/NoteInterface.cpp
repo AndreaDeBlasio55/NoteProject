@@ -2,16 +2,16 @@
 // Created by Andrea on 01/12/21.
 //
 
-#include "../Headers/NoteMenu.h"
+#include "../Headers/NoteInterface.h"
 #include <string>
 using namespace std;
 
 
-NoteMenu::NoteMenu(CollectionNew *collection) {
+NoteInterface::NoteInterface(CollectionNew *collection) {
     this->collection = collection;
 }
 
-void NoteMenu::openMenu() {
+void NoteInterface::openMenu() {
     if (collection->getEditable()) {
         bool controllerWhileMenuNotes = true;
         string inputStr = "";
@@ -54,11 +54,11 @@ void NoteMenu::openMenu() {
 }
 
 // -------------- READ --------------
-void NoteMenu::readNotes () const{
+void NoteInterface::readNotes () const{
     collection->readNotes();
 }
 // -------------- CREATE --------------
-void NoteMenu::createNote () {
+void NoteInterface::createNote () {
     string title = "";
     string description = " ";
     string collection = this->collection->getCollectionName();
@@ -110,7 +110,7 @@ void NoteMenu::createNote () {
     this->collection->createNote(title, description,collection, editable, important);
 }
 // -------------- EDIT --------------
-void NoteMenu::editNote () {
+void NoteInterface::editNote () {
     cout << boolalpha << endl;
     bool validateWhile = false;
     bool validateWhile2 = false;
@@ -213,7 +213,7 @@ void NoteMenu::editNote () {
     }
 }
 // -------------- DELETE --------------
-void NoteMenu::deleteNote () {
+void NoteInterface::deleteNote () {
     cout << boolalpha << endl;
     bool validateWhile = false;
     int notesCount = collection->getCountNotes();
@@ -248,7 +248,7 @@ void NoteMenu::deleteNote () {
 }
 
 // HELPERS
-bool NoteMenu::isNumber(string str) {
+bool NoteInterface::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
         if (isdigit(str[i]) == false)
             return false;

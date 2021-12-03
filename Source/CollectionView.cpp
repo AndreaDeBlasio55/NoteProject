@@ -7,7 +7,7 @@
 //
 #include <iostream>
 #include "../Headers/CollectionView.h"
-#include "../Headers/NoteMenu.h"
+#include "../Headers/NoteInterface.h"
 #include <string>
 
 using namespace std;
@@ -244,7 +244,7 @@ void CollectionView::cleanMemory() {
 }
 
 void CollectionView::noteMenu(int index) {
-    NoteMenu* noteMenu = new NoteMenu(collectionSubj[index]);
+    NoteInterface* noteMenu = new NoteInterface(collectionSubj[index]);
     noteMenu->openMenu();
 }
 

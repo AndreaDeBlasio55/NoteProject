@@ -2,14 +2,14 @@
 // Created by Andrea on 01/12/21.
 //
 
-#ifndef NOTEPROJECT_NOTEMENU_H
-#define NOTEPROJECT_NOTEMENU_H
+#ifndef NOTEPROJECT_NOTEINTERFACE_H
+#define NOTEPROJECT_NOTEINTERFACE_H
 
 #include "CollectionNew.h"
 
-class NoteMenu{
+class NoteInterface{
 public:
-    NoteMenu(CollectionNew* collection);
+    NoteInterface(CollectionNew* collection);
 
     // HELPER FUNCTIONS
     static bool isNumber(string isNumber);
@@ -20,9 +20,9 @@ public:
     void editNote();
     void deleteNote();
 
-    ~NoteMenu() = default;
+    ~NoteInterface() = default;
 private:
     CollectionNew* collection;
 };
 
-#endif //NOTEPROJECT_NOTEMENU_H
+#endif //NOTEPROJECT_NOTEINTERFACE_H
