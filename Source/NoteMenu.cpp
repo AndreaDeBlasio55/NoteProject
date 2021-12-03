@@ -35,7 +35,7 @@ void NoteMenu::openMenu() {
                     } else if (inputInt == 1) {
                         createNote();
                     } else if (inputInt == 2) {
-                        collection->editNote();
+                        editNote();
                     } else if (inputInt == 3) {
                         deleteNote();
                     } else if (inputInt == 4) {
@@ -109,7 +109,109 @@ void NoteMenu::createNote () {
     }
     this->collection->createNote(title, description,collection, editable, important);
 }
+// -------------- EDIT --------------
+void NoteMenu::editNote () {
+    cout << boolalpha << endl;
+    bool validateWhile = false;
+    bool validateWhile2 = false;
+    bool validateWhile3 = false;
+    string valueChoiceStr = "-1";
+    int notesCount = collection->getCountNotes();
+    cout << "Fetching Notes..." << endl;
+    if (notesCount == 0) {
+        cout << "There is no Note to edit." << endl;
+    } else {
+        int valueChoice = -1;
+        cout << "Please select one of these notes: " << endl;
+        readNotes();
+        // Select the note
+        cin >> valueChoiceStr;
+        while (validateWhile == false) {
+            if (isNumber(valueChoiceStr)) {
+                valueChoice = stoi(valueChoiceStr);
+                if (valueChoice >= 0 && valueChoice < notesCount) {
+                    validateWhile = true;
+                } else {
+                    cout << "Please type here your choice in this range: ( 0 - " << notesCount - 1 << " )" << endl;
+                    cin >> valueChoiceStr;
 
+                }
+            } else {
+                cout << "Please type here your choice in this range: ( 0 - " << notesCount - 1 << " )" << endl;
+                cin >> valueChoiceStr;
+            }
+        }
+        // Check if we can edit this note:
+        bool canEditNote = false;
+        canEditNote = collection->canEditNote(valueChoice);
+        if (canEditNote) {
+            cout << "What do you want to edit: "
+                 << "\n\t0 - Title "
+                 << "\n\t1 - Description "
+                 << "\n\t2 - Important "
+                 << endl;
+            string valueNoteEditStr = "";
+            int valueNoteEdit = -1;
+            string title = "";
+            string description = "";
+            string collection = "";
+            int important = -1;
+            bool importantBool = false;
+
+            cin >> valueNoteEditStr;
+            while (validateWhile2 == false) {
+                if (isNumber(valueNoteEditStr)) {
+                    valueNoteEdit = stoi(valueNoteEditStr);
+                    if (valueNoteEdit == 0) {
+                        cout << "Please type the new TITLE: " << endl;
+                        cin.ignore();
+                        getline(cin, title);
+                        this->collection->editNoteTitle(valueChoice, title);
+                        validateWhile2 = true;
+                    } else if (valueNoteEdit == 1) {
+                        cout << "Please type the new DESCRIPTION: " << endl;
+                        cin.ignore();
+                        getline(cin, description);
+                        this->collection->editNoteDescription(valueChoice, description);
+                        validateWhile2 = true;
+                    } else if (valueNoteEdit == 2) {
+                        cout << "Please type the new IMPORTANT: " << "\n\t0 - false \n\t1 - true " << endl;
+                        string importantStr = "";
+                        cin >> importantStr;
+                        while (validateWhile3 == false) {
+                            if (isNumber(importantStr)) {
+                                important = stoi(importantStr);
+                                if (important == 0) {
+                                    importantBool = false;
+                                    validateWhile3 = true;
+                                } else if (important == 1) {
+                                    importantBool = true;
+                                    validateWhile3 = true;
+                                } else {
+                                    cout << "Please type a value in this range: \n\t 0 - false \n\t 1 - true " << endl;
+                                    cin >> importantStr;
+                                }
+                            } else {
+                                cout << "Please type a value in this range: \n\t 0 - false \n\t 1 - true " << endl;
+                                cin >> importantStr;
+                            }
+                        }
+                        this->collection->editNoteImportant(valueChoice, importantBool);
+                        validateWhile2 = true;
+                    } else {
+                        cout << "Please type a valid input!" << endl;
+                        cin >> valueNoteEditStr;
+                    }
+                } else {
+                    cout << "Please type a valid input!" << endl;
+                    cin >> valueNoteEditStr;
+                }
+            }
+        } else {
+            cout << "This note is not Editable" << endl;
+        }
+    }
+}
 // -------------- DELETE --------------
 void NoteMenu::deleteNote () {
     cout << boolalpha << endl;

@@ -17,6 +17,7 @@ public:
     void openMenu();
     void readNotes() const;
     void createNote();
+    void editNote();
     void deleteNote();
 
     ~NoteMenu() = default;

@@ -122,7 +122,7 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
     }
 }
 
-// ------- NOTES -------
+// ------- NOTES GETTERS -------
 int CollectionNew::getCountNotes () const {
     int value = 0;
     //for (auto itr= begin(observerCollectionView); itr!= end(observerCollectionView); itr++){
@@ -130,6 +130,9 @@ int CollectionNew::getCountNotes () const {
     //}
     value = (int)notes.size();
     return value;
+}
+bool CollectionNew::canEditNote(int index) const{
+    return notes[index]->getEditable();
 }
 // -------------- READ --------------
 void CollectionNew::readNotes () {
@@ -156,6 +159,7 @@ void CollectionNew::createNote (string title, string description, string collect
     notes.push_back(newNote);
 }
 // -------------- EDIT --------------
+/*
 void CollectionNew::editNote () {
     cout << boolalpha << endl;
     bool validateWhile = false;
@@ -268,6 +272,21 @@ void CollectionNew::editNote () {
         }
     }
 }
+*/
+// -------------- EDIT NOTE SETTERS ------------------
+void CollectionNew::editNoteTitle(int index, string newTitle) {
+    notes[index]->editTitle(newTitle);
+}
+void CollectionNew::editNoteDescription(int index, string newDescription){
+    notes[index]->editDescription(newDescription);
+}
+void CollectionNew::editNoteCollection(int index, string newCollection){
+    notes[index]->editCollection(newCollection);
+}
+void CollectionNew::editNoteImportant(int index, bool newImportant){
+    notes[index]->editImportant(newImportant);
+}
+// ------------------------------------------------
 // -------------- DELETE ------------
 void CollectionNew::deleteNote (int index) {
     bool canDeleteNote = false;

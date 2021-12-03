@@ -26,17 +26,27 @@ public:
     void editEditable();
     void changeCollection(vector<CollectionNew*> destinationCollection);
 
-    // GETTER
+    // GETTERS COLLECTION
     string getCollectionName () const;
-    int getCountNotes() const;
     bool getEditable () const;
+    // GETTERS NOTES
+    int getCountNotes() const;
+    bool canEditNote(int index) const;
+
 
     // HELPER FUNCTIONS
     static bool isNumber(string isNumber);
     // NOTES METHODS
     void readNotes ();
     void createNote (string title, string description, string collection, bool editable, bool important);
+
     void editNote ();
+    void editNoteTitle(int index, string title);
+    void editNoteDescription(int index, string newDescription);
+    void editNoteCollection(int index, string newCollection);
+    void editNoteImportant(int index, bool newImportant);
+
+
     void deleteAllNotes();
     void deleteNote (int index);
 

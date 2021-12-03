@@ -15,16 +15,32 @@ NoteNew::NoteNew(string title, string description, string collection, bool edita
 }
 // METHODS
 void NoteNew::editTitle(string title){
-    this->title = title;
+    if (editable) {
+        this->title = title;
+    } else {
+        cout << "Note not editable" << endl;
+    }
 }
 void NoteNew::editDescription(string description){
-    this->description = description;
+    if (editable){
+        this->description = description;
+    } else {
+        cout << "Note not editable" << endl;
+    }
 }
 void NoteNew::editCollection(string collection){
-    this->collection = collection;
+    if (editable){
+        this->collection = collection;
+    } else {
+        cout << "Note not editable" << endl;
+    }
 }
 void NoteNew::editImportant(bool important) {
-    this->important = important;
+    if (editable){
+        this->important = important;
+    } else {
+        cout << "Note not editable" << endl;
+    }
 }
 // GETTERS
 int NoteNew::getId () const{
