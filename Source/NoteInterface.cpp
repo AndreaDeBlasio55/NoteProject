@@ -257,8 +257,18 @@ bool NoteInterface::isNumber(string str) {
 
 void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> destinationCollection) {
     bool validatorWhile = false;
+    int notesCount = collection->getCountNotes();
+
+    // FETCHING NOTE DATA
+    int id = collection->getNoteId();
+    string title = collection->getNoteTitle();
+    string description = collection->getNoteDescription();
+    string newCollection = collection->getNoteCollection();
+    bool important = collection->getNoteImportant();
+    bool editable = collection->getNoteEditable();
+
     if (collection->getEditable()) {
-        if (collection->getCountNotes() > 0) {
+        if (notesCount > 0) {
             while (!validatorWhile) {
                 string indexNoteStr = "";
                 int indexNote = -1;
@@ -267,15 +277,18 @@ void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> desti
                 cin >> indexNoteStr;
                 if (isNumber(indexNoteStr)) {
                     indexNote = stoi(indexNoteStr);
-                    if (indexNote >= 0 && indexNote < notes.size()) {
-                        cout << notes[indexNote]->getTitle() << " Selected!" << endl;
-                        if (notes[indexNote]->getEditable()) {
-                            currentNoteSelected = notes[indexNote];
+                    if (indexNote >= 0 && indexNote < notesCount) {
+                        cout << collection->getNoteTitle(indexNote) << " Selected!" << endl;
+                        if (collection->getNoteEditable(indexNote)) {
+                            //currentNoteSelected = notes[indexNote];
                             validatorWhile = true;
 
                             string destinationCollectionStr = "";
                             cout << "Type the index of the destination or another value to exit:" << endl;
                             int currentIndexCollection = -1;
+
+
+
                             for (int i = 0; i < destinationCollection.size(); i++) {
                                 if (destinationCollection[i]->getCollectionName() == nameCollection) {
                                     currentIndexCollection = i;
