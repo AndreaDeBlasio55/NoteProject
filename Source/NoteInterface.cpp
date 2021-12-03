@@ -151,6 +151,7 @@ void NoteInterface::editNote () {
                  << "\n\t0 - Title "
                  << "\n\t1 - Description "
                  << "\n\t2 - Important "
+                 << "\n\t3 - Move a note to another Collection "
                  << endl;
             string valueNoteEditStr = "";
             int valueNoteEdit = -1;
@@ -199,6 +200,9 @@ void NoteInterface::editNote () {
                             }
                         }
                         this->collection->editNoteImportant(valueChoice, importantBool);
+                        validateWhile2 = true;
+                    } else if (valueNoteEdit == 3) {
+                        changeCollection(valueChoice);
                         validateWhile2 = true;
                     } else {
                         cout << "Please type a valid input!" << endl;
@@ -272,11 +276,7 @@ void NoteInterface::changeCollection(int indexNote) {
     if (collection->getEditable()) {
         if (notesCount > 0) {
             while (!validatorWhile) {
-                string indexNoteStr = "";
-                int indexNote = -1;
-                cout << "Please select the note you want to move" << endl;
-                collection->readNotes();
-                cin >> indexNoteStr;
+                string indexNoteStr = to_string(indexNote);
                 if (isNumber(indexNoteStr)) {
                     indexNote = stoi(indexNoteStr);
                     if (indexNote >= 0 && indexNote < notesCount) {
