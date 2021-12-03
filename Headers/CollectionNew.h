@@ -31,7 +31,12 @@ public:
     bool getEditable () const;
     // GETTERS NOTES
     int getCountNotes() const;
-    bool canEditNote(int index) const;
+    int getNoteId(int index) const;
+    string getNoteTitle(int index) const;
+    string getNoteDescription(int index) const;
+    string getNoteCollection(int index) const;
+    bool getNoteImportant(int index) const;
+    bool getNoteEditable(int index) const;
 
 
     // HELPER FUNCTIONS
@@ -40,7 +45,6 @@ public:
     void readNotes ();
     void createNote (string title, string description, string collection, bool editable, bool important);
 
-    void editNote ();
     void editNoteTitle(int index, string title);
     void editNoteDescription(int index, string newDescription);
     void editNoteCollection(int index, string newCollection);

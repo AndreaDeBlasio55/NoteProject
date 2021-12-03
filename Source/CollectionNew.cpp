@@ -131,7 +131,22 @@ int CollectionNew::getCountNotes () const {
     value = (int)notes.size();
     return value;
 }
-bool CollectionNew::canEditNote(int index) const{
+int CollectionNew::getNoteId(int index) const{
+    return notes[index]->getId();
+}
+string CollectionNew::getNoteTitle(int index) const{
+    return notes[index]->getTitle();
+}
+string CollectionNew::getNoteDescription(int index) const{
+    return notes[index]->getDescription();
+}
+string CollectionNew::getNoteCollection(int index) const{
+    return notes[index]->getCollection();
+}
+bool CollectionNew::getNoteImportant(int index) const{
+    return notes[index]->getImportant();
+}
+bool CollectionNew::getNoteEditable(int index) const{
     return notes[index]->getEditable();
 }
 // -------------- READ --------------

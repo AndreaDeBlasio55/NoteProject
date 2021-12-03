@@ -143,7 +143,7 @@ void NoteInterface::editNote () {
         }
         // Check if we can edit this note:
         bool canEditNote = false;
-        canEditNote = collection->canEditNote(valueChoice);
+        canEditNote = collection->getNoteEditable(valueChoice);
         if (canEditNote) {
             cout << "What do you want to edit: "
                  << "\n\t0 - Title "
@@ -253,4 +253,72 @@ bool NoteInterface::isNumber(string str) {
         if (isdigit(str[i]) == false)
             return false;
     return true;
+}
+
+void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> destinationCollection) {
+    bool validatorWhile = false;
+    if (collection->getEditable()) {
+        if (collection->getCountNotes() > 0) {
+            while (!validatorWhile) {
+                string indexNoteStr = "";
+                int indexNote = -1;
+                cout << "Please select the note you want to move" << endl;
+                collection->readNotes();
+                cin >> indexNoteStr;
+                if (isNumber(indexNoteStr)) {
+                    indexNote = stoi(indexNoteStr);
+                    if (indexNote >= 0 && indexNote < notes.size()) {
+                        cout << notes[indexNote]->getTitle() << " Selected!" << endl;
+                        if (notes[indexNote]->getEditable()) {
+                            currentNoteSelected = notes[indexNote];
+                            validatorWhile = true;
+
+                            string destinationCollectionStr = "";
+                            cout << "Type the index of the destination or another value to exit:" << endl;
+                            int currentIndexCollection = -1;
+                            for (int i = 0; i < destinationCollection.size(); i++) {
+                                if (destinationCollection[i]->getCollectionName() == nameCollection) {
+                                    currentIndexCollection = i;
+                                    cout << i << " - " << destinationCollection[i]->getCollectionName()
+                                         << " - The note is here " << endl;
+                                } else {
+                                    cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
+                                }
+                            }
+                            cin >> destinationCollectionStr;
+                            if (isNumber(destinationCollectionStr)) {
+                                int destinationInt = stoi(destinationCollectionStr);
+                                if (destinationCollection[destinationInt]->getEditable()) {
+                                    destinationCollection[destinationInt]->notes.push_back(currentNoteSelected);
+                                    cout << "Moved to " << destinationCollection[destinationInt]->getCollectionName()
+                                         << " from: " << nameCollection << endl;
+                                    notes.erase(notes.begin() + indexNote);
+                                    validatorWhile = true;
+                                    notify();
+                                } else {
+                                    cout << "Target collection is not editable, you can't add/edit/delete notes" << endl;
+                                }
+                            } else {
+                                cout << "Exit" << endl;
+                                validatorWhile = true;
+                            }
+                        } else {
+                            cout << "This note is not editable - It can be edit/deleted only deleting the collection: " << nameCollection << endl;
+                            validatorWhile = false;
+                        }
+                    } else {
+                        cout << "Wrong input" << endl;
+                        validatorWhile = false;
+                    }
+                } else {
+                    cout << "Wrong input" << endl;
+                    validatorWhile = false;
+                }
+            }
+        } else {
+            cout << "There aren't notes here" << endl;
+        }
+    } else {
+        cout << "Collection note editable" << endl;
+    }
 }
