@@ -74,85 +74,6 @@ void CollectionView::createCollection(string collectionName, bool isEditable){
     attach();
 }
 
-// _________ EDIT ___________________________
-/*
-void CollectionView::editCollection() {
-    string valueChoice = "";
-    bool validateWhile = false;
-    int valueChoiceInt = 0;
-
-
-    if (collectionSubj.empty()) {
-        cout << "There aren't collections here." << endl;
-    } else {
-        cout << "Please select a collection to edit:" << endl;
-        for (int i=0; i<collectionSubj.size(); i++) {
-            cout << boolalpha;
-            cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
-        }
-        cin >> valueChoice;
-        while (validateWhile == false) {
-            if (isNumber(valueChoice)) {
-                valueChoiceInt = stoi(valueChoice);
-                if (valueChoiceInt >= 0 && valueChoiceInt < collectionSubj.size()) {
-                    // menu edit collection
-                        cout<< "What do you want to edit? \n\t0 - Collection Name \n\t1 - Change editable \n\t2 - Notes \n\t3 - Move a note to another collection \n\tExit - use any other input"<< endl;
-                        string inputEditStr = "";
-                        int inputEditInt = 0;
-                        cin >> inputEditStr;
-                        if (isNumber(inputEditStr)) {
-                            inputEditInt = stoi(inputEditStr);
-                            if (inputEditInt == 0) {
-                                editCollectionName(valueChoiceInt);                     // change collection name
-                            } else if (inputEditInt == 1) {
-                                collectionSubj[valueChoiceInt]->editEditable();         // change editable
-                                cin.ignore();
-                                cin.clear();
-                            } else if (inputEditInt == 2) {
-                                collectionSubj[valueChoiceInt]->menuNotes();            // open notes menu
-                                cin.ignore();
-                                cin.clear();
-                            } else if (inputEditInt == 3) {
-                                if (collectionSubj[valueChoiceInt]->getEditable()) {
-                                    collectionSubj[valueChoiceInt]->changeCollection(collectionSubj);   // change the collection of a note
-                                    cin.ignore();
-                                    cin.clear();
-                                } else {
-                                    cout << "The Collection: " << collectionSubj[valueChoiceInt]->getCollectionName() << " isn't editable" << endl;
-                                    cin.ignore();
-                                    cin.clear();
-                                }
-                            } else {
-                                cin.ignore();
-                                cin.clear();
-                                cout << "Exit" << endl;
-                            }
-                        } else {
-                            cin.ignore();
-                            cin.clear();
-                            cout << "Exit" << endl;
-                        }
-
-                    validateWhile = true;
-                } else {
-                    cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )"
-                         << endl;
-                    cin >> valueChoice;
-
-                    cin.ignore();
-                    cin.clear();
-                }
-            } else {
-                cout << "Please type a value in this range: ( 0 - " << collectionSubj.size() - 1 << " )" << endl;
-                cin >> valueChoice;
-
-                cin.ignore();
-                cin.clear();
-            }
-        }
-    }
-}
-*/
 
 void CollectionView::editCollectionName(int index, string newNameCol) {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
@@ -179,10 +100,28 @@ void CollectionView::editCollectionName(int index, string newNameCol) {
 void CollectionView::editEditable(int index){
     collectionSubj[index]->editEditable();
 }
+
+/*
 void CollectionView::changeCollection(int index){
     collectionSubj[index]->changeCollection(collectionSubj);
 }
+ */
 
+void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) {
+    string collectionReceiver = collectionSubj[indexReceiver]->getCollectionName();
+    collectionSubj[indexReceiver]->createNote(title, description, collectionReceiver, important, editable);
+    collectionSubj[indexSender]->deleteNote(indexNote);
+}
+int CollectionView::getIndexCollectionSender(string collectionName){
+    int indexCollection = 0;
+    for (int i=0; i<collectionSubj.size(); i++){
+        if (collectionSubj[i]->getCollectionName() == collectionName){
+            indexCollection = i;
+            return indexCollection;
+        }
+    }
+    return indexCollection;
+}
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection(int index) {
     if (collectionSubj[index]->getEditable()) {
@@ -205,6 +144,10 @@ int CollectionView::getCollectionsCount (){
     collectionCount = collectionSubj.size();
     return collectionCount;
 }
+bool CollectionView::getCollectionEditable (int index) const{
+    return collectionSubj[index]->getEditable();
+}
+
 // OBSERVER METHODS
 
 void CollectionView::attach() {
@@ -244,7 +187,7 @@ void CollectionView::cleanMemory() {
 }
 
 void CollectionView::noteMenu(int index) {
-    NoteInterface* noteMenu = new NoteInterface(collectionSubj[index]);
+    NoteInterface* noteMenu = new NoteInterface(collectionSubj[index], this);
     noteMenu->openMenu();
 }
 

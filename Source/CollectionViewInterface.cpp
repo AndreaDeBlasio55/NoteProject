@@ -95,7 +95,7 @@ void CollectionViewInterface::interfaceEditCollection() {
                         cin.ignore();
                         cin.clear();
                     } else if (inputEditInt == 3) {
-                        collectionView->changeCollection(valueChoiceInt);
+                        //collectionView->changeCollectionNew();
                         cin.ignore();
                         cin.clear();
                     } else {

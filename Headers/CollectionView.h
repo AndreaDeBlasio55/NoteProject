@@ -20,15 +20,17 @@ public:
     // METHODS
     void readCollections();
     void readCollectionNotes();
+    int getIndexCollectionSender(string collectionName);
 
     void createCollection(string collectionName, bool isEditable);
 
-    void editCollection();
     void editCollectionName(int value, string newNameCol);
     void editEditable(int index);
-    void changeCollection(int index);
+    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable);
+    //void changeCollection(int index);
 
     int getCollectionsCount();
+    bool getCollectionEditable(int index) const;
     void deleteCollection(int index);
 
     void noteMenu(int index);

@@ -3,12 +3,14 @@
 //
 
 #include "../Headers/NoteInterface.h"
+#include "../Headers/CollectionView.h"
 #include <string>
 using namespace std;
 
 
-NoteInterface::NoteInterface(CollectionNew *collection) {
+NoteInterface::NoteInterface(CollectionNew *collection, CollectionView* colView) {
     this->collection = collection;
+    this->colView = colView;
 }
 
 void NoteInterface::openMenu() {
@@ -255,17 +257,17 @@ bool NoteInterface::isNumber(string str) {
     return true;
 }
 
-void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> destinationCollection) {
+void NoteInterface::changeCollection(int indexNote) {
+
     bool validatorWhile = false;
     int notesCount = collection->getCountNotes();
 
     // FETCHING NOTE DATA
-    int id = collection->getNoteId();
-    string title = collection->getNoteTitle();
-    string description = collection->getNoteDescription();
-    string newCollection = collection->getNoteCollection();
-    bool important = collection->getNoteImportant();
-    bool editable = collection->getNoteEditable();
+    string title = collection->getNoteTitle(indexNote);
+    string description = collection->getNoteDescription(indexNote);
+    string newCollection = collection->getNoteCollection(indexNote);
+    bool important = collection->getNoteImportant(indexNote);
+    bool editable = collection->getNoteEditable(indexNote);
 
     if (collection->getEditable()) {
         if (notesCount > 0) {
@@ -287,27 +289,14 @@ void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> desti
                             cout << "Type the index of the destination or another value to exit:" << endl;
                             int currentIndexCollection = -1;
 
+                            colView->readCollections();
 
-
-                            for (int i = 0; i < destinationCollection.size(); i++) {
-                                if (destinationCollection[i]->getCollectionName() == nameCollection) {
-                                    currentIndexCollection = i;
-                                    cout << i << " - " << destinationCollection[i]->getCollectionName()
-                                         << " - The note is here " << endl;
-                                } else {
-                                    cout << i << " - " << destinationCollection[i]->getCollectionName() << endl;
-                                }
-                            }
                             cin >> destinationCollectionStr;
                             if (isNumber(destinationCollectionStr)) {
                                 int destinationInt = stoi(destinationCollectionStr);
-                                if (destinationCollection[destinationInt]->getEditable()) {
-                                    destinationCollection[destinationInt]->notes.push_back(currentNoteSelected);
-                                    cout << "Moved to " << destinationCollection[destinationInt]->getCollectionName()
-                                         << " from: " << nameCollection << endl;
-                                    notes.erase(notes.begin() + indexNote);
-                                    validatorWhile = true;
-                                    notify();
+                                if (colView->getCollectionEditable(destinationInt)) {
+                                    int indexCollectionSender = colView->getIndexCollectionSender(collection->getCollectionName());
+                                    colView->changeCollectionNew(indexCollectionSender, destinationInt, indexNote, title, description, important, editable);
                                 } else {
                                     cout << "Target collection is not editable, you can't add/edit/delete notes" << endl;
                                 }
@@ -316,7 +305,7 @@ void NoteInterface::changeCollection(int indexNote, vector<CollectionNew*> desti
                                 validatorWhile = true;
                             }
                         } else {
-                            cout << "This note is not editable - It can be edit/deleted only deleting the collection: " << nameCollection << endl;
+                            cout << "This note is not editable " << endl;
                             validatorWhile = false;
                         }
                     } else {

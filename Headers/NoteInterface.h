@@ -6,10 +6,11 @@
 #define NOTEPROJECT_NOTEINTERFACE_H
 
 #include "CollectionNew.h"
+#include "CollectionView.h"
 
 class NoteInterface{
 public:
-    NoteInterface(CollectionNew* collection);
+    NoteInterface(CollectionNew* collection, CollectionView* colView);
 
     // HELPER FUNCTIONS
     static bool isNumber(string isNumber);
@@ -17,12 +18,14 @@ public:
     void openMenu();
     void readNotes() const;
     void createNote();
+    void changeCollection(int indexNote);
     void editNote();
     void deleteNote();
 
     ~NoteInterface() = default;
 private:
     CollectionNew* collection;
+    CollectionView* colView;
 };
 
 #endif //NOTEPROJECT_NOTEINTERFACE_H

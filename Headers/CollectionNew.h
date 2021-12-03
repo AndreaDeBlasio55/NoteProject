@@ -29,9 +29,9 @@ public:
     // GETTERS COLLECTION
     string getCollectionName () const;
     bool getEditable () const;
+
     // GETTERS NOTES
     int getCountNotes() const;
-    int getNoteId(int index) const;
     string getNoteTitle(int index) const;
     string getNoteDescription(int index) const;
     string getNoteCollection(int index) const;

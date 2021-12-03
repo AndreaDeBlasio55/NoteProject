@@ -51,6 +51,8 @@ void CollectionNew::editEditable(){
     this->editable = !controllerEditable;
     cout << "Changed editable! \t" << nameCollection << " - editable: " << this->editable << endl;
 }
+
+/*
 void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollection) {
     NoteNew *currentNoteSelected;
     bool validatorWhile = false;
@@ -121,7 +123,7 @@ void CollectionNew::changeCollection(vector<CollectionNew*> destinationCollectio
         cout << "Collection note editable" << endl;
     }
 }
-
+*/
 // ------- NOTES GETTERS -------
 int CollectionNew::getCountNotes () const {
     int value = 0;
@@ -131,9 +133,7 @@ int CollectionNew::getCountNotes () const {
     value = (int)notes.size();
     return value;
 }
-int CollectionNew::getNoteId(int index) const{
-    return notes[index]->getId();
-}
+
 string CollectionNew::getNoteTitle(int index) const{
     return notes[index]->getTitle();
 }
