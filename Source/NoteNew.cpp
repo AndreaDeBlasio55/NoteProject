@@ -5,7 +5,7 @@
 using namespace std;
 
 // CONSTRUCTOR
-NoteNew::NoteNew(string title, string description, string collection, bool editable, bool important){
+NoteNew::NoteNew(string title, string description, string collection, bool important, bool editable){
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;

@@ -19,7 +19,7 @@ class NoteNew{
 public:
 
     // CONSTRUCTOR
-    NoteNew(string title, string description, string collection, bool editable, bool important);
+    NoteNew(string title, string description, string collection, bool important, bool editable);
 
     // GETTERS
     int getId () const;

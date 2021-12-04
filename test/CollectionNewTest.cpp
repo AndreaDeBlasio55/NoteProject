@@ -44,6 +44,18 @@ TEST(CollectionNew, Edit_Collection_Editable_BAD){
     valueEditable = !valueEditable;
     ASSERT_EQ(false, valueEditable);
 }
+TEST(CollectionNew, Create_Note_GOOD){
+    CollectionNew c("Collection 1", false);
+    c.createNote("Nota 1", "Description 1", c.getCollectionName(), false, true);
+    EXPECT_EQ("Nota 1", c.getNoteTitle(0));
+}
+TEST(CollectionNew, Create_Note_BAD){
+    CollectionNew c("Collection 1", false);
+    c.createNote("Nota 1", "Description 1", c.getCollectionName(), false, true);
+    c.editNoteTitle(0,"Note 2");
+    EXPECT_EQ("Nota 1", c.getNoteTitle(0));
+}
+
 
 
 

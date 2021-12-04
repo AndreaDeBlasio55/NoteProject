@@ -109,7 +109,7 @@ void NoteInterface::createNote () {
             cin >> importantStr;
         }
     }
-    this->collection->createNote(title, description,collection, editable, important);
+    this->collection->createNote(title, description,collection, important, editable);
 }
 // -------------- EDIT --------------
 void NoteInterface::editNote () {

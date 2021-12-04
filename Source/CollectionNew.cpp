@@ -17,6 +17,7 @@ CollectionNew::CollectionNew(string nameCollection, bool editable):notes() {
         notes[i]->editImportant(false);
     }
 }
+
 void CollectionNew::subscribe(Observer *o) {
     observerCollectionView.push_back(o);
 }
@@ -28,7 +29,8 @@ void CollectionNew::notify() {
         (*itr)->update();
     }
 }
-// GETTERS
+
+// GETTERS COLLECTION
 bool CollectionNew::getEditable () const {
     return editable;
 }
@@ -36,7 +38,7 @@ string CollectionNew::getCollectionName() const {
     return this->nameCollection;
 }
 
-// SETTERS
+// SETTERS COLLECTION
 void CollectionNew::editCollectionName(string collectionName) {
     cout << "Changed collection name from " << this->nameCollection << " to " << collectionName << endl;
     this->nameCollection = collectionName;
@@ -133,7 +135,6 @@ int CollectionNew::getCountNotes () const {
     value = (int)notes.size();
     return value;
 }
-
 string CollectionNew::getNoteTitle(int index) const{
     return notes[index]->getTitle();
 }
@@ -149,7 +150,7 @@ bool CollectionNew::getNoteImportant(int index) const{
 bool CollectionNew::getNoteEditable(int index) const{
     return notes[index]->getEditable();
 }
-// -------------- READ --------------
+// -------------- READ ------------------
 void CollectionNew::readNotes () {
     cout << boolalpha << endl;
     cout << "Reading Notes from Collection: " << nameCollection << endl;
@@ -168,27 +169,22 @@ void CollectionNew::readNotes () {
         }
     }
 }
-// -------------- CREATE --------------
-void CollectionNew::createNote (string title, string description, string collection, bool editable, bool important) {
-    NoteNew* newNote = new NoteNew(title, description, collection, editable, important);
+// -------------- CREATE ----------------
+void CollectionNew::createNote (string title, string description, string collection, bool important, bool editable) {
+    NoteNew* newNote = new NoteNew(title, description, collection, important, editable);
     notes.push_back(newNote);
 }
-// -------------- EDIT  --------------
-// -------------- EDIT NOTE SETTERS ------------------
+// -------------- EDIT ------------------
 void CollectionNew::editNoteTitle(int index, string newTitle) {
     notes[index]->editTitle(newTitle);
 }
 void CollectionNew::editNoteDescription(int index, string newDescription){
     notes[index]->editDescription(newDescription);
 }
-void CollectionNew::editNoteCollection(int index, string newCollection){
-    notes[index]->editCollection(newCollection);
-}
 void CollectionNew::editNoteImportant(int index, bool newImportant){
     notes[index]->editImportant(newImportant);
 }
-// ------------------------------------------------
-// -------------- DELETE ------------
+// -------------- DELETE ----------------
 void CollectionNew::deleteNote (int index) {
     bool canDeleteNote = false;
     canDeleteNote = notes[index]->getEditable();
@@ -212,10 +208,3 @@ void CollectionNew::deleteAllNotes() {
     }
 }
 // ---------------------------------------------
-// HELPERS
-bool CollectionNew::isNumber(string str) {
-    for (int i = 0; i < str.length(); i++)
-        if (isdigit(str[i]) == false)
-            return false;
-    return true;
-}

@@ -38,16 +38,12 @@ public:
     bool getNoteImportant(int index) const;
     bool getNoteEditable(int index) const;
 
-
-    // HELPER FUNCTIONS
-    static bool isNumber(string isNumber);
     // NOTES METHODS
     void readNotes ();
-    void createNote (string title, string description, string collection, bool editable, bool important);
+    void createNote (string title, string description, string collection, bool important, bool editable);
 
     void editNoteTitle(int index, string title);
     void editNoteDescription(int index, string newDescription);
-    void editNoteCollection(int index, string newCollection);
     void editNoteImportant(int index, bool newImportant);
 
 
