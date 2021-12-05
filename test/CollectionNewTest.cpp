@@ -88,6 +88,16 @@ TEST(CollectionNew, Delete_Note_GOOD){
     ASSERT_EQ(countNotes, 1);
 }
 
+TEST(CollectionNew, Delete_Note_BAD){
+    CollectionNew c("Collection 1", false);
+    c.createNote("Note 1", "Description 1", c.getCollectionName(), false, true);
+    c.createNote("Note 2", "Description 2", c.getCollectionName(), true, true);
+    c.deleteNote(0);
+    c.deleteNote(0);
+    int countNotes = c.getCountNotes();
+    ASSERT_EQ(countNotes, 0);
+}
+
 
 
 
