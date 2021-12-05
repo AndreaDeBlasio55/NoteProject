@@ -33,29 +33,8 @@ void CollectionView::readCollections() const{
     }
 }
 
-void CollectionView::readCollectionNotes(){
-    cout << "Select one of the collections to read the notes or press any other input to exit" << endl;
-    string inputStr = "";
-    cin >> inputStr;
-    if (inputStr.length() == 0){
-        cout << "Exit" << endl;
-    } else if (isNumber(inputStr)){
-        int inputInt = 0;
-        inputInt = stoi(inputStr);
-        if (inputInt >= 0 && inputInt < collectionSubj.size()){
-            cout << collectionSubj[inputInt]->getCollectionName() << " selected!" << endl;
-            // todo: read all notes here
-            collectionSubj[inputInt]->readNotes();
-        }
-    } else {
-        cout << "Exit" << endl;
-    }
-    cin.ignore();
-    cin.clear();
-}
-
-// _________ CREATE ___________________________ DONE
-void CollectionView::createCollection(string collectionName, bool isEditable){
+// _________ CREATE _________________________
+void CollectionView::createCollection(string collectionName, bool isEditable) const{
     bool isNewCollection = true;
 
     if (!collectionSubj.empty()) {
@@ -74,8 +53,8 @@ void CollectionView::createCollection(string collectionName, bool isEditable){
     attach();
 }
 
-
-void CollectionView::editCollectionName(int index, string newNameCol) {
+// --------- EDIT ---------------------------
+void CollectionView::editCollectionName(int index, string newNameCol) const {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
     if (collectionSubj[index]->getEditable()) {
         string newNameCollection = newNameCol;
@@ -97,33 +76,18 @@ void CollectionView::editCollectionName(int index, string newNameCol) {
 
     }
 }
-void CollectionView::editEditable(int index){
+void CollectionView::editEditable(int index) const {
     collectionSubj[index]->editEditable();
 }
 
-/*
-void CollectionView::changeCollection(int index){
-    collectionSubj[index]->changeCollection(collectionSubj);
-}
- */
-
-void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) {
+void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) const {
     string collectionReceiver = collectionSubj[indexReceiver]->getCollectionName();
     collectionSubj[indexReceiver]->createNote(title, description, collectionReceiver, important, editable);
     collectionSubj[indexSender]->deleteNote(indexNote);
 }
-int CollectionView::getIndexCollectionSender(string collectionName){
-    int indexCollection = 0;
-    for (int i=0; i<collectionSubj.size(); i++){
-        if (collectionSubj[i]->getCollectionName() == collectionName){
-            indexCollection = i;
-            return indexCollection;
-        }
-    }
-    return indexCollection;
-}
+
 // _________ DELETE ___________________________
-void CollectionView::deleteCollection(int index) {
+void CollectionView::deleteCollection(int index) const {
     if (collectionSubj[index]->getEditable()) {
         detach();
         // release memory
@@ -139,7 +103,8 @@ void CollectionView::deleteCollection(int index) {
     }
 }
 
-int CollectionView::getCollectionsCount (){
+// _________ GETTERS ___________________________
+int CollectionView::getCollectionsCount () const{
     int collectionCount = 0;
     collectionCount = collectionSubj.size();
     return collectionCount;
@@ -147,9 +112,18 @@ int CollectionView::getCollectionsCount (){
 bool CollectionView::getCollectionEditable (int index) const{
     return collectionSubj[index]->getEditable();
 }
+int CollectionView::getIndexCollectionSender(string collectionName) const{
+    int indexCollection = 0;
+    for (int i=0; i<collectionSubj.size(); i++){
+        if (collectionSubj[i]->getCollectionName() == collectionName){
+            indexCollection = i;
+            return indexCollection;
+        }
+    }
+    return indexCollection;
+}
 
 // OBSERVER METHODS
-
 void CollectionView::attach() {
     this->countCollections = collectionSubj.size();
     collectionSubj[countCollections-1]->subscribe(this);
@@ -167,7 +141,6 @@ void CollectionView::update() {
         cout << "\t" << collectionSubj[i]->getCollectionName() << " has " << countNotes[i] <<" notes "<< endl;
     }
 }
-
 // ------------
 
 void CollectionView::summary(){
@@ -186,15 +159,8 @@ void CollectionView::cleanMemory() {
 
 }
 
+// INTERFACE MENU
 void CollectionView::noteMenu(int index) {
     NoteInterface* noteMenu = new NoteInterface(collectionSubj[index], this);
     noteMenu->openMenu();
-}
-
-// HELPER
-bool CollectionView::isNumber(string str) {
-    for (int i = 0; i < str.length(); i++)
-        if (isdigit(str[i]) == false)
-            return false;
-    return true;
 }

@@ -19,26 +19,23 @@ public:
 
     // METHODS
     void readCollections() const;
-    void readCollectionNotes();
-    int getIndexCollectionSender(string collectionName);
+    int getIndexCollectionSender(string collectionName) const;
 
-    void createCollection(string collectionName, bool isEditable);
+    void createCollection(string collectionName, bool isEditable) const;
 
-    void editCollectionName(int value, string newNameCol);
-    void editEditable(int index);
-    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable);
+    void editCollectionName(int value, string newNameCol) const;
+    void editEditable(int index) const;
+    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) const;
     //void changeCollection(int index);
 
-    int getCollectionsCount();
+    int getCollectionsCount() const;
     bool getCollectionEditable(int index) const;
-    void deleteCollection(int index);
+    void deleteCollection(int index) const;
 
     void noteMenu(int index);
     void cleanMemory();
 
     void summary();
-
-    static bool isNumber(string str);
 
     // OBSERVER PATTERN METHODS
     virtual void update() override;
