@@ -143,7 +143,6 @@ void CollectionView::update() {
 CollectionView::~CollectionView(){
     for (int i=0; i<collectionSubj.size(); i++){
         collectionSubj[i]->deleteAllNotes();
-        cout << "Deleted " << collectionSubj[i]->getCollectionName() << endl;
         delete collectionSubj[i];
         collectionSubj[i] = nullptr;
     }
@@ -152,18 +151,6 @@ CollectionView::~CollectionView(){
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
-    //cleanMemory();
-}
-
-// todo: delete the function here
-void CollectionView::cleanMemory() {
-    for (int i=0; i<collectionSubj.size(); i++){
-        collectionSubj[i]->deleteAllNotes();
-        cout << "Deleted " << collectionSubj[i]->getCollectionName() << endl;
-        delete collectionSubj[i];
-        collectionSubj[i] = nullptr;
-    }
-
 }
 
 // INTERFACE MENU

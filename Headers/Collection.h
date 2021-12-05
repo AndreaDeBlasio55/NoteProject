@@ -24,7 +24,6 @@ public:
     // SETTER
     void editCollectionName(string name);
     void editEditable();
-    void changeCollection(vector<Collection*> destinationCollection);
 
     // GETTERS COLLECTION
     string getCollectionName () const;
@@ -50,7 +49,7 @@ public:
     void deleteAllNotes();
     void deleteNote (int index);
 
-    ~Collection() override = default;
+    ~Collection() override;
 
 private:
     string nameCollection;

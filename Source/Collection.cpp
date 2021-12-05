@@ -142,6 +142,13 @@ void Collection::deleteNote (int index) {
     }
 }
 
+Collection::~Collection(){
+    for (int i=0; i<notes.size(); i++){
+        delete notes[i];
+        notes[i] = nullptr;
+    }
+}
+
 void Collection::deleteAllNotes() {
     cout << "Deleting all notes from: " << nameCollection << endl;
     for (int i=0; i<notes.size(); i++){
