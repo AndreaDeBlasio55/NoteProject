@@ -207,7 +207,7 @@ void CollectionNew::deleteNote (int index) {
             notes[index] = nullptr;
             notes.erase(notes.begin() + index);
         } else {
-            cout << "You can't delete this note" << endl;
+            cout << "You can't delete this note: " << notes[index]->getTitle() << endl;
         }
     } else {
         cout << nameCollection << " is not editable" << endl;
