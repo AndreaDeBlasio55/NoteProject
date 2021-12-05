@@ -45,7 +45,7 @@ void CollectionView::createCollection(string collectionName, bool isEditable) {
         }
     }
     if (isNewCollection) {
-        CollectionNew *newCol = new CollectionNew(collectionName, isEditable);
+        Collection *newCol = new Collection(collectionName, isEditable);
         collectionSubj.push_back(newCol);
     } else {
         cout << "This name is already used, try to create another collection" << endl;

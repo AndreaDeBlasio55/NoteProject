@@ -8,7 +8,7 @@
 #include <iostream>
 #include <string>
 #include "Observer.h"
-#include "CollectionNew.h"
+#include "Collection.h"
 using namespace std;
 
 class CollectionView : public Observer{
@@ -48,6 +48,6 @@ private:
     //int indexCollection;
     int countCollections;                         // to manage attach and detach
     vector<int> countNotes;                       // to know how many notes are in a collection
-    vector<CollectionNew*> collectionSubj;
+    vector<Collection*> collectionSubj;
 };
 #endif //NOTEPROJECT_COLLECTIONVIEW_H

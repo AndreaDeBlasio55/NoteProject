@@ -5,12 +5,12 @@
 #ifndef NOTEPROJECT_NOTEINTERFACE_H
 #define NOTEPROJECT_NOTEINTERFACE_H
 
-#include "CollectionNew.h"
+#include "Collection.h"
 #include "CollectionView.h"
 
 class NoteInterface{
 public:
-    NoteInterface(CollectionNew* collection, CollectionView* colView);
+    NoteInterface(Collection* collection, CollectionView* colView);
 
     // HELPER FUNCTIONS
     static bool isNumber(string isNumber);
@@ -24,7 +24,7 @@ public:
 
     ~NoteInterface() = default;
 private:
-    CollectionNew* collection;
+    Collection* collection;
     CollectionView* colView;
 };
 

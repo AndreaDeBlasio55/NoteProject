@@ -2,12 +2,12 @@
 // Created by Andrea on 11/11/21.
 //
 #include <list>
-#include "../Headers/CollectionNew.h"
+#include "../Headers/Collection.h"
 #include <iostream>
 #include <vector>
 using namespace std;
 
-CollectionNew::CollectionNew(string nameCollection, bool editable):notes() {
+Collection::Collection(string nameCollection, bool editable):notes() {
     this->nameCollection = nameCollection;
     this->editable = editable;
     for (int i=0; i<notes.size(); i ++){
@@ -18,28 +18,28 @@ CollectionNew::CollectionNew(string nameCollection, bool editable):notes() {
     }
 }
 
-void CollectionNew::subscribe(Observer *o) {
+void Collection::subscribe(Observer *o) {
     observerCollectionView.push_back(o);
 }
-void CollectionNew::unsubscribe(Observer *o) {
+void Collection::unsubscribe(Observer *o) {
     observerCollectionView.remove(o);
 }
-void CollectionNew::notify() {
+void Collection::notify() {
     for (auto itr= begin(observerCollectionView); itr != end(observerCollectionView); itr++){
         (*itr)->update();
     }
 }
 
 // GETTERS COLLECTION
-bool CollectionNew::getEditable () const {
+bool Collection::getEditable () const {
     return editable;
 }
-string CollectionNew::getCollectionName() const {
+string Collection::getCollectionName() const {
     return this->nameCollection;
 }
 
 // SETTERS COLLECTION
-void CollectionNew::editCollectionName(string collectionName) {
+void Collection::editCollectionName(string collectionName) {
     cout << "Changed collection name from " << this->nameCollection << " to " << collectionName << endl;
     this->nameCollection = collectionName;
     // change the collection name to all the notes
@@ -48,14 +48,14 @@ void CollectionNew::editCollectionName(string collectionName) {
     }
     notify();
 }
-void CollectionNew::editEditable(){
+void Collection::editEditable(){
     bool controllerEditable = this->editable;
     this->editable = !controllerEditable;
     cout << "Changed editable! \t" << nameCollection << " - editable: " << this->editable << endl;
 }
 
 // ------- NOTES GETTERS -------
-int CollectionNew::getCountNotes () const {
+int Collection::getCountNotes () const {
     int value = 0;
     //for (auto itr= begin(observerCollectionView); itr!= end(observerCollectionView); itr++){
     //    value += 1;
@@ -63,23 +63,23 @@ int CollectionNew::getCountNotes () const {
     value = (int)notes.size();
     return value;
 }
-string CollectionNew::getNoteTitle(int index) const{
+string Collection::getNoteTitle(int index) const{
     return notes[index]->getTitle();
 }
-string CollectionNew::getNoteDescription(int index) const{
+string Collection::getNoteDescription(int index) const{
     return notes[index]->getDescription();
 }
-string CollectionNew::getNoteCollection(int index) const{
+string Collection::getNoteCollection(int index) const{
     return notes[index]->getCollection();
 }
-bool CollectionNew::getNoteImportant(int index) const{
+bool Collection::getNoteImportant(int index) const{
     return notes[index]->getImportant();
 }
-bool CollectionNew::getNoteEditable(int index) const{
+bool Collection::getNoteEditable(int index) const{
     return notes[index]->getEditable();
 }
 // -------------- READ ------------------
-void CollectionNew::readNotes () {
+void Collection::readNotes () {
     cout << boolalpha << endl;
     cout << "Reading Notes from Collection: " << nameCollection << endl;
     if (notes.empty()){
@@ -98,26 +98,26 @@ void CollectionNew::readNotes () {
     }
 }
 // -------------- CREATE ----------------
-void CollectionNew::createNote (string title, string description, string collection, bool important, bool editable) {
-    NoteNew* newNote = new NoteNew(title, description, collection, important, editable);
+void Collection::createNote (string title, string description, string collection, bool important, bool editable) {
+    Note* newNote = new Note(title, description, collection, important, editable);
     notes.push_back(newNote);
 }
 // -------------- EDIT ------------------
-void CollectionNew::editNoteTitle(int index, string newTitle) {
+void Collection::editNoteTitle(int index, string newTitle) {
     if (editable) {
         notes[index]->editTitle(newTitle);
     } else {
         cout << nameCollection << " is not editable" << endl;
     }
 }
-void CollectionNew::editNoteDescription(int index, string newDescription){
+void Collection::editNoteDescription(int index, string newDescription){
     if (editable){
     notes[index]->editDescription(newDescription);
     } else {
         cout << nameCollection << " is not editable" << endl;
     }
 }
-void CollectionNew::editNoteImportant(int index, bool newImportant){
+void Collection::editNoteImportant(int index, bool newImportant){
     if (editable){
     notes[index]->editImportant(newImportant);
     } else {
@@ -125,7 +125,7 @@ void CollectionNew::editNoteImportant(int index, bool newImportant){
     }
 }
 // -------------- DELETE ----------------
-void CollectionNew::deleteNote (int index) {
+void Collection::deleteNote (int index) {
     if (editable) {
         bool canDeleteNote = false;
         canDeleteNote = notes[index]->getEditable();
@@ -142,7 +142,7 @@ void CollectionNew::deleteNote (int index) {
     }
 }
 
-void CollectionNew::deleteAllNotes() {
+void Collection::deleteAllNotes() {
     cout << "Deleting all notes from: " << nameCollection << endl;
     for (int i=0; i<notes.size(); i++){
         cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;

@@ -1,11 +1,11 @@
 
 #include <iostream>
-#include "../Headers/CollectionNew.h"
+#include "../Headers/Collection.h"
 #include <vector>
 using namespace std;
 
 // CONSTRUCTOR
-NoteNew::NoteNew(string title, string description, string collection, bool important, bool editable){
+Note::Note(string title, string description, string collection, bool important, bool editable){
     this->noteId = rand() % 10000;
     this->title = title;
     this->description = description;
@@ -14,28 +14,28 @@ NoteNew::NoteNew(string title, string description, string collection, bool impor
     this->important = important;
 }
 // METHODS
-void NoteNew::editTitle(string title){
+void Note::editTitle(string title){
     if (editable) {
         this->title = title;
     } else {
         cout << "Note not editable" << endl;
     }
 }
-void NoteNew::editDescription(string description){
+void Note::editDescription(string description){
     if (editable){
         this->description = description;
     } else {
         cout << "Note not editable" << endl;
     }
 }
-void NoteNew::editCollection(string collection){
+void Note::editCollection(string collection){
     if (editable){
         this->collection = collection;
     } else {
         cout << "Note not editable" << endl;
     }
 }
-void NoteNew::editImportant(bool important) {
+void Note::editImportant(bool important) {
     if (editable){
         this->important = important;
     } else {
@@ -43,25 +43,25 @@ void NoteNew::editImportant(bool important) {
     }
 }
 // GETTERS
-int NoteNew::getId () const{
+int Note::getId () const{
     return noteId;
 }
-string NoteNew::getTitle() const{
+string Note::getTitle() const{
     return title;
 }
-string NoteNew::getDescription () const{
+string Note::getDescription () const{
     return description;
 }
-string NoteNew::getCollection () const{
+string Note::getCollection () const{
     return collection;
 }
-bool NoteNew::getEditable () const{
+bool Note::getEditable () const{
     return editable;
 }
-bool NoteNew::getImportant() const{
+bool Note::getImportant() const{
     return important;
 }
 
-NoteNew::~NoteNew() {
+Note::~Note() {
 
 }

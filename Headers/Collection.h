@@ -2,20 +2,20 @@
 // Created by Andrea on 14/11/21.
 //
 
-#ifndef NOTEPROJECT_COLLECTIONNEW_H
-#define NOTEPROJECT_COLLECTIONNEW_H
+#ifndef NOTEPROJECT_COLLECTION_H
+#define NOTEPROJECT_COLLECTION_H
 
 #include "Subject.h"
-#include "NoteNew.h"
+#include "Note.h"
 #include <list>
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
-class CollectionNew : public Subject {
+class Collection : public Subject {
 public:
-    CollectionNew(string name, bool editable);
+    Collection(string name, bool editable);
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o) override;
@@ -24,7 +24,7 @@ public:
     // SETTER
     void editCollectionName(string name);
     void editEditable();
-    void changeCollection(vector<CollectionNew*> destinationCollection);
+    void changeCollection(vector<Collection*> destinationCollection);
 
     // GETTERS COLLECTION
     string getCollectionName () const;
@@ -50,14 +50,14 @@ public:
     void deleteAllNotes();
     void deleteNote (int index);
 
-    ~CollectionNew() override = default;
+    ~Collection() override = default;
 
 private:
     string nameCollection;
     bool editable;
-    vector<NoteNew*> notes;
+    vector<Note*> notes;
     list <Observer*> observerCollectionView;
 
 };
 
-#endif //NOTEPROJECT_COLLECTIONNEW_H
+#endif //NOTEPROJECT_COLLECTION_H

@@ -2,8 +2,8 @@
 // Created by Andrea on 11/11/21.
 //
 
-#ifndef NOTEPROJECT_NOTENEW_H
-#define NOTEPROJECT_NOTENEW_H
+#ifndef NOTEPROJECT_NOTE_H
+#define NOTEPROJECT_NOTE_H
 
 //
 // Created by Andrea on 19/10/21.
@@ -12,14 +12,14 @@
 #include <iostream>
 #include <string>
 #include "Observer.h"
-//#include "CollectionNew.h"
+//#include "Collection.h"
 using namespace std;
 
-class NoteNew{
+class Note{
 public:
 
     // CONSTRUCTOR
-    NoteNew(string title, string description, string collection, bool important, bool editable);
+    Note(string title, string description, string collection, bool important, bool editable);
 
     // GETTERS
     int getId () const;
@@ -35,7 +35,7 @@ public:
     void editImportant (bool important);
     void editCollection (string collection);
     // DESTRUCTOR
-    ~NoteNew();
+    ~Note();
 private:
     int noteId;
     string collection;
@@ -45,4 +45,4 @@ private:
     bool important;
 };
 
-#endif //NOTEPROJECT_NOTENEW_H
+#endif //NOTEPROJECT_NOTE_H

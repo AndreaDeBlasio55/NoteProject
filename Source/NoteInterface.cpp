@@ -8,7 +8,7 @@
 using namespace std;
 
 
-NoteInterface::NoteInterface(CollectionNew *collection, CollectionView* colView) {
+NoteInterface::NoteInterface(Collection *collection, CollectionView* colView) {
     this->collection = collection;
     this->colView = colView;
 }
