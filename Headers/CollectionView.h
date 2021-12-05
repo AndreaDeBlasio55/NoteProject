@@ -18,7 +18,7 @@ public:
     CollectionView();
 
     // METHODS
-    void readCollections();
+    void readCollections() const;
     void readCollectionNotes();
     int getIndexCollectionSender(string collectionName);
 

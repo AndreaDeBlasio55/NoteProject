@@ -21,7 +21,7 @@ CollectionView::CollectionView() : collectionSubj(){
 
 // METHODS
 // _________ READ ___________________________
-void CollectionView::readCollections(){
+void CollectionView::readCollections() const{
     if (collectionSubj.empty()) {
         cout << "There aren't collections here" << endl;
     } else {
