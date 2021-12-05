@@ -72,7 +72,7 @@ void CollectionViewInterface::interfaceEditCollection() {
             if (valueChoiceInt >= 0 && valueChoiceInt < collectionCount) {
                 // menu edit collection
                 cout
-                        << "What do you want to edit? \n\t0 - Collection Name \n\t1 - Change editable \n\t2 - Notes \n\t3 - Move a note to another collection \n\tExit - use any other input"
+                        << "What do you want to edit? \n\t0 - Collection Name \n\t1 - Change editable \n\t2 - Menu Notes \n\tExit - use any other input"
                         << endl;
                 string inputEditStr = "";
                 int inputEditInt = 0;
@@ -92,10 +92,6 @@ void CollectionViewInterface::interfaceEditCollection() {
                         cin.clear();
                     } else if (inputEditInt == 2) {
                         collectionView->noteMenu(valueChoiceInt);      // open notes menu
-                        cin.ignore();
-                        cin.clear();
-                    } else if (inputEditInt == 3) {
-                        //collectionView->changeCollectionNew();
                         cin.ignore();
                         cin.clear();
                     } else {

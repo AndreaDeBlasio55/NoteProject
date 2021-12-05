@@ -176,26 +176,41 @@ void CollectionNew::createNote (string title, string description, string collect
 }
 // -------------- EDIT ------------------
 void CollectionNew::editNoteTitle(int index, string newTitle) {
-    notes[index]->editTitle(newTitle);
+    if (editable) {
+        notes[index]->editTitle(newTitle);
+    } else {
+        cout << nameCollection << " is not editable" << endl;
+    }
 }
 void CollectionNew::editNoteDescription(int index, string newDescription){
+    if (editable){
     notes[index]->editDescription(newDescription);
+    } else {
+        cout << nameCollection << " is not editable" << endl;
+    }
 }
 void CollectionNew::editNoteImportant(int index, bool newImportant){
+    if (editable){
     notes[index]->editImportant(newImportant);
+    } else {
+        cout << nameCollection << " is not editable" << endl;
+    }
 }
 // -------------- DELETE ----------------
 void CollectionNew::deleteNote (int index) {
-    bool canDeleteNote = false;
-    canDeleteNote = notes[index]->getEditable();
-    if (canDeleteNote) {
-        string noteDeleted = notes[index]->getTitle();
-        delete notes[index];
-        notes[index] = nullptr;
-        notes.erase(notes.begin() + index);
-        cout << "Completed!\t" << noteDeleted << " deleted!" << endl;
+    if (editable) {
+        bool canDeleteNote = false;
+        canDeleteNote = notes[index]->getEditable();
+        if (canDeleteNote) {
+            string noteDeleted = notes[index]->getTitle();
+            delete notes[index];
+            notes[index] = nullptr;
+            notes.erase(notes.begin() + index);
+        } else {
+            cout << "You can't delete this note" << endl;
+        }
     } else {
-        cout << "You can't delete this note" << endl;
+        cout << nameCollection << " is not editable" << endl;
     }
 }
 
