@@ -154,6 +154,11 @@ void CollectionViewInterface::interfaceDeleteCollection() {
     cin.clear();
 }
 
+// DESTRUCTOR
+CollectionViewInterface::~CollectionViewInterface() {
+    delete collectionView;
+}
+
 // HELPER
 bool CollectionViewInterface::isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
@@ -161,3 +166,4 @@ bool CollectionViewInterface::isNumber(string str) {
             return false;
     return true;
 }
+

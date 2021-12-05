@@ -15,8 +15,6 @@ using namespace std;
 // CONSTRUCTOR
 CollectionView::CollectionView() : collectionSubj(){
     this->countCollections = 0;
-    //this->indexCollection = -1;
-    //attach();
 }
 
 // METHODS
@@ -29,7 +27,6 @@ void CollectionView::readCollections() const{
             cout << boolalpha;
             cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
         }
-        //readCollectionNotes();
     }
 }
 
@@ -143,12 +140,22 @@ void CollectionView::update() {
 }
 // ------------
 
+CollectionView::~CollectionView(){
+    for (int i=0; i<collectionSubj.size(); i++){
+        collectionSubj[i]->deleteAllNotes();
+        cout << "Deleted " << collectionSubj[i]->getCollectionName() << endl;
+        delete collectionSubj[i];
+        collectionSubj[i] = nullptr;
+    }
+}
+
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
-    cleanMemory();
+    //cleanMemory();
 }
 
+// todo: delete the function here
 void CollectionView::cleanMemory() {
     for (int i=0; i<collectionSubj.size(); i++){
         collectionSubj[i]->deleteAllNotes();

@@ -20,7 +20,7 @@ public:
     void interfaceDeleteCollection();
 
     static bool isNumber(string str);
-    ~CollectionViewInterface() =default;
+    ~CollectionViewInterface();
 
 private:
     CollectionView* collectionView;

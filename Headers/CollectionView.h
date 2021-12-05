@@ -43,7 +43,7 @@ public:
     virtual void detach() override;
 
     // DESTRUCTOR
-    ~CollectionView() override= default;
+    ~CollectionView() override;
 private:
     //int indexCollection;
     int countCollections;                         // to manage attach and detach

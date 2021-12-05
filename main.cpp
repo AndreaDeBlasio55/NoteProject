@@ -43,11 +43,10 @@ int main() {
             cout << "No valid input" << endl;
         }
     }
-    //controllerCollections->summary();
+    controllerCollections->summary();
 
     return 0;
 }
-
 
 bool isNumber(string str) {
     for (int i = 0; i < str.length(); i++)
