@@ -131,8 +131,8 @@ void Collection::deleteNote (int index) {
         canDeleteNote = notes[index]->getEditable();
         if (canDeleteNote) {
             string noteDeleted = notes[index]->getTitle();
-            delete notes[index];
-            notes[index] = nullptr;
+            //delete notes[index];
+            //notes[index] = nullptr;
             notes.erase(notes.begin() + index);
         } else {
             cout << "You can't delete this note: " << notes[index]->getTitle() << endl;

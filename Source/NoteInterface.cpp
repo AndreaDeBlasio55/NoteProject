@@ -323,5 +323,4 @@ void NoteInterface::changeCollection(int indexNote) {
     } else {
         cout << "Collection note editable" << endl;
     }
-    colView->update();
 }

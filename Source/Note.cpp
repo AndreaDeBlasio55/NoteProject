@@ -62,4 +62,6 @@ bool Note::getImportant() const{
     return important;
 }
 
-Note::~Note() = default;
+Note::~Note(){
+    delete this;
+}
