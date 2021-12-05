@@ -11,13 +11,13 @@ TEST(CollectionNew, Costructor_GOOD){
     ASSERT_EQ("Collection 1",
               collectionName);
 }
-// FAIL
 TEST(CollectionNew, Costructor_BAD){
     CollectionNew c("Collection 1", false);
     string collectionName = c.getCollectionName();
     ASSERT_EQ("Collection 2",
               collectionName);
 }
+
 TEST(CollectionNew, Edit_Collection_Name_GOOD){
     CollectionNew c("Collection 1", true);
     c.editCollectionName("Collection 1 Edited");
@@ -32,6 +32,7 @@ TEST(CollectionNew, Edit_Collection_Name_BAD){
     ASSERT_EQ("Collection 1",
               collectionName);
 }
+
 TEST(CollectionNew, Edit_Collection_Editable_GOOD){
     CollectionNew c("Collection 1", true);
     bool valueEditable = c.getEditable();
@@ -44,17 +45,19 @@ TEST(CollectionNew, Edit_Collection_Editable_BAD){
     valueEditable = !valueEditable;
     ASSERT_EQ(false, valueEditable);
 }
+
 TEST(CollectionNew, Create_Note_GOOD){
     CollectionNew c("Collection 1", true);
     c.createNote("Nota 1", "Description 1", c.getCollectionName(), false, true);
     EXPECT_EQ("Nota 1", c.getNoteTitle(0));
 }
 TEST(CollectionNew, Create_Note_BAD){
-    CollectionNew c("Collection 1", false);
+    CollectionNew c("Collection 1", true);
     c.createNote("Nota 1", "Description 1", c.getCollectionName(), false, true);
     c.editNoteTitle(0,"Note 2");
     EXPECT_EQ("Nota 1", c.getNoteTitle(0));
 }
+
 TEST(CollectionNew, Edit_Note_GOOD){
     CollectionNew c("Collection 1", true);
     c.createNote("Note 1", "Description 1", c.getCollectionName(), false, true);
@@ -87,7 +90,6 @@ TEST(CollectionNew, Delete_Note_GOOD){
     int countNotes = c.getCountNotes();
     ASSERT_EQ(countNotes, 1);
 }
-
 TEST(CollectionNew, Delete_Note_BAD){
     CollectionNew c("Collection 1", false);
     c.createNote("Note 1", "Description 1", c.getCollectionName(), false, true);
