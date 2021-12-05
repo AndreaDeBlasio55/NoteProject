@@ -34,7 +34,7 @@ void CollectionView::readCollections() const{
 }
 
 // _________ CREATE _________________________
-void CollectionView::createCollection(string collectionName, bool isEditable) const{
+void CollectionView::createCollection(string collectionName, bool isEditable) {
     bool isNewCollection = true;
 
     if (!collectionSubj.empty()) {
@@ -54,7 +54,7 @@ void CollectionView::createCollection(string collectionName, bool isEditable) co
 }
 
 // --------- EDIT ---------------------------
-void CollectionView::editCollectionName(int index, string newNameCol) const {
+void CollectionView::editCollectionName(int index, string newNameCol)  {
     string oldNameCollection = collectionSubj[index]->getCollectionName();
     if (collectionSubj[index]->getEditable()) {
         string newNameCollection = newNameCol;
@@ -76,18 +76,18 @@ void CollectionView::editCollectionName(int index, string newNameCol) const {
 
     }
 }
-void CollectionView::editEditable(int index) const {
+void CollectionView::editEditable(int index)  {
     collectionSubj[index]->editEditable();
 }
 
-void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) const {
+void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable)  {
     string collectionReceiver = collectionSubj[indexReceiver]->getCollectionName();
     collectionSubj[indexReceiver]->createNote(title, description, collectionReceiver, important, editable);
     collectionSubj[indexSender]->deleteNote(indexNote);
 }
 
 // _________ DELETE ___________________________
-void CollectionView::deleteCollection(int index) const {
+void CollectionView::deleteCollection(int index)  {
     if (collectionSubj[index]->getEditable()) {
         detach();
         // release memory

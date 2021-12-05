@@ -21,16 +21,16 @@ public:
     void readCollections() const;
     int getIndexCollectionSender(string collectionName) const;
 
-    void createCollection(string collectionName, bool isEditable) const;
+    void createCollection(string collectionName, bool isEditable);
 
-    void editCollectionName(int value, string newNameCol) const;
-    void editEditable(int index) const;
-    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) const;
+    void editCollectionName(int value, string newNameCol) ;
+    void editEditable(int index) ;
+    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) ;
     //void changeCollection(int index);
 
     int getCollectionsCount() const;
     bool getCollectionEditable(int index) const;
-    void deleteCollection(int index) const;
+    void deleteCollection(int index);
 
     void noteMenu(int index);
     void cleanMemory();
