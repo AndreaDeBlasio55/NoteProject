@@ -15,6 +15,8 @@ using namespace std;
 // CONSTRUCTOR
 CollectionView::CollectionView() : collectionSubj(){
     this->countCollections = 0;
+    //this->indexCollection = -1;
+    //attach();
 }
 
 // METHODS
@@ -27,6 +29,7 @@ void CollectionView::readCollections() const{
             cout << boolalpha;
             cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
         }
+        //readCollectionNotes();
     }
 }
 
@@ -109,6 +112,10 @@ int CollectionView::getCollectionsCount () const{
 bool CollectionView::getCollectionEditable (int index) const{
     return collectionSubj[index]->getEditable();
 }
+string CollectionView::getCollectionName(int index) const{
+    return collectionSubj[index]->getCollectionName();
+}
+
 int CollectionView::getIndexCollectionSender(string collectionName) const{
     int indexCollection = 0;
     for (int i=0; i<collectionSubj.size(); i++){
@@ -140,21 +147,32 @@ void CollectionView::update() {
 }
 // ------------
 
-CollectionView::~CollectionView(){
-    for (int i=0; i<collectionSubj.size(); i++){
-        collectionSubj[i]->deleteAllNotes();
-        delete collectionSubj[i];
-        collectionSubj[i] = nullptr;
-    }
-}
-
 void CollectionView::summary(){
     cout << "Summary: " << endl;
     update();
+    //cleanMemory();
+}
+
+void CollectionView::cleanMemory() {
+    for (int i=0; i<collectionSubj.size(); i++){
+        collectionSubj[i]->deleteAllNotes();
+        cout << "Deleted " << collectionSubj[i]->getCollectionName() << endl;
+        delete collectionSubj[i];
+        collectionSubj[i] = nullptr;
+    }
+
 }
 
 // INTERFACE MENU
 void CollectionView::noteMenu(int index) {
     NoteInterface* noteMenu = new NoteInterface(collectionSubj[index], this);
     noteMenu->openMenu();
+}
+
+CollectionView::~CollectionView() {
+    for (int i=0; i<collectionSubj.size(); i++){
+        collectionSubj[i]->deleteAllNotes();
+        delete collectionSubj[i];
+        collectionSubj[i] = nullptr;
+    }
 }

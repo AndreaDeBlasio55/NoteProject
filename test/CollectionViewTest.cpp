@@ -19,3 +19,16 @@ TEST(CollectionView, Create_Collection_BAD){
     int collectionsCount = c.getCollectionsCount();
     ASSERT_EQ(2, collectionsCount);
 }
+
+TEST(CollectionView, Edit_Collection_Name_GOOD){
+    CollectionView c;
+    c.createCollection("Collection 1", true);
+    c.editCollectionName(0,"New Name");
+    ASSERT_EQ("New Name", c.getCollectionName(0));
+}
+TEST(CollectionView, Edit_Collection_Name_BAD){
+    CollectionView c;
+    c.createCollection("Collection 1", false);
+    c.editCollectionName(0,"New Name");
+    ASSERT_EQ("New Name", c.getCollectionName(0));
+}

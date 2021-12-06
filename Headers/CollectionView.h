@@ -20,6 +20,7 @@ public:
     // METHODS
     void readCollections() const;
     int getIndexCollectionSender(string collectionName) const;
+    string getCollectionName(int index) const;
 
     void createCollection(string collectionName, bool isEditable);
 
