@@ -142,13 +142,6 @@ void Collection::deleteNote (int index) {
     }
 }
 
-Collection::~Collection(){
-    for (int i=0; i<notes.size(); i++){
-        delete notes[i];
-        notes[i] = nullptr;
-    }
-}
-
 void Collection::deleteAllNotes() {
     cout << "Deleting all notes from: " << nameCollection << endl;
     for (int i=0; i<notes.size(); i++){
@@ -157,12 +150,13 @@ void Collection::deleteAllNotes() {
         notes[i] = nullptr;
     }
 }
-
+/*
 Collection::~Collection() {
     for (int i=0; i<notes.size(); i++){
-        cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
+        //cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
         delete notes[i];
         notes[i] = nullptr;
     }
 }
+ */
 // ---------------------------------------------

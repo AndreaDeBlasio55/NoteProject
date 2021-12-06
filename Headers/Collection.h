@@ -49,7 +49,7 @@ public:
     void deleteAllNotes();
     void deleteNote (int index);
 
-    ~Collection() override;
+    ~Collection() override = default;
 
 private:
     string nameCollection;

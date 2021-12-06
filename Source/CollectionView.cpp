@@ -150,6 +150,7 @@ void CollectionView::summary(){
 }
 
 // todo: delete the function here
+/*
 void CollectionView::cleanMemory() {
     for (int i=0; i<collectionSubj.size(); i++){
         collectionSubj[i]->deleteAllNotes();
@@ -157,18 +158,11 @@ void CollectionView::cleanMemory() {
         delete collectionSubj[i];
         collectionSubj[i] = nullptr;
     }
-
 }
+ */
 
 // INTERFACE MENU
 void CollectionView::noteMenu(int index) {
     NoteInterface* noteMenu = new NoteInterface(collectionSubj[index], this);
     noteMenu->openMenu();
-}
-
-CollectionView::~CollectionView() {
-    for (auto & i : collectionSubj){
-        delete i;
-        i = nullptr;
-    }
 }

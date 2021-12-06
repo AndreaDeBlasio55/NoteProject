@@ -35,7 +35,7 @@ public:
     void editImportant (bool important);
     void editCollection (string collection);
     // DESTRUCTOR
-    ~Note();
+    ~Note() = default;
 private:
     int noteId;
     string collection;
