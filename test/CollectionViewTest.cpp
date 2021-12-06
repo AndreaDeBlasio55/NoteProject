@@ -42,3 +42,13 @@ TEST(CollectionView, Edit_Editable_Collection_GOOD){
     bool editable = c.getCollectionEditable(0);
     EXPECT_EQ(false, editable);
 }
+TEST(CollectionView, Edit_Editable_Collection_BAD){
+    CollectionView c;
+    c.createCollection("Collection 1", true);
+    c.createCollection("Collection 2", true);
+    c.editEditable(0);
+    bool editable = c.getCollectionEditable(1);
+    ASSERT_EQ(false, editable);
+}
+
+
