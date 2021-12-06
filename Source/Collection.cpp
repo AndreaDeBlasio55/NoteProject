@@ -46,7 +46,7 @@ void Collection::editCollectionName(string collectionName) {
     for (int i = 0; i < notes.size(); i++) {
         notes[i]->editCollection(collectionName);
     }
-    notify();
+    //notify();
 }
 void Collection::editEditable(){
     bool controllerEditable = this->editable;
@@ -151,6 +151,14 @@ Collection::~Collection(){
 
 void Collection::deleteAllNotes() {
     cout << "Deleting all notes from: " << nameCollection << endl;
+    for (int i=0; i<notes.size(); i++){
+        cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
+        delete notes[i];
+        notes[i] = nullptr;
+    }
+}
+
+Collection::~Collection() {
     for (int i=0; i<notes.size(); i++){
         cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
         delete notes[i];

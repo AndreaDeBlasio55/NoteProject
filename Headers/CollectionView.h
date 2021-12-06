@@ -22,6 +22,7 @@ public:
     int getIndexCollectionSender(string collectionName) const;
     string getCollectionName(int index) const;
 
+
     void createCollection(string collectionName, bool isEditable);
 
     void editCollectionName(int value, string newNameCol) ;

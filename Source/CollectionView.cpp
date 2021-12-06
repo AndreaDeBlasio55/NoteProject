@@ -15,8 +15,6 @@ using namespace std;
 // CONSTRUCTOR
 CollectionView::CollectionView() : collectionSubj(){
     this->countCollections = 0;
-    //this->indexCollection = -1;
-    //attach();
 }
 
 // METHODS
@@ -29,7 +27,6 @@ void CollectionView::readCollections() const{
             cout << boolalpha;
             cout << i << " - " << collectionSubj[i]->getCollectionName() << "\t\t editable: " << collectionSubj[i]->getEditable() << endl;
         }
-        //readCollectionNotes();
     }
 }
 
@@ -112,10 +109,9 @@ int CollectionView::getCollectionsCount () const{
 bool CollectionView::getCollectionEditable (int index) const{
     return collectionSubj[index]->getEditable();
 }
-string CollectionView::getCollectionName(int index) const{
+string CollectionView::getCollectionName (int index) const{
     return collectionSubj[index]->getCollectionName();
 }
-
 int CollectionView::getIndexCollectionSender(string collectionName) const{
     int indexCollection = 0;
     for (int i=0; i<collectionSubj.size(); i++){
@@ -153,6 +149,7 @@ void CollectionView::summary(){
     //cleanMemory();
 }
 
+// todo: delete the function here
 void CollectionView::cleanMemory() {
     for (int i=0; i<collectionSubj.size(); i++){
         collectionSubj[i]->deleteAllNotes();
@@ -170,9 +167,8 @@ void CollectionView::noteMenu(int index) {
 }
 
 CollectionView::~CollectionView() {
-    for (int i=0; i<collectionSubj.size(); i++){
-        collectionSubj[i]->deleteAllNotes();
-        delete collectionSubj[i];
-        collectionSubj[i] = nullptr;
+    for (auto & i : collectionSubj){
+        delete i;
+        i = nullptr;
     }
 }
