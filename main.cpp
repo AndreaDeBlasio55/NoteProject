@@ -18,7 +18,7 @@ int main() {
         cout << "What would you do?: "
                 "\n\t0 - Read Collections"
                 "\n\t1 - Create Collection"
-                "\n\t2 - Edit Collection"
+                "\n\t2 - Select Collection"
                 "\n\t3 - Delete Collection"
                 "\n\t4 - Exit" << endl;
         getline(cin, firstInputStr);

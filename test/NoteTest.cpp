@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 #include "../Headers/Note.h"
 
-TEST(NoteNew, Costructor_GOOD){
+TEST(Note, Costructor_GOOD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     string title = note.getTitle();
     string description = note.getDescription();
@@ -23,7 +23,7 @@ TEST(NoteNew, Costructor_GOOD){
     EXPECT_EQ(true,
               editable);
 }
-TEST(NoteNew, Costructor_BAD){
+TEST(Note, Costructor_BAD){
     Note note("Note 1", "Description note 1", "Collection 1",true, false);
     string title = note.getTitle();
     string description = note.getDescription();
@@ -42,31 +42,31 @@ TEST(NoteNew, Costructor_BAD){
               editable);
 }
 
-TEST(NoteNew, Edit_Title_GOOD){
+TEST(Note, Edit_Title_GOOD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     note.editTitle("Note New Title");
     ASSERT_EQ("Note New Title", note.getTitle());
 }
-TEST(NoteNew, Edit_Title_BAD){
+TEST(Note, Edit_Title_BAD){
     Note note("Note 1", "Description note 1", "Collection 1",false, false);
     note.editTitle("Note New Title");
     ASSERT_EQ("Note New Title", note.getTitle());
 }
 
-TEST(NoteNew, Edit_Description_GOOD){
+TEST(Note, Edit_Description_GOOD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     note.editDescription("New Description");
     string noteDescription = note.getDescription();
     ASSERT_EQ("New Description", noteDescription);
 }
-TEST(NoteNew, Edit_Description_BAD){
+TEST(Note, Edit_Description_BAD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     note.editDescription("New Description");
     string noteDescription = note.getDescription();
     ASSERT_EQ("New Descriptions", noteDescription);
 }
 
-TEST(NoteNew, Edit_Important_GOOD){
+TEST(Note, Edit_Important_GOOD){
     Note note("Note 1", "Description note 1", "Collection 1",true, false);
     bool noteImportant = note.getImportant();
     bool newNoteImportant = !noteImportant;
@@ -74,7 +74,7 @@ TEST(NoteNew, Edit_Important_GOOD){
     newNoteImportant = note.getImportant();
     ASSERT_EQ(true, newNoteImportant);
 }
-TEST(NoteNew, Edit_Important_BAD){
+TEST(Note, Edit_Important_BAD){
     Note note("Note 1", "Description note 1", "Collection 1",true, false);
     bool noteImportant = note.getImportant();
     bool newNoteImportant = !noteImportant;
@@ -83,12 +83,12 @@ TEST(NoteNew, Edit_Important_BAD){
     ASSERT_EQ(false, newNoteImportant);
 }
 
-TEST(NoteNew, Edit_Collection_GOOD){
+TEST(Note, Edit_Collection_GOOD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     note.editCollection("Collection new");
     ASSERT_EQ("Collection new", note.getCollection());
 }
-TEST(NoteNew, Edit_Collection_BAD){
+TEST(Note, Edit_Collection_BAD){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
     note.editCollection("Collection new");
     ASSERT_EQ("Collection 1", note.getCollection());
