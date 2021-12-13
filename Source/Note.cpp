@@ -14,33 +14,17 @@ Note::Note(string title, string description, string collection, bool important, 
     this->important = important;
 }
 // METHODS
-void Note::editTitle(string title){
-    if (editable) {
-        this->title = title;
-    } else {
-        cout << "Note not editable" << endl;
-    }
+void Note::editTitle(string title) {
+    this->title = title;
 }
 void Note::editDescription(string description){
-    if (editable){
         this->description = description;
-    } else {
-        cout << "Note not editable" << endl;
-    }
 }
 void Note::editCollection(string collection){
-    if (editable){
         this->collection = collection;
-    } else {
-        cout << "Note not editable" << endl;
-    }
 }
 void Note::editImportant(bool important) {
-    if (editable){
-        this->important = important;
-    } else {
-        cout << "Note not editable" << endl;
-    }
+    this->important = important;
 }
 // GETTERS
 int Note::getId () const{

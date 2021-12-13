@@ -21,7 +21,7 @@ CollectionView::CollectionView() : collectionSubj(){
 // _________ READ ___________________________
 void CollectionView::readCollections() const{
     if (collectionSubj.empty()) {
-        cout << "There aren't collections here" << endl;
+        cerr << "There aren't collections here" << endl;
     } else {
         for (int i=0; i<collectionSubj.size(); i++) {
             cout << boolalpha;
@@ -44,8 +44,9 @@ void CollectionView::createCollection(string collectionName, bool isEditable) {
     if (isNewCollection) {
         Collection *newCol = new Collection(collectionName, isEditable);
         collectionSubj.push_back(newCol);
+        cout << "Created a new collection: " << newCol->getCollectionName() << endl;
     } else {
-        cout << "This name is already used, try to create another collection" << endl;
+        cerr << "This name is already used, try to create another collection" << endl;
     }
     attach();
 }
@@ -64,12 +65,12 @@ void CollectionView::editCollectionName(int index, string newNameCol)  {
         if (newName) {
             collectionSubj[index]->editCollectionName(newNameCollection);
         } else {
-            cout << "The name is already taken." << endl;
+            cerr << "The name is already taken." << endl;
             cin.clear();
             cin.ignore();
         }
     } else {
-        cout << "The Collection: " << oldNameCollection << " is not editable." << endl;
+        cerr << "The Collection: " << oldNameCollection << " is not editable." << endl;
 
     }
 }
@@ -86,6 +87,7 @@ void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int
 // _________ DELETE ___________________________
 void CollectionView::deleteCollection(int index)  {
     if (collectionSubj[index]->getEditable()) {
+        cout << "Deleting collection: " << collectionSubj[index]->getCollectionName() << endl;
         detach();
         // release memory
         collectionSubj[index]->deleteAllNotes();
@@ -96,7 +98,7 @@ void CollectionView::deleteCollection(int index)  {
         //indexCollection = valueChoiceInt;
         //detach();
     } else {
-        cout << "This collection isn't editable" << endl;
+        cerr << "This collection isn't editable" << endl;
     }
 }
 
@@ -104,6 +106,7 @@ void CollectionView::deleteCollection(int index)  {
 int CollectionView::getCollectionsCount () const{
     int collectionCount = 0;
     collectionCount = collectionSubj.size();
+    cout << "Collections count " << collectionCount << endl;
     return collectionCount;
 }
 bool CollectionView::getCollectionEditable (int index) const{
