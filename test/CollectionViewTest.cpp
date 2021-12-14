@@ -30,29 +30,30 @@ TEST(CollectionView, Change_Collection){
     Collection* col1 = c->getCollection(0);
     Collection* col2 = c->getCollection(1);
 
-    col1->createNote("Nota di Col 1", "Descr 1", col1->getCollectionName(), true, true);
-    col2->createNote("Nota di Col 2", "Descr 2", col1->getCollectionName(), true, true);
+    if (col1->getEditable() && col2->getEditable()) {
+        col1->createNote("Nota di Col 1", "Descr 1", col1->getCollectionName(), true, true);
+        col2->createNote("Nota di Col 2", "Descr 2", col1->getCollectionName(), true, true);
 
-    c->changeCollection(0,
-                       1,
-                       0,
-                       col1->getNoteTitle(0),
-                       col1->getNoteDescription(0),
-                       col1->getNoteImportant(0),
-                       col1->getNoteEditable(0)
-                       );
+        if(col1->getNoteEditable(0) && col2->getNoteEditable(0)) {
+            c->changeCollection(0,
+                                1,
+                                0,
+                                col1->getNoteTitle(0),
+                                col1->getNoteDescription(0),
+                                col1->getNoteImportant(0),
+                                col1->getNoteEditable(0)
+            );
 
-    ASSERT_EQ("Nota di Col 1", col2->getNoteTitle(1));
+            ASSERT_EQ("Nota di Col 1", col2->getNoteTitle(1));
+
+        } else {
+            ASSERT_EQ(0, col1->getCountNotes());
+        }
+    } else {
+        ASSERT_EQ(0, col1->getCountNotes());
+    }
 }
 
-
-TEST(CollectionView, Count_Collections){
-    CollectionView c;
-    c.createCollection("Collection 1", true);
-    c.createCollection("Collection 2", true);
-    int collectionsCount = c.getCollectionsCount();
-    ASSERT_EQ(2, collectionsCount);
-}
 TEST(CollectionView, Delete_Collection){
     CollectionView c;
     c.createCollection("Collection 3", true);
@@ -62,4 +63,11 @@ TEST(CollectionView, Delete_Collection){
     ASSERT_EQ(1, collectionsCount);
 }
 
+TEST(CollectionView, Count_Collections){
+    CollectionView c;
+    c.createCollection("Collection 1", true);
+    c.createCollection("Collection 2", true);
+    int collectionsCount = c.getCollectionsCount();
+    ASSERT_EQ(2, collectionsCount);
+}
 
