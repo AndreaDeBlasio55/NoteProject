@@ -6,21 +6,16 @@
 
 TEST(Note, Costructor){
     Note note("Note 1", "Description note 1", "Collection 1",true, true);
-    string title = note.getTitle();
-    string description = note.getDescription();
-    string collection = note.getCollection();
-    bool important = note.getImportant();
-    bool editable = note.getEditable();
     ASSERT_EQ("Note 1",
-              title);
+              note.getTitle());
     EXPECT_EQ("Description note 1",
-              description);
+              note.getDescription());
     ASSERT_EQ("Collection 1",
-              collection);
+              note.getCollection());
     ASSERT_EQ(true,
-              important);
+              note.getImportant());
     EXPECT_EQ(true,
-              editable);
+              note.getEditable());
 }
 
 TEST(Note, Edit_Note){

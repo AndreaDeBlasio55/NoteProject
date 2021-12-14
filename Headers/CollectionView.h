@@ -21,12 +21,13 @@ public:
     void readCollections() const;
     int getIndexCollectionSender(string collectionName) const;
     string getCollectionName(int index) const;
+    Collection* getCollection(int index) const;
 
     void createCollection(string collectionName, bool isEditable);
 
     void editCollectionName(int value, string newNameCol) ;
     void editEditable(int index) ;
-    void changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) ;
+    void changeCollection(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable) ;
     //void changeCollection(int index);
 
     int getCollectionsCount() const;

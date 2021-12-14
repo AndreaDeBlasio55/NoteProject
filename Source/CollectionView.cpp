@@ -29,7 +29,9 @@ void CollectionView::readCollections() const{
         }
     }
 }
-
+Collection* CollectionView::getCollection(int index) const{
+    return collectionSubj[index];
+}
 // _________ CREATE _________________________
 void CollectionView::createCollection(string collectionName, bool isEditable) {
     bool isNewCollection = true;
@@ -78,10 +80,11 @@ void CollectionView::editEditable(int index)  {
     collectionSubj[index]->editEditable();
 }
 
-void CollectionView::changeCollectionNew(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable)  {
+void CollectionView::changeCollection(int indexSender, int indexReceiver, int indexNote, string title, string description, bool important, bool editable)  {
     string collectionReceiver = collectionSubj[indexReceiver]->getCollectionName();
     collectionSubj[indexReceiver]->createNote(title, description, collectionReceiver, important, editable);
     collectionSubj[indexSender]->deleteNote(indexNote);
+    cout << "Swapped Note from " << getCollectionName(indexSender) << " to " << getCollectionName(indexReceiver) << endl;
 }
 
 // _________ DELETE ___________________________

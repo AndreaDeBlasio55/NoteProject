@@ -296,7 +296,8 @@ void NoteInterface::changeCollection(int indexNote) {
                                 int destinationInt = stoi(destinationCollectionStr);
                                 if (colView->getCollectionEditable(destinationInt)) {
                                     int indexCollectionSender = colView->getIndexCollectionSender(collection->getCollectionName());
-                                    colView->changeCollectionNew(indexCollectionSender, destinationInt, indexNote, title, description, important, editable);
+                                    colView->changeCollection(indexCollectionSender, destinationInt, indexNote, title,
+                                                              description, important, editable);
                                 } else {
                                     cout << "Target collection is not editable, you can't add/edit/delete notes" << endl;
                                 }
