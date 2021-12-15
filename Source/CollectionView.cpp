@@ -159,3 +159,9 @@ void CollectionView::noteMenu(int index) {
     NoteInterface* noteMenu = new NoteInterface(collectionSubj[index], this);
     noteMenu->openMenu();
 }
+
+CollectionView::~CollectionView() {
+    for (int i=0; i<collectionSubj.size(); i++) {
+        delete collectionSubj[i];
+    }
+}

@@ -172,13 +172,13 @@ void Collection::deleteAllNotes() {
         }
     }
 }
-/*
+
 Collection::~Collection() {
-    for (int i=0; i<notes.size(); i++){
+    for (int i=0; i<notes.size(); i++) {
         //cout << "\t" << notes[i]->getTitle() << " deleted" <<endl;
         delete notes[i];
-        notes[i] = nullptr;
+        //notes[i] = nullptr;
     }
 }
- */
+
 // ---------------------------------------------

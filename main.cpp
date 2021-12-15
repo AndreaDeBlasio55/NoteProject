@@ -45,6 +45,9 @@ int main() {
     }
     controllerCollections->summary();
 
+    delete controllerCollections;
+    delete inputController;
+
     return 0;
 }
 
