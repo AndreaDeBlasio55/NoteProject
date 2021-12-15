@@ -62,12 +62,3 @@ TEST(CollectionView, Delete_Collection){
     int collectionsCount = c.getCollectionsCount();
     ASSERT_EQ(1, collectionsCount);
 }
-
-TEST(CollectionView, Count_Collections){
-    CollectionView c;
-    c.createCollection("Collection 1", true);
-    c.createCollection("Collection 2", true);
-    int collectionsCount = c.getCollectionsCount();
-    ASSERT_EQ(2, collectionsCount);
-}
-
