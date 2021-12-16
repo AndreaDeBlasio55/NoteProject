@@ -46,18 +46,20 @@ TEST(Collection, Create_Note){
 
 TEST(Collection, Edit_Note){
     Collection c("Collection 1", true);
-    c.createNote("Note 1", "Description 1", c.getCollectionName(), false, true);
-    if (c.getNoteEditable(0)) {
-        c.editNoteTitle(0, "Note 2");
-        c.editNoteDescription(0, "Description 2");
-        c.editNoteImportant(0, false);
-        EXPECT_EQ("Note 2", c.getNoteTitle(0));
-        EXPECT_EQ("Description 2", c.getNoteDescription(0));
-        EXPECT_EQ(false, c.getNoteImportant(0));
-    } else {
-        EXPECT_EQ("Note 1", c.getNoteTitle(0));
-        EXPECT_EQ("Description 1", c.getNoteDescription(0));
-        EXPECT_EQ(true, c.getNoteImportant(0));
+    if (c.getEditable()) {
+        c.createNote("Note 1", "Description 1", c.getCollectionName(), false, true);
+        if (c.getNoteEditable(0)) {
+            c.editNoteTitle(0, "Note 2");
+            c.editNoteDescription(0, "Description 2");
+            c.editNoteImportant(0, false);
+            EXPECT_EQ("Note 2", c.getNoteTitle(0));
+            EXPECT_EQ("Description 2", c.getNoteDescription(0));
+            EXPECT_EQ(false, c.getNoteImportant(0));
+        } else {
+            EXPECT_EQ("Note 1", c.getNoteTitle(0));
+            EXPECT_EQ("Description 1", c.getNoteDescription(0));
+            EXPECT_EQ(true, c.getNoteImportant(0));
+        }
     }
 }
 
