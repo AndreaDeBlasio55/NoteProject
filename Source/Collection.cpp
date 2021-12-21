@@ -99,7 +99,7 @@ void Collection::readNotes () {
 }
 // -------------- CREATE ----------------
 void Collection::createNote (string title, string description, string collection, bool important, bool editable) {
-    if (editable) {
+    if (this->editable) {
         Note *newNote = new Note(title, description, collection, important, editable);
         notes.push_back(newNote);
     } else {
