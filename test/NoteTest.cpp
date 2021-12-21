@@ -18,22 +18,15 @@ TEST(Note, Costructor){
               note.getEditable());
 }
 
-TEST(Note, Edit_Note){
-    Note note("Note 1", "Description note 1", "Collection 1",true, false);
-    if (note.getEditable()){
-        note.editTitle("Note New Title");
-        note.editImportant(false);
-        note.editDescription("New Description");
-        note.editCollection("New Collection");
-        ASSERT_EQ("Note New Title", note.getTitle());
-        ASSERT_EQ(false, note.getImportant());
-        ASSERT_EQ("New Description", note.getDescription());
-        ASSERT_EQ("New Collection", note.getCollection());
-    } else {
-        ASSERT_EQ("Note 1", note.getTitle());
-        ASSERT_EQ(true, note.getImportant());
-        ASSERT_EQ("Description note 1", note.getDescription());
-        ASSERT_EQ("Collection 1", note.getCollection());
-    }
+TEST(Note, Edit_Note) {
+    Note note("Note 1", "Description note 1", "Collection 1", true, false);
+    note.editTitle("Note New Title");
+    note.editImportant(false);
+    note.editDescription("New Description");
+    note.editCollection("New Collection");
+    ASSERT_EQ("Note New Title", note.getTitle());
+    ASSERT_EQ(false, note.getImportant());
+    ASSERT_EQ("New Description", note.getDescription());
+    ASSERT_EQ("New Collection", note.getCollection());
 }
 
